@@ -25,7 +25,8 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
  * [Why?](#why)
  * [Functionality](#functionality)
  * [Screenshots](#screenshots)
- * Todo
+ * [Todo](#todo)
+ * [Credits and Licensing](#credits-and-licensing)
 
 ----
 

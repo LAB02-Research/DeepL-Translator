@@ -22,6 +22,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 ### Contents
 
  * [Why?](#why)
+ * [Usage](#usage)
  * [Functionality](#functionality)
  * [Screenshots](#screenshots)
  * [Todo](#todo)

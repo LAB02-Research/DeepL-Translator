@@ -108,6 +108,8 @@ Formality support:
 - Change 'account' to 'subscription'
 - Support both free and pro subscription at the same time, switching to pro after 500k chars
 - Add 'clear' buttons to both pages
+- Global hotkeys
+- Fetch selection after using global hotkey
 
 ----
 

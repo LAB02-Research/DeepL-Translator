@@ -108,7 +108,7 @@ Easily check your subscription's state:
 
 ### Credits and Licensing
 
-Thanks to DeepL for provided such a great translation services!
+Thanks to DeepL for provided such a great translation service!
 
 This project uses various opensource projects, please consult their individual licensing if you plan to use any of their code.
 

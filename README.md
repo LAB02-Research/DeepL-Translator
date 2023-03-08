@@ -14,11 +14,6 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ----
 
-| [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/lab02research) |  [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/lab02research) | [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://www.paypal.com/donate/?hosted_button_id=5YL6UP94AQSPC) |
-|:---:|---|---|
-
-----
-
 ### Contents
 
  * [Why?](#why)
@@ -32,13 +27,15 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Why?
 
-[DeepL](https://deepl.com) provides AI/ML translation services. It differs from for example Google Translate in that it doesn't translate sec, but also contextually. I've been using it a lot for Dutch/English <-> French translations, and it's truly amazing what it can do. They also allow the translation of documents, preserving the layout in the process.
+[DeepL](https://deepl.com) provides AI/ML translation services. It differs from for example Google Translate in that it doesn't translate sec, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what it can do. They also allow the translation of documents, preserving the layout in the process.
 
 They offers a Windows client for their regular translation services, but it doesn't support their API. Using the API can be more efficient for both the free and pro version: the free version offers 500.000 characters per month, which can be used for both documents and text. The pro version charges per character, instead of having to pay a set price monthly regardless of usage.
 
 Personally I'm not a fan of their Windows client as it is, so I set out to write a client I'd want to use for their API, but ended up with a complete application - so decided to share here. Might be of use :)
 
-Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this.
+Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this. If you appreciate my work, I'd appreciate a coffee! 
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/lab02research)
 
 ----
 

@@ -2,7 +2,6 @@
 [![license](https://img.shields.io/badge/license-MIT-blue)](#license)
 [![OS - Windows](https://img.shields.io/badge/OS-Windows-blue?logo=windows&logoColor=white)](https://www.microsoft.com/ "Go to Microsoft homepage")
 [![dotnet](https://img.shields.io/badge/.NET-7.0-blue)](https://img.shields.io/badge/.NET-7.0-blue)
-![GitHub all releases](https://img.shields.io/github/downloads/LAB02-Research/DeepL-Translator/total?color=blue)
 
 <a href="https://github.com/LAB02-Research/DeepL-Translator/">
     <img src="https://github.com/LAB02-Research/DeepL-Translator/raw/main/images/logo_notext.png" alt="DeepL logo" title="DeepL" align="right" height="128" /></a>

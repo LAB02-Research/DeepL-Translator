@@ -63,7 +63,7 @@ Summary of the core functions:
 
 * **Cost management**: tells you how much your text or document will cost in terms of both characters and hard cash. Shows the current state of your subscription.
 
-* **UI**: full fledged interface, built to be as easy to use as possible with as little clicks/keys as possible. Resides in the system tray.
+* **UI**: full fledged interface, built to be easy and intuitive to use with as little clicks/keys as possible. Resides in the system tray.
 
 * **Updater**: contains an automatic updater that'll keep your version up-to-date without any hassle.
 

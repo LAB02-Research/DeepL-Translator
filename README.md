@@ -75,11 +75,11 @@ Text interface:
 
 ![image](https://user-images.githubusercontent.com/81011038/223756300-bd793d47-fe59-49de-9fe9-04d84af94273.png)
 
-Document interface (note that this is a complete book, hence the huge amount of characters):
+Document interface:
 
 ![image](https://user-images.githubusercontent.com/81011038/223756707-8db03b8e-d23e-4b97-9deb-e5c714f6de69.png)
 
-You'll be notified of the costs before translating a document:
+You'll be notified of the costs before translating a document (note that this is a complete book, hence the huge amount of characters):
 
 ![image](https://user-images.githubusercontent.com/81011038/223756788-7a7ed293-4bf1-49ac-a76f-e409cd990730.png)
 

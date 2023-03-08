@@ -87,6 +87,10 @@ Easily check your subscription's state:
 
 ![image](https://user-images.githubusercontent.com/81011038/223756881-fdcc7444-de81-4fc3-a7e4-6db40bc26004.png)
 
+Formality support:
+
+![image](https://user-images.githubusercontent.com/81011038/223770387-4b158878-fd43-452b-9f39-4661fc24efd2.png)
+
 ----
 
 ### Todo

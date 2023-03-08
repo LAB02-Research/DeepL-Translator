@@ -37,6 +37,18 @@ I set out to write a quick client for the API, but ended up with a complete appl
 
 ----
 
+### Usage
+
+Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). The application will launch when done, and notify you of a missing API key.
+
+You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header-pro-api/](https://www.deepl.com/pro-api?cta=header-pro-api/).
+
+Make sure you set the correct domain, corresponding to your subscription:
+
+![image](https://user-images.githubusercontent.com/81011038/223758959-bdb686b0-8d4b-48e5-be8e-b0707bfbfc82.png)
+
+----
+
 ### Functionality
 
 Summary of the core functions:
@@ -79,14 +91,15 @@ Subscription state:
 
 - Auto launch on Windows login
 - Allow only single instance
-- Send weekly usage logs
+- Send weekly usage logs to specified mailbox
 - Domain info popup
 - UI stays locked after 'translation failed'
 - Press 'esc' in main window to hide
-- Hide money cost on free
+- Hide money cost on free subscription
 - Show warning when limit passed
 - Show warning when limit will be passed by translation
 - Fix icon on dark backgrounds
+- Change 'account' to 'subscription'
 
 ----
 

@@ -89,6 +89,8 @@ Subscription state:
 - Show warning when limit will be passed by translation
 - Fix icon on dark backgrounds
 
+----
+
 ### Credits and Licensing
 
 Thanks to DeepL for provided such a great translation services!

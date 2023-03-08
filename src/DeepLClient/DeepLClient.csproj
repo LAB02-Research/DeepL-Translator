@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows10.0.17763.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>resources\icon_32.ico</ApplicationIcon>
+    <Title>DeepL Translator</Title>
+    <Version>2023.3.8</Version>
+    <Authors>LAB02 RESEARCH</Authors>
+    <Description>Front-end client for DeepL translation services.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\icon_32.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ByteSize" Version="2.1.1" />
+    <PackageReference Include="DeepL.net" Version="1.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Serilog" Version="2.12.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+    <PackageReference Include="Syncfusion.Core.WinForms" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.DocIO.WinForms" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.Licensing" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.Pdf.WinForms" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.Presentation.WinForms" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.Shared.Base" Version="20.4.0.52" />
+    <PackageReference Include="Syncfusion.Tools.Windows" Version="20.4.0.52" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Controls\DocumentsPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Forms\Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\AccountInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\ConfirmDocument.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Enums\" />
+  </ItemGroup>
+
+</Project>

@@ -32,9 +32,11 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Why?
 
-DeepL offers a Windows client for their translation services, but it doesn't support their API. Using the API can be more efficient for both the free and pro version: the free version offers 500.000 characters per month, which can be used for both documents and text. The pro version charges per character, instead of having to pay € 24,99 monthly regardless of usage.
+[DeepL](https://deepl.com) provides AI/ML translation services. It differs from for example Google Translate in that it doesn't translate sec, but also contextually. I've been using it a lot for Dutch/English <-> French translations, and it's amazing in comparison to other services. They also allow the translation of documents, preserving the layout in the process.
 
-I set out to write a quick client for the API, but ended up with a complete application so decided to share here. Might be of use :)
+They offers a Windows client for their regular translation services, but it doesn't support their API. Using the API can be more efficient for both the free and pro version: the free version offers 500.000 characters per month, which can be used for both documents and text. The pro version charges per character, instead of having to pay a set price monthly regardless of usage.
+
+Personally I'm not a fan of their Windows client as it is, so I set out to write a client I'd want to use for their API, but ended up with a complete application - so decided to share here. Might be of use :)
 
 ----
 

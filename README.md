@@ -31,7 +31,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 DeepL offers a Windows client for their regular translation services, but it doesn't support the API. Using the API can be more efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
-Personally I'm not a fan of their Windows client as it is, so I decided to write a quick API client I'd want to use, but ended up with a complete application - so decided to share here. Might be of use :)
+Personally I'm not a fan of their Windows client as it is, so I decided to write a quick API client I'd want to use. Ended up with a complete application - so decided to share here. Might be of use :)
 
 Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this. If you appreciate my work, I'd appreciate a coffee! 
 

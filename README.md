@@ -47,7 +47,7 @@ You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header
 
 Make sure you set the correct domain, corresponding to your subscription:
 
-![image](https://user-images.githubusercontent.com/81011038/223758959-bdb686b0-8d4b-48e5-be8e-b0707bfbfc82.png)
+![image](https://user-images.githubusercontent.com/81011038/224070374-8d0b28f0-13ba-469f-a1be-6f630750280a.png)
 
 ----
 
@@ -73,43 +73,59 @@ Summary of the core functions:
 
 Text interface:
 
-![image](https://user-images.githubusercontent.com/81011038/223756300-bd793d47-fe59-49de-9fe9-04d84af94273.png)
+![image](https://user-images.githubusercontent.com/81011038/224069592-55b7f95f-cc76-41d0-b422-938dcda08e43.png)
 
 Document interface:
 
-![image](https://user-images.githubusercontent.com/81011038/223756707-8db03b8e-d23e-4b97-9deb-e5c714f6de69.png)
+![image](https://user-images.githubusercontent.com/81011038/224069650-cb5e8935-ad74-4799-8fe3-72515556b0ca.png)
 
-You'll be notified of the costs before translating a document (note that this is a complete book, hence the huge amount of characters):
+You'll be notified of the costs before translating a document:
 
-![image](https://user-images.githubusercontent.com/81011038/223756788-7a7ed293-4bf1-49ac-a76f-e409cd990730.png)
+![image](https://user-images.githubusercontent.com/81011038/224069716-131833e9-82d8-497f-a2b4-80da5b482fcd.png)
+
+If a translation will exceed your limit, you'll be notified as well:
+
+![image](https://user-images.githubusercontent.com/81011038/224069805-85e7583c-250e-4e03-8d3e-cf7b32cd2a7d.png)
+
+Or if you've already reached your limit:
+
+![image](https://user-images.githubusercontent.com/81011038/224069969-85ae2a44-9cb3-49b1-b60a-4028480faff2.png)
 
 Easily check your subscription's state:
 
-![image](https://user-images.githubusercontent.com/81011038/223756881-fdcc7444-de81-4fc3-a7e4-6db40bc26004.png)
+![image](https://user-images.githubusercontent.com/81011038/224070023-655f9c94-0de8-41ef-a634-5e342bafc4ae.png)
 
 Formality support:
 
 ![image](https://user-images.githubusercontent.com/81011038/223770387-4b158878-fd43-452b-9f39-4661fc24efd2.png)
 
+Hides in your system tray, next to the clock:
+
+![image](https://user-images.githubusercontent.com/81011038/224070094-6a396395-7d95-4b44-9246-341cd76d0d38.png)
+
 ----
 
 ### Todo
 
-- Auto launch on Windows login
-- Allow only single instance
-- Send weekly usage logs to specified mailbox
-- Domain info popup
-- UI stays locked after 'translation failed'
-- Press 'esc' in main window to hide
-- Hide money cost on free subscription
-- Show warning when limit passed
-- Show warning when limit will be passed by translation
-- Fix icon on dark backgrounds
-- Change 'account' to 'subscription'
-- Support both free and pro subscription at the same time, switching to pro after 500k chars
-- Add 'clear' buttons to both pages
+- Set focus to 'translate' button after selecting document
+- Set focus to 'source' after translating document
+- Send weekly usage logs
 - Global hotkeys
 - Fetch selection after using global hotkey
+- Text ranslations history
+- Emphasize 'limit (will be) reached' message with red
+- ~~Fix icon on dark backgrounds~~
+- ~~Auto launch on Windows login~~
+- ~~Domain info popup~~
+- ~~UI stays locked after 'translation failed'~~
+- ~~Allow only single instance~~
+- ~~Press 'esc' in main window to hide~~
+- ~~Set money cost to 0,00 on free~~
+- ~~Show warning when limit passed~~
+- ~~Show warning when limit will be passed by translation~~
+- ~~Add 'clear' buttons to both pages~~
+- ~~Add 'open subscription' button to info page~~
+- ~~Improve installer graphics~~
 
 ----
 

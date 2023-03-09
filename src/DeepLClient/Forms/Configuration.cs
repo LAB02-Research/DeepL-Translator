@@ -1,3 +1,4 @@
+using System.Text;
 using DeepL;
 using DeepL.Model;
 using DeepLClient.Functions;
@@ -59,6 +60,7 @@ namespace DeepLClient.Forms
                 CbCopyTranslationToClipboard.Checked = Variables.AppSettings.CopyTranslationToClipboard;
                 CbStoreLastUsedSourceLanguage.Checked = Variables.AppSettings.StoreLastUsedSourceLanguage;
                 CbStoreLastUsedTargetLanguage.Checked = Variables.AppSettings.StoreLastUsedTargetLanguage;
+                CbLaunchHidden.Checked = Variables.AppSettings.LaunchOnWindowsLogin;
 
                 // load default formality
                 CbDefaultFormality.SelectedItem = Variables.Formalities.GetEntry((int)Variables.AppSettings.DefaultFormality);
@@ -91,6 +93,7 @@ namespace DeepLClient.Forms
                 var copyClipboard = CbCopyTranslationToClipboard.Checked;
                 var storeSource = CbStoreLastUsedSourceLanguage.Checked;
                 var storeTarget = CbStoreLastUsedTargetLanguage.Checked;
+                var launchWindows = CbLaunchOnWindows.Checked;
 
                 // get formality
                 var formality = Formality.Default;
@@ -132,10 +135,15 @@ namespace DeepLClient.Forms
                 Variables.AppSettings.StoreLastUsedTargetLanguage = storeTarget;
                 Variables.AppSettings.DefaultFormality = formality;
                 Variables.AppSettings.DeepLDomain = domain;
+                Variables.AppSettings.LaunchOnWindowsLogin = launchWindows;
 
                 // store them
                 var success = SettingsManager.Store();
                 if (!success) MessageBoxAdv.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // process launch-on-login
+                if (launchWindows) LaunchManager.EnableLaunchOnUserLogin();
+                else LaunchManager.DisableLaunchOnUserLogin();
 
                 // done
                 DialogResult = DialogResult.OK;
@@ -154,7 +162,13 @@ namespace DeepLClient.Forms
 
         private void LblDomainInfo_Click(object sender, EventArgs e)
         {
+            var info = new StringBuilder();
+            info.AppendLine("Your API key only works with its corresponding domain.");
+            info.AppendLine("");
+            info.AppendLine("If you have a free subscription, select the free domain.");
+            info.AppendLine("If you have a pro subscription, you guessed it, select the pro domain.");
 
+            MessageBoxAdv.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;

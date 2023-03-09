@@ -46,6 +46,7 @@
             LblDomainInfo = new Label();
             LblFormalityInfo = new Label();
             CbDomain = new ComboBox();
+            CbLaunchOnWindows = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
             // 
@@ -238,7 +239,7 @@
             CbCopyTranslationToClipboard.Checked = true;
             CbCopyTranslationToClipboard.CheckState = CheckState.Checked;
             CbCopyTranslationToClipboard.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbCopyTranslationToClipboard.Location = new Point(115, 307);
+            CbCopyTranslationToClipboard.Location = new Point(493, 209);
             CbCopyTranslationToClipboard.Name = "CbCopyTranslationToClipboard";
             CbCopyTranslationToClipboard.Size = new Size(226, 23);
             CbCopyTranslationToClipboard.TabIndex = 78;
@@ -317,6 +318,22 @@
             CbDomain.Size = new Size(310, 26);
             CbDomain.TabIndex = 106;
             // 
+            // CbLaunchOnWindows
+            // 
+            CbLaunchOnWindows.AccessibleDescription = "";
+            CbLaunchOnWindows.AccessibleName = "";
+            CbLaunchOnWindows.AccessibleRole = AccessibleRole.CheckButton;
+            CbLaunchOnWindows.AutoSize = true;
+            CbLaunchOnWindows.Checked = true;
+            CbLaunchOnWindows.CheckState = CheckState.Checked;
+            CbLaunchOnWindows.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            CbLaunchOnWindows.Location = new Point(115, 308);
+            CbLaunchOnWindows.Name = "CbLaunchOnWindows";
+            CbLaunchOnWindows.Size = new Size(179, 23);
+            CbLaunchOnWindows.TabIndex = 107;
+            CbLaunchOnWindows.Text = "launch on windows login";
+            CbLaunchOnWindows.UseVisualStyleBackColor = true;
+            // 
             // Configuration
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -326,6 +343,7 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(731, 408);
+            Controls.Add(CbLaunchOnWindows);
             Controls.Add(CbDomain);
             Controls.Add(LblFormalityInfo);
             Controls.Add(LblDomainInfo);
@@ -378,5 +396,6 @@
         private Label LblDomainInfo;
         private Label LblFormalityInfo;
         private ComboBox CbDomain;
+        internal CheckBox CbLaunchOnWindows;
     }
 }

@@ -46,7 +46,7 @@ namespace DeepLClient.Managers
         /// </summary>
         private static async void PeriodicUpdateCheck()
         {
-            while (true)
+            while (!Variables.ShuttingDown)
             {
                 // wait a bit
                 await Task.Delay(TimeSpan.FromMinutes(30));
@@ -255,6 +255,9 @@ namespace DeepLClient.Managers
                 // dispose the translator
                 Variables.Translator?.Dispose();
 
+                // release our lock
+                ProcessManager.ReleaseMutex();
+
                 // prepare wyUpdate in silent-update mode
                 var startInfo = new ProcessStartInfo
                 {
@@ -286,7 +289,7 @@ namespace DeepLClient.Managers
         /// <summary>
         /// Active instances of wyUpdate can prevent us from updating
         /// </summary>
-        private static void CloseWyUpdateInstances() => HelperFunctions.CloseAllInstancesForCurrentUser("wyUpdate");
+        private static void CloseWyUpdateInstances() => ProcessManager.CloseAllInstancesForCurrentUser("wyUpdate");
 
         /// <summary>
         /// Checks whether we're updated

@@ -1,5 +1,6 @@
 ﻿using DeepL;
 using DeepL.Model;
+using DeepLClient.Forms;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
@@ -31,6 +32,10 @@ namespace DeepLClient.Controls
 
         private async void TextPage_Load(object sender, EventArgs e)
         {
+            // set cost info
+            LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : "€ 0,00";
+
+            // activate source textbox
             ActiveControl = TbSource;
 
             // wait for DeepL to load
@@ -71,8 +76,19 @@ namespace DeepLClient.Controls
                 // get the text
                 var sourceText = TbSource.Text.Trim();
 
+                // reset detection
+                ResetDetectedSourceLanguage();
+
                 // check it
                 if (string.IsNullOrWhiteSpace(sourceText)) return;
+
+                // do we have enough chars left?
+                if (await SubscriptionManager.CharactersWillExceedLimit(sourceText.Length))
+                {
+                    using var limit = new LimitExceeded(sourceText.Length);
+                    var ignoreLimit = limit.ShowDialog();
+                    if (ignoreLimit != DialogResult.OK) return;
+                }
 
                 // fetch the source language
                 string sourceLanguage = null;
@@ -248,7 +264,7 @@ namespace DeepLClient.Controls
         private void TbSource_TextChanged(object sender, EventArgs e)
         {
             LblCharacters.Text = TbSource.Text.Length.ToString();
-            LblCost.Text = AccountManager.CalculateCost(TbSource.Text.Length, false);
+            LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : SubscriptionManager.CalculateCost(TbSource.Text.Length, false);
         }
 
         /// <summary>
@@ -256,13 +272,7 @@ namespace DeepLClient.Controls
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void CbSourceLanguage_SelectedValueChanged(object sender, EventArgs e)
-        {
-            // reset detected
-            LblDetectedInfo.Visible = false;
-            LblDetected.Visible = false;
-            LblDetected.Text = string.Empty;
-        }
+        private void CbSourceLanguage_SelectedValueChanged(object sender, EventArgs e) => ResetDetectedSourceLanguage();
 
         /// <summary>
         /// Shows the dragdrop effect when hovering a file or text.
@@ -347,6 +357,23 @@ namespace DeepLClient.Controls
         }
 
         /// <summary>
+        /// Resets and hides the detected source language info
+        /// </summary>
+        private void ResetDetectedSourceLanguage()
+        {
+            if (IsDisposed) return;
+            if (!IsHandleCreated) return;
+
+            Invoke(new MethodInvoker(delegate
+            {
+                // reset detected
+                LblDetectedInfo.Visible = false;
+                LblDetected.Visible = false;
+                LblDetected.Text = string.Empty;
+            }));
+        }
+
+        /// <summary>
         /// Hides the 'copied to clipboard' text after three seconds.
         /// </summary>
         private async void HideClipboardCopied()
@@ -403,5 +430,33 @@ namespace DeepLClient.Controls
         }
 
         private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();
+
+        private void BtnClean_Click(object sender, EventArgs e)
+        {
+            // clear the text
+            TbSource.Text = string.Empty;
+            TbTranslated.Text = string.Empty;
+
+            // reset detected source language
+            ResetDetectedSourceLanguage();
+
+            // load default formality
+            CbTargetFormality.SelectedItem = Variables.Formalities.GetEntry((int)Variables.AppSettings.DefaultFormality);
+
+            // optionally set last source language
+            if (Variables.AppSettings.StoreLastUsedSourceLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastSourceLanguage))
+            {
+                CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(Variables.AppSettings.LastSourceLanguage);
+            }
+
+            // optionally set last target language
+            if (Variables.AppSettings.StoreLastUsedTargetLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastTargetLanguage))
+            {
+                CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(Variables.AppSettings.LastTargetLanguage);
+            }
+
+            // focus source textbox
+            ActiveControl = TbSource;
+        }
     }
 }

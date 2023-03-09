@@ -1,6 +1,6 @@
 ﻿namespace DeepLClient.Forms
 {
-    partial class AccountInfo
+    partial class SubscriptionInfo
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountInfo));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubscriptionInfo));
             BtnYes = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
             LblSourceLanguage = new Label();
@@ -40,6 +40,7 @@
             LblCharactersLeft = new Label();
             LblCost = new Label();
             label4 = new Label();
+            LblSubscriptionPage = new Label();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
             // 
@@ -52,7 +53,7 @@
             BtnYes.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnYes.ForeColor = Color.FromArgb(241, 241, 241);
             BtnYes.ImageSize = new Size(24, 24);
-            BtnYes.Location = new Point(115, 157);
+            BtnYes.Location = new Point(115, 193);
             BtnYes.Name = "BtnYes";
             BtnYes.Size = new Size(501, 31);
             BtnYes.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -124,7 +125,7 @@
             LblLimitReached.AutoSize = true;
             LblLimitReached.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             LblLimitReached.ForeColor = Color.FromArgb(255, 128, 128);
-            LblLimitReached.Location = new Point(115, 124);
+            LblLimitReached.Location = new Point(115, 121);
             LblLimitReached.Name = "LblLimitReached";
             LblLimitReached.Size = new Size(0, 17);
             LblLimitReached.TabIndex = 70;
@@ -194,7 +195,22 @@
             label4.TabIndex = 74;
             label4.Text = "estimated cost:";
             // 
-            // AccountInfo
+            // LblSubscriptionPage
+            // 
+            LblSubscriptionPage.AccessibleDescription = "Created by link. Opens the LAB02 Research webpage.";
+            LblSubscriptionPage.AccessibleName = "Created by";
+            LblSubscriptionPage.AccessibleRole = AccessibleRole.Link;
+            LblSubscriptionPage.AutoSize = true;
+            LblSubscriptionPage.Cursor = Cursors.Hand;
+            LblSubscriptionPage.Font = new Font("Segoe UI", 10F, FontStyle.Underline, GraphicsUnit.Point);
+            LblSubscriptionPage.Location = new Point(115, 160);
+            LblSubscriptionPage.Name = "LblSubscriptionPage";
+            LblSubscriptionPage.Size = new Size(177, 19);
+            LblSubscriptionPage.TabIndex = 76;
+            LblSubscriptionPage.Text = "open subscription webpage";
+            LblSubscriptionPage.Click += LblSubscriptionPage_Click;
+            // 
+            // SubscriptionInfo
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -202,7 +218,8 @@
             CaptionBarColor = Color.FromArgb(63, 63, 70);
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
-            ClientSize = new Size(627, 197);
+            ClientSize = new Size(627, 231);
+            Controls.Add(LblSubscriptionPage);
             Controls.Add(LblCost);
             Controls.Add(label4);
             Controls.Add(LblCharactersLeft);
@@ -220,12 +237,12 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MetroColor = Color.FromArgb(63, 63, 70);
-            Name = "AccountInfo";
+            Name = "SubscriptionInfo";
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Account Information   |   LAB02 Research";
-            Load += AccountInfo_Load;
+            Text = "Subscription Information   |   LAB02 Research";
+            Load += SubscriptionInfo_Load;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -243,5 +260,6 @@
         private Label LblCharactersLeft;
         private Label LblCost;
         private Label label4;
+        private Label LblSubscriptionPage;
     }
 }

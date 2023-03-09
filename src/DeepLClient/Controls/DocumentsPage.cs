@@ -95,6 +95,9 @@ namespace DeepLClient.Controls
         {
             try
             {
+                // lock the interface
+                LockInterface();
+
                 // notify the user
                 LblState.Text = "checking the selected document ..";
 
@@ -114,7 +117,7 @@ namespace DeepLClient.Controls
                     LblState.Text = string.Empty;
                     return false;
                 }
-                
+
                 // check its size
                 var (tooLarge, sizeMB) = await Task.Run(() => DocumentManager.CheckDocumentSize(file));
                 if (tooLarge)
@@ -145,14 +148,27 @@ namespace DeepLClient.Controls
                         break;
                 }
 
-                // ask the user if they're sure
-                using var confirmDoc = new ConfirmDocument(characterCount, AccountManager.CalculateCost(characterCount), Path.GetFileName(file), docType == DocumentType.Text);
-                var res = confirmDoc.ShowDialog();
-
-                if (res != DialogResult.OK)
+                // do we have enough chars left?
+                if (await SubscriptionManager.CharactersWillExceedLimit(characterCount))
                 {
-                    LblState.Text = string.Empty;
-                    return false;
+                    using var limit = new LimitExceeded(characterCount);
+                    var ignoreLimit = limit.ShowDialog();
+                    if (ignoreLimit != DialogResult.OK)
+                    {
+                        LblState.Text = string.Empty;
+                        return false;
+                    }
+                }
+                else
+                {
+                    // yep, ask the user if they're sure
+                    using var confirmDoc = new ConfirmDocument(characterCount, SubscriptionManager.CalculateCost(characterCount), Path.GetFileName(file), docType == DocumentType.Text);
+                    var confirmed = confirmDoc.ShowDialog();
+                    if (confirmed != DialogResult.OK)
+                    {
+                        LblState.Text = string.Empty;
+                        return false;
+                    }
                 }
 
                 // done
@@ -167,6 +183,10 @@ namespace DeepLClient.Controls
                 LblState.Text = string.Empty;
                 return false;
             }
+            finally
+            {
+                LockInterface(false);
+            }
         }
 
         /// <summary>
@@ -178,7 +198,7 @@ namespace DeepLClient.Controls
             {
                 // lock the interface
                 LockInterface();
-                
+
                 // check the source file
                 var file = TbSourceDocument.Text;
                 if (string.IsNullOrEmpty(file))
@@ -277,11 +297,12 @@ namespace DeepLClient.Controls
                 }
 
                 // prepare the translation state
-                DocumentStatus state;
+                DocumentStatus state = null;
 
                 // wait for DeepL to finish translating
                 var dotCount = 2;
-                while (true)
+                var awaitUpload = true;
+                while (awaitUpload)
                 {
                     // get the current state
                     state = await Variables.Translator.TranslateDocumentStatusAsync(documentHandle);
@@ -336,7 +357,8 @@ namespace DeepLClient.Controls
                             break;
 
                         case DocumentStatus.StatusCode.Error:
-                            LblState.Text = "translation failed.";
+                            LblState.Text = "translation failed";
+                            awaitUpload = false;
                             break;
                     }
 
@@ -345,10 +367,25 @@ namespace DeepLClient.Controls
                 }
 
                 // did we succeed?
-                if (!state.Ok)
+                if (!state.Ok || state.Status == DocumentStatus.StatusCode.Error)
                 {
                     // nope
-                    LblState.Text = $"translation failed: {state.ErrorMessage}";
+                    // error message?
+                    if (string.IsNullOrWhiteSpace(state.ErrorMessage))
+                    {
+                        LblState.Text = "translation failed:\r\n\r\nDeepL provided no reason :(";
+                        return;
+                    }
+
+                    // yep, first check for 'equal language'
+                    if (state.ErrorMessage.Contains("are equal"))
+                    {
+                        LblState.Text = "translation failed:\r\n\r\nsource and target language are equal";
+                        return;
+                    }
+
+                    // unknown
+                    LblState.Text = $"translation failed:\r\n\r\n{state.ErrorMessage}";
                     return;
                 }
 
@@ -370,7 +407,9 @@ namespace DeepLClient.Controls
                 if (state.BilledCharacters != null)
                 {
                     var billedCharacters = Convert.ToDouble(state.BilledCharacters);
-                    LblState.Text = $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters} characters, costing {AccountManager.CalculateCost(billedCharacters)}.";
+                    LblState.Text = SubscriptionManager.UsingFreeSubscription()
+                    ? $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters} characters\r\nyou're on a free subscription, so no costs"
+                    : $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters} characters, costing {SubscriptionManager.CalculateCost(billedCharacters)}.";
                 }
                 else LblState.Text = "translation complete!";
 
@@ -459,7 +498,7 @@ namespace DeepLClient.Controls
                 // notify
                 return;
             }
-            
+
             // check formality supported
             var supported = Variables.FormalitySupportedLanguages.Contains(targetLanguage);
             CbTargetFormality.Visible = supported;
@@ -540,6 +579,31 @@ namespace DeepLClient.Controls
         private void LblFormalityInfo_Click(object sender, EventArgs e)
         {
             MessageBoxAdv.Show(this, HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BtnClean_Click(object sender, EventArgs e)
+        {
+            // clear docs
+            TbSourceDocument.Text = string.Empty;
+            TbTranslatedDocument.Text = string.Empty;
+
+            // clear state info
+            LblState.Text = string.Empty;
+
+            // load default formality
+            CbTargetFormality.SelectedItem = Variables.Formalities.GetEntry((int)Variables.AppSettings.DefaultFormality);
+
+            // optionally set last source language
+            if (Variables.AppSettings.StoreLastUsedSourceLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastSourceLanguage))
+            {
+                CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(Variables.AppSettings.LastSourceLanguage);
+            }
+
+            // optionally set last target language
+            if (Variables.AppSettings.StoreLastUsedTargetLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastTargetLanguage))
+            {
+                CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(Variables.AppSettings.LastTargetLanguage);
+            }
         }
 
         private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();

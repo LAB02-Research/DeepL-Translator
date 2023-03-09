@@ -22,11 +22,17 @@ namespace DeepLClient.Forms
         {
             try
             {
+                // set title
+                Text = $"DeepL Translator   |   LAB02 Research   |   {Variables.Version}";
+
                 // catch all key presses
                 KeyPreview = true;
-                
+
                 // check for updates
                 _ = Task.Run(UpdateManager.Initialise);
+
+                // monitor subscription limits
+                _ = Task.Run(SubscriptionManager.Initialise);
 
                 // initialise
                 Initialise();
@@ -47,40 +53,38 @@ namespace DeepLClient.Forms
             }
         }
 
-        private void BtnAccountInfo_Click(object sender, EventArgs e)
+        private void BtnSubscriptionInfo_Click(object sender, EventArgs e)
         {
-            // show account info dialog
-            using var accountInfo = new AccountInfo();
-            accountInfo.ShowDialog();
+            // show subscription info dialog
+            using var subscriptionInfo = new SubscriptionInfo();
+            subscriptionInfo.ShowDialog();
+        }
+
+        private void LblCharLimitReached_Click(object sender, EventArgs e)
+        {
+            // show subscription info dialog
+            using var subscriptionInfo = new SubscriptionInfo();
+            subscriptionInfo.ShowDialog();
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!_isClosing)
+            if (_isClosing) return;
+
+            Invoke(new MethodInvoker(Hide));
+
+            if (!Variables.ShuttingDown)
             {
                 e.Cancel = true;
-                Hide();
                 return;
             }
 
-            try
-            {
-                Invoke(new MethodInvoker(delegate
-                {
-                    Hide();
-                    NotifyIcon.Visible = false;
-                }));
+            // we're calling the shutdown function, but async won't hold so ignore that
+            Task.Run(ProcessManager.Shutdown);
 
-                Variables.Translator?.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "[MAIN] Error on FormClosing: {err}", ex.Message);
-            }
-            finally
-            {
-                Log.CloseAndFlush();
-            }
+            // cancel and let the shutdown function handle it
+            _isClosing = true;
+            e.Cancel = true;
         }
 
         private void BtnConfig_Click(object sender, EventArgs e)
@@ -104,11 +108,14 @@ namespace DeepLClient.Forms
 
         private async void Initialise()
         {
+            // check autolaunch state
+            if (Variables.AppSettings.LaunchOnWindowsLogin) LaunchManager.EnableLaunchOnUserLogin();
+
             // check if we have an API key
             if (string.IsNullOrEmpty(Variables.AppSettings.DeepLAPIKey))
             {
                 MessageBoxAdv.Show(this, "No API key has been set.\r\n\r\nIn the main window, click the configuration button at the bottom left to set your personal key.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                BtnAccount.Enabled = false;
+                BtnSubscription.Enabled = false;
                 return;
             }
 
@@ -117,7 +124,7 @@ namespace DeepLClient.Forms
             if (!deepL.result)
             {
                 MessageBoxAdv.Show(this, $"Something went wrong when initialising DeepL.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                BtnAccount.Enabled = false;
+                BtnSubscription.Enabled = false;
                 return;
             }
 
@@ -142,6 +149,12 @@ namespace DeepLClient.Forms
             // set controls
             TabText.Controls.Add(_text);
             TabDocuments.Controls.Add(_documents);
+
+            // check for reached limit
+            if (await SubscriptionManager.IsLimitReached())
+            {
+                // todo: notify
+            }
         }
 
         /// <summary>
@@ -185,10 +198,9 @@ namespace DeepLClient.Forms
             var confirm = MessageBoxAdv.Show(this, "Are you sure you want to completely exit?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (confirm != DialogResult.Yes) return;
 
-            _isClosing = true;
-            Close();
+            ProcessManager.Shutdown();
         }
-        
+
         private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right) return;
@@ -209,7 +221,36 @@ namespace DeepLClient.Forms
                 {
                     try
                     {
-                        NotifyIcon.Visible = true;
+                        NotifyIcon.Visible = false;
+                    }
+                    catch
+                    {
+                        // best effort
+                    }
+                }));
+            }
+            catch
+            {
+                // best effort
+            }
+        }
+
+        /// <summary>
+        /// Shows (or optionally hides) the 'limit reached' warning
+        /// </summary>
+        /// <param name="show"></param>
+        internal void ShowLimitWarning(bool show = true)
+        {
+            try
+            {
+                if (!IsHandleCreated) return;
+                if (IsDisposed) return;
+
+                Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        LblCharLimitReached.Visible = show;
                     }
                     catch
                     {
@@ -238,6 +279,13 @@ namespace DeepLClient.Forms
             }
 
             // just hide
+            Hide();
+        }
+
+        private void Main_KeyUp(object sender, KeyEventArgs e)
+        {
+            // hide on esc
+            if (e.KeyCode != Keys.Escape) return;
             Hide();
         }
 

@@ -7,6 +7,10 @@ namespace DeepLClient.Managers
     {
         internal static bool IsInitialised { get; private set; }
 
+        /// <summary>
+        /// Establishes contact with DeepL's API and fetches all entities
+        /// </summary>
+        /// <returns></returns>
         internal static async Task<(bool result, string error)> Initialise()
         {
             try

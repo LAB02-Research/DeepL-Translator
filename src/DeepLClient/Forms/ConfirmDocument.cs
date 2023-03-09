@@ -1,3 +1,4 @@
+using DeepLClient.Managers;
 using Syncfusion.Windows.Forms;
 
 namespace DeepLClient.Forms
@@ -21,9 +22,11 @@ namespace DeepLClient.Forms
 
         private void ConfirmDocument_Load(object sender, EventArgs e)
         {
-            LblCostInfo.Text = LblCostInfo.Text.Replace("{0}", _chars);
-            LblCostInfo.Text = LblCostInfo.Text.Replace("{1}", _price);
-            LblCostInfo.Text = LblCostInfo.Text.Replace("{2}", _file);
+            LblDocument.Text = _file;
+
+            LblCostInfo.Text = SubscriptionManager.UsingFreeSubscription()
+                ? $"It contains {_chars} characters. You're on a free subscription, so no costs."
+                : $"It contains {_chars} characters, and will probably cost around {_price}.";
 
             if (_isTxt) LblTxt.Visible = true;
 

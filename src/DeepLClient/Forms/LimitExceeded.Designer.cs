@@ -1,6 +1,6 @@
 ﻿namespace DeepLClient.Forms
 {
-    partial class ConfirmDocument
+    partial class LimitExceeded
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,15 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfirmDocument));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LimitExceeded));
             BtnNo = new Syncfusion.WinForms.Controls.SfButton();
             BtnYes = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
-            LblIntro = new Label();
-            LblTxt = new Label();
-            LblDocument = new Label();
-            LblCostInfo = new Label();
-            LblConfirm = new Label();
+            LblInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
             // 
@@ -98,72 +94,19 @@
             PbCost.TabIndex = 6;
             PbCost.TabStop = false;
             // 
-            // LblIntro
+            // LblInfo
             // 
-            LblIntro.AccessibleDescription = "";
-            LblIntro.AccessibleName = "";
-            LblIntro.AccessibleRole = AccessibleRole.StaticText;
-            LblIntro.AutoSize = true;
-            LblIntro.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblIntro.Location = new Point(115, 28);
-            LblIntro.Name = "LblIntro";
-            LblIntro.Size = new Size(105, 19);
-            LblIntro.TabIndex = 71;
-            LblIntro.Text = "You've selected:";
+            LblInfo.AccessibleDescription = "";
+            LblInfo.AccessibleName = "";
+            LblInfo.AccessibleRole = AccessibleRole.StaticText;
+            LblInfo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            LblInfo.Location = new Point(115, 28);
+            LblInfo.Name = "LblInfo";
+            LblInfo.Size = new Size(487, 183);
+            LblInfo.TabIndex = 71;
+            LblInfo.Text = "Please hold while we're gathering info ..";
             // 
-            // LblTxt
-            // 
-            LblTxt.AccessibleDescription = "";
-            LblTxt.AccessibleName = "";
-            LblTxt.AccessibleRole = AccessibleRole.StaticText;
-            LblTxt.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            LblTxt.Location = new Point(115, 191);
-            LblTxt.Name = "LblTxt";
-            LblTxt.Size = new Size(487, 33);
-            LblTxt.TabIndex = 77;
-            LblTxt.Text = "Tip: you're trying to translate a .txt file. Did you know you can just drag and drop them onto the text page? That's cheaper for small documents.";
-            LblTxt.Visible = false;
-            // 
-            // LblDocument
-            // 
-            LblDocument.AccessibleDescription = "";
-            LblDocument.AccessibleName = "";
-            LblDocument.AccessibleRole = AccessibleRole.StaticText;
-            LblDocument.AutoSize = true;
-            LblDocument.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LblDocument.Location = new Point(115, 72);
-            LblDocument.Name = "LblDocument";
-            LblDocument.Size = new Size(13, 17);
-            LblDocument.TabIndex = 78;
-            LblDocument.Text = "-";
-            // 
-            // LblCostInfo
-            // 
-            LblCostInfo.AccessibleDescription = "";
-            LblCostInfo.AccessibleName = "";
-            LblCostInfo.AccessibleRole = AccessibleRole.StaticText;
-            LblCostInfo.AutoSize = true;
-            LblCostInfo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblCostInfo.Location = new Point(115, 114);
-            LblCostInfo.Name = "LblCostInfo";
-            LblCostInfo.Size = new Size(370, 19);
-            LblCostInfo.TabIndex = 79;
-            LblCostInfo.Text = "It contains {0} characters, and will probably cost around {1}.";
-            // 
-            // LblConfirm
-            // 
-            LblConfirm.AccessibleDescription = "";
-            LblConfirm.AccessibleName = "";
-            LblConfirm.AccessibleRole = AccessibleRole.StaticText;
-            LblConfirm.AutoSize = true;
-            LblConfirm.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblConfirm.Location = new Point(115, 156);
-            LblConfirm.Name = "LblConfirm";
-            LblConfirm.Size = new Size(288, 19);
-            LblConfirm.TabIndex = 80;
-            LblConfirm.Text = "Are you sure you want to use this document?";
-            // 
-            // ConfirmDocument
+            // LimitExceeded
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -172,26 +115,22 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(626, 266);
-            Controls.Add(LblConfirm);
-            Controls.Add(LblCostInfo);
-            Controls.Add(LblDocument);
-            Controls.Add(LblTxt);
             Controls.Add(PbCost);
             Controls.Add(BtnYes);
             Controls.Add(BtnNo);
-            Controls.Add(LblIntro);
+            Controls.Add(LblInfo);
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(241, 241, 241);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MetroColor = Color.FromArgb(63, 63, 70);
-            Name = "ConfirmDocument";
+            Name = "LimitExceeded";
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Cost Confirmation   |   LAB02 Research";
-            Load += ConfirmDocument_Load;
+            Text = "Limit Warning   |   LAB02 Research";
+            Load += LimitExceeded_Load;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -201,10 +140,6 @@
         private Syncfusion.WinForms.Controls.SfButton BtnNo;
         private Syncfusion.WinForms.Controls.SfButton BtnYes;
         private PictureBox PbCost;
-        private Label LblIntro;
-        private Label LblTxt;
-        private Label LblDocument;
-        private Label LblCostInfo;
-        private Label LblConfirm;
+        private Label LblInfo;
     }
 }

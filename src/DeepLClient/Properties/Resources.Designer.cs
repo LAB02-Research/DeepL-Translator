@@ -73,6 +73,26 @@ namespace DeepLClient.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clean_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("clean_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap clean_icon_32 {
+            get {
+                object obj = ResourceManager.GetObject("clean_icon_32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clipboard_icon_16 {
             get {
                 object obj = ResourceManager.GetObject("clipboard_icon_16", resourceCulture);

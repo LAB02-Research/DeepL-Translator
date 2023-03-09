@@ -24,5 +24,6 @@ namespace DeepLClient.Models
         public double MinimumCharactersPerDocument { get; set; } = 50000;
         public int DocumentMaxSizeMB { get; set; } = 20;
         public bool CopyTranslationToClipboard { get; set; } = true;
+        public bool LaunchOnWindowsLogin { get; set; } = true;
     }
 }

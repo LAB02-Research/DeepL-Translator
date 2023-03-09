@@ -34,7 +34,7 @@
             TranslationTabs = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             TabText = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             TabDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
-            BtnAccount = new Syncfusion.WinForms.Controls.SfButton();
+            BtnSubscription = new Syncfusion.WinForms.Controls.SfButton();
             BtnConfig = new Syncfusion.WinForms.Controls.SfButton();
             BtnHide = new Syncfusion.WinForms.Controls.SfButton();
             NotifyIcon = new NotifyIcon(components);
@@ -42,6 +42,7 @@
             TsShow = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
             TsExit = new ToolStripMenuItem();
+            LblCharLimitReached = new Label();
             PnlTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).BeginInit();
             TranslationTabs.SuspendLayout();
@@ -125,30 +126,30 @@
             TabDocuments.TabIndex = 10;
             TabDocuments.ThemesEnabled = false;
             // 
-            // BtnAccount
+            // BtnSubscription
             // 
-            BtnAccount.AccessibleDescription = "";
-            BtnAccount.AccessibleName = "";
-            BtnAccount.AccessibleRole = AccessibleRole.PushButton;
-            BtnAccount.BackColor = Color.FromArgb(63, 63, 70);
-            BtnAccount.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            BtnAccount.ForeColor = Color.FromArgb(241, 241, 241);
-            BtnAccount.ImageSize = new Size(24, 24);
-            BtnAccount.Location = new Point(0, 640);
-            BtnAccount.Name = "BtnAccount";
-            BtnAccount.Size = new Size(116, 31);
-            BtnAccount.Style.BackColor = Color.FromArgb(63, 63, 70);
-            BtnAccount.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
-            BtnAccount.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
-            BtnAccount.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
-            BtnAccount.Style.ForeColor = Color.FromArgb(241, 241, 241);
-            BtnAccount.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
-            BtnAccount.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
-            BtnAccount.Style.Image = Properties.Resources.price_icon_24;
-            BtnAccount.Style.PressedForeColor = Color.Black;
-            BtnAccount.TabIndex = 4;
-            BtnAccount.UseVisualStyleBackColor = false;
-            BtnAccount.Click += BtnAccountInfo_Click;
+            BtnSubscription.AccessibleDescription = "";
+            BtnSubscription.AccessibleName = "";
+            BtnSubscription.AccessibleRole = AccessibleRole.PushButton;
+            BtnSubscription.BackColor = Color.FromArgb(63, 63, 70);
+            BtnSubscription.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnSubscription.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnSubscription.ImageSize = new Size(24, 24);
+            BtnSubscription.Location = new Point(0, 640);
+            BtnSubscription.Name = "BtnSubscription";
+            BtnSubscription.Size = new Size(116, 31);
+            BtnSubscription.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnSubscription.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnSubscription.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnSubscription.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnSubscription.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnSubscription.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnSubscription.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnSubscription.Style.Image = Properties.Resources.price_icon_24;
+            BtnSubscription.Style.PressedForeColor = Color.Black;
+            BtnSubscription.TabIndex = 4;
+            BtnSubscription.UseVisualStyleBackColor = false;
+            BtnSubscription.Click += BtnSubscriptionInfo_Click;
             // 
             // BtnConfig
             // 
@@ -243,6 +244,23 @@
             TsExit.Text = "Exit";
             TsExit.Click += TsExit_Click;
             // 
+            // LblCharLimitReached
+            // 
+            LblCharLimitReached.AccessibleDescription = "";
+            LblCharLimitReached.AccessibleName = "";
+            LblCharLimitReached.AccessibleRole = AccessibleRole.StaticText;
+            LblCharLimitReached.AutoSize = true;
+            LblCharLimitReached.Cursor = Cursors.Hand;
+            LblCharLimitReached.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LblCharLimitReached.ForeColor = Color.FromArgb(255, 128, 128);
+            LblCharLimitReached.Location = new Point(248, 645);
+            LblCharLimitReached.Name = "LblCharLimitReached";
+            LblCharLimitReached.Size = new Size(489, 20);
+            LblCharLimitReached.TabIndex = 72;
+            LblCharLimitReached.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
+            LblCharLimitReached.Visible = false;
+            LblCharLimitReached.Click += LblCharLimitReached_Click;
+            // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -252,9 +270,10 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(999, 671);
+            Controls.Add(LblCharLimitReached);
             Controls.Add(BtnHide);
             Controls.Add(BtnConfig);
-            Controls.Add(BtnAccount);
+            Controls.Add(BtnSubscription);
             Controls.Add(PnlTabs);
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
@@ -268,11 +287,13 @@
             Text = "DeepL Translator   |   LAB02 Research";
             FormClosing += Main_FormClosing;
             Load += Main_Load;
+            KeyUp += Main_KeyUp;
             PnlTabs.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).EndInit();
             TranslationTabs.ResumeLayout(false);
             CmTrayIcon.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -280,7 +301,7 @@
         private Syncfusion.Windows.Forms.Tools.TabControlAdv TranslationTabs;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv TabText;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv TabDocuments;
-        private Syncfusion.WinForms.Controls.SfButton BtnAccount;
+        private Syncfusion.WinForms.Controls.SfButton BtnSubscription;
         private Syncfusion.WinForms.Controls.SfButton BtnConfig;
         private Syncfusion.WinForms.Controls.SfButton BtnHide;
         private NotifyIcon NotifyIcon;
@@ -288,5 +309,6 @@
         private ToolStripMenuItem TsShow;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem TsExit;
+        private Label LblCharLimitReached;
     }
 }

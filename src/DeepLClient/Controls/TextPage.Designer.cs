@@ -46,6 +46,7 @@
             label2 = new Label();
             LblCharacters = new Label();
             LblFormalityInfo = new Label();
+            BtnClean = new Syncfusion.WinForms.Controls.SfButton();
             SuspendLayout();
             // 
             // BtnTranslate
@@ -57,9 +58,9 @@
             BtnTranslate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnTranslate.ForeColor = Color.FromArgb(241, 241, 241);
             BtnTranslate.ImageSize = new Size(48, 48);
-            BtnTranslate.Location = new Point(450, 244);
+            BtnTranslate.Location = new Point(450, 199);
             BtnTranslate.Name = "BtnTranslate";
-            BtnTranslate.Size = new Size(93, 100);
+            BtnTranslate.Size = new Size(93, 190);
             BtnTranslate.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
@@ -330,12 +331,38 @@
             LblFormalityInfo.Visible = false;
             LblFormalityInfo.Click += LblFormalityInfo_Click;
             // 
+            // BtnClean
+            // 
+            BtnClean.AccessibleDescription = "";
+            BtnClean.AccessibleName = "";
+            BtnClean.AccessibleRole = AccessibleRole.PushButton;
+            BtnClean.BackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnClean.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.ImageSize = new Size(32, 32);
+            BtnClean.Location = new Point(450, 508);
+            BtnClean.Name = "BtnClean";
+            BtnClean.Size = new Size(93, 48);
+            BtnClean.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.Image = Properties.Resources.clean_icon_32;
+            BtnClean.Style.PressedForeColor = Color.Black;
+            BtnClean.TabIndex = 107;
+            BtnClean.UseVisualStyleBackColor = false;
+            BtnClean.Click += BtnClean_Click;
+            // 
             // TextPage
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(45, 45, 48);
+            Controls.Add(BtnClean);
             Controls.Add(LblFormalityInfo);
             Controls.Add(label2);
             Controls.Add(LblCharacters);
@@ -384,5 +411,6 @@
         private Label LblCharacters;
         private Label LblFormalityInfo;
         internal TextBox TbSource;
+        private Syncfusion.WinForms.Controls.SfButton BtnClean;
     }
 }

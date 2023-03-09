@@ -43,6 +43,7 @@
             CbTargetLanguage = new ComboBox();
             CbSourceLanguage = new ComboBox();
             LblFormalityInfo = new Label();
+            BtnClean = new Syncfusion.WinForms.Controls.SfButton();
             SuspendLayout();
             // 
             // BtnBrowse
@@ -109,7 +110,7 @@
             BtnTranslate.ImageSize = new Size(48, 48);
             BtnTranslate.Location = new Point(38, 214);
             BtnTranslate.Name = "BtnTranslate";
-            BtnTranslate.Size = new Size(921, 77);
+            BtnTranslate.Size = new Size(822, 77);
             BtnTranslate.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
@@ -132,7 +133,7 @@
             LblState.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblState.Location = new Point(38, 314);
             LblState.Name = "LblState";
-            LblState.Size = new Size(921, 97);
+            LblState.Size = new Size(921, 134);
             LblState.TabIndex = 67;
             LblState.TextAlign = ContentAlignment.MiddleCenter;
             // 
@@ -302,12 +303,38 @@
             LblFormalityInfo.Visible = false;
             LblFormalityInfo.Click += LblFormalityInfo_Click;
             // 
+            // BtnClean
+            // 
+            BtnClean.AccessibleDescription = "";
+            BtnClean.AccessibleName = "";
+            BtnClean.AccessibleRole = AccessibleRole.PushButton;
+            BtnClean.BackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnClean.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.ImageSize = new Size(32, 32);
+            BtnClean.Location = new Point(866, 214);
+            BtnClean.Name = "BtnClean";
+            BtnClean.Size = new Size(93, 77);
+            BtnClean.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnClean.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnClean.Style.Image = Properties.Resources.clean_icon_32;
+            BtnClean.Style.PressedForeColor = Color.Black;
+            BtnClean.TabIndex = 108;
+            BtnClean.UseVisualStyleBackColor = false;
+            BtnClean.Click += BtnClean_Click;
+            // 
             // DocumentsPage
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(45, 45, 48);
+            Controls.Add(BtnClean);
             Controls.Add(LblFormalityInfo);
             Controls.Add(LblTargetLanguage);
             Controls.Add(LblTargetFormality);
@@ -351,5 +378,6 @@
         private ComboBox CbTargetLanguage;
         private ComboBox CbSourceLanguage;
         private Label LblFormalityInfo;
+        private Syncfusion.WinForms.Controls.SfButton BtnClean;
     }
 }

@@ -14,6 +14,9 @@ namespace DeepLClient
         {
             try
             {
+                // singleton app
+                if (!ProcessManager.IsFirstInstance()) return;
+
                 // syncfusion license
                 Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(Variables.SyncfusionLicense);
 

@@ -13,6 +13,7 @@ namespace DeepLClient
         /// </summary>
         public static string ApplicationName { get; } = Assembly.GetExecutingAssembly().GetName().Name ?? "DeepL Translator";
         public static string MessageBoxTitle { get; } = "DeepL Translator  |  LAB02 Research";
+        public static string ApplicationExecutable { get; } = Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
         public static string Version { get; } = Application.ProductVersion;
 
         /// <summary>
@@ -26,6 +27,7 @@ namespace DeepLClient
         internal static Main MainForm { get; set; }
         internal static HttpClient HttpClient { get; set; } = new();
         internal static Font DefaultFont { get; } = new("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+        internal static bool ShuttingDown { get; set; }
 
         /// <summary>
         /// DeepL

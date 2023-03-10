@@ -27,13 +27,14 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Why?
 
-[DeepL](https://deepl.com) provides AI/ML translation services. It differs from for example Google Translate in that it doesn't translate sec, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what it can do. They also allow the translation of documents, preserving the layout in the process.
+[DeepL](https://deepl.com) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. It's possible to translate entire documents as well, preserving the layout in the process.
 
-DeepL offers a Windows client for their regular translation services, but it doesn't support the API. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
+DeepL offers a Windows client for their translation services, but it doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
-Personally I'm not a fan of their Windows client as it is, so I decided to write a quick API client I'd want to use. Ended up with a complete application - so decided to share here. Might be of use :)
+I'm not a fan of their current Windows client, so I wrote a quick API client I'd want to use. As it goes I ended up with a complete application, and decided to share it here. Might be of use to someone :)
 
-Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this. If you appreciate my work, I'd appreciate a coffee! 
+**Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this.**
+If you appreciate my work, I'd appreciate a coffee!
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/lab02research)
 

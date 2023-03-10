@@ -17,8 +17,8 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 ### Contents
 
  * [Why?](#why)
- * [Usage](#usage)
  * [Functionality](#functionality)
+ * [Usage](#usage)
  * [Screenshots](#screenshots)
  * [Todo](#todo)
  * [Credits and Licensing](#credits-and-licensing)
@@ -39,18 +39,6 @@ Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I
 
 ----
 
-### Usage
-
-Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). The application will launch when done, and notify you of a missing API key.
-
-You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header-pro-api/](https://www.deepl.com/pro-api?cta=header-pro-api/).
-
-Make sure you set the correct domain, corresponding to your subscription:
-
-![image](https://user-images.githubusercontent.com/81011038/224070374-8d0b28f0-13ba-469f-a1be-6f630750280a.png)
-
-----
-
 ### Functionality
 
 Summary of the core functions:
@@ -59,6 +47,8 @@ Summary of the core functions:
 
 * **Documents**: translate a variaty of documents. Has lots of checks to make sure your document will be accepted by DeepL.
 
+* **Hotkey**: easily consult the app by pressing your hotkey. If you have text selected, it'll be conveniently pasted into the source textbox.
+
 * **Formality**: supports setting a different formality (as long as the language supports it).
 
 * **Cost management**: tells you how much your text or document will cost in terms of both characters and hard cash. Shows the current state of your subscription.
@@ -66,6 +56,18 @@ Summary of the core functions:
 * **UI**: full fledged interface, built to be easy and intuitive to use with as little clicks/keys as possible. Resides in the system tray.
 
 * **Updater**: contains an automatic updater that'll keep your version up-to-date without any hassle.
+
+----
+
+### Usage
+
+Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). The application will launch when done, and notify you of a missing API key.
+
+You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header-pro-api/](https://www.deepl.com/pro-api?cta=header-pro-api/)
+
+Make sure you set the correct domain, corresponding to your subscription:
+
+![image](https://user-images.githubusercontent.com/81011038/224321723-3be00ae3-447b-4684-9d45-bf85e940283b.png)
 
 ----
 
@@ -112,9 +114,9 @@ Hides in your system tray, next to the clock:
 ### Todo
 
 - Send weekly usage logs
-- Global hotkeys
-- Fetch selection after using global hotkey
-- Text ranslations history
+- Text translations history
+- ~~Global hotkeys~~
+- ~~Fetch selection after using global hotkey~~
 - ~~Set focus to 'translate' button after selecting document~~
 - ~~Set focus to 'copy to clipboard' after translating text~~
 - ~~Scaling~~
@@ -140,7 +142,7 @@ Hides in your system tray, next to the clock:
 
 Thanks to DeepL for provided such a great translation service!
 
-This project uses various opensource projects, please consult their individual licensing if you plan to use any of their code.
+This project uses various open source projects, please consult their individual licensing if you plan to use any of their code.
 
 DeepL Translator released under the [MIT license](https://opensource.org/licenses/MIT).
 

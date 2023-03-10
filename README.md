@@ -83,17 +83,21 @@ You'll be notified of the costs before translating a document:
 
 ![image](https://user-images.githubusercontent.com/81011038/224069716-131833e9-82d8-497f-a2b4-80da5b482fcd.png)
 
+![image](https://user-images.githubusercontent.com/81011038/224288107-98c65c5f-3a57-4346-a398-d6b0d29fe637.png)
+
 If a translation will exceed your limit, you'll be notified as well:
 
-![image](https://user-images.githubusercontent.com/81011038/224069805-85e7583c-250e-4e03-8d3e-cf7b32cd2a7d.png)
+![image](https://user-images.githubusercontent.com/81011038/224287457-c5f300a0-290b-472f-8a77-8decbbb4de04.png)
 
 Or if you've already reached your limit:
 
-![image](https://user-images.githubusercontent.com/81011038/224069969-85ae2a44-9cb3-49b1-b60a-4028480faff2.png)
+![image](https://user-images.githubusercontent.com/81011038/224287843-6320232c-cdae-465d-90d5-ee56a281582e.png)
 
 Easily check your subscription's state:
 
-![image](https://user-images.githubusercontent.com/81011038/224070023-655f9c94-0de8-41ef-a634-5e342bafc4ae.png)
+![image](https://user-images.githubusercontent.com/81011038/224290688-7d464c33-5d64-4704-be9b-615d3f553d9b.png)
+
+![image](https://user-images.githubusercontent.com/81011038/224290855-48c2e721-4a59-4467-becf-cda1a4ba06a5.png)
 
 Formality support:
 

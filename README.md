@@ -111,13 +111,16 @@ Hides in your system tray, next to the clock:
 
 ### Todo
 
-- Set focus to 'translate' button after selecting document
-- Set focus to 'source' after translating document
 - Send weekly usage logs
 - Global hotkeys
 - Fetch selection after using global hotkey
 - Text ranslations history
-- Emphasize 'limit (will be) reached' message with red
+- ~~Set focus to 'translate' button after selecting document~~
+- ~~Set focus to 'copy to clipboard' after translating text~~
+- ~~Scaling~~
+- ~~Ignore 'characters left' for pro~~
+- ~~Emphasize 'limit (will be) reached' message with red~~
+- ~~Revert to 'text' page on hide~~
 - ~~Fix icon on dark backgrounds~~
 - ~~Auto launch on Windows login~~
 - ~~Domain info popup~~

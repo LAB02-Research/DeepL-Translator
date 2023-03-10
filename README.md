@@ -115,7 +115,8 @@ Hides in your system tray, next to the clock:
 
 - Send weekly usage logs
 - Text translations history
-- ~~Global hotkeys~~
+- Set cost limit for pro
+- ~~Global hotkey~~
 - ~~Fetch selection after using global hotkey~~
 - ~~Set focus to 'translate' button after selecting document~~
 - ~~Set focus to 'copy to clipboard' after translating text~~

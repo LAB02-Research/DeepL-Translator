@@ -133,6 +133,8 @@ Hides in your system tray, next to the clock:
 - Support for other currencies
 - Recognize urls when using global hotkey, insert into webpage tab
 
+Done:
+
 - ~~Support for pasting URLs~~
 - ~~Add 'save translation' support~~
 - ~~Add 'print translation' support~~

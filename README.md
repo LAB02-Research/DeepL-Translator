@@ -75,6 +75,8 @@ Make sure you set the correct domain, corresponding to your subscription:
 
 ### Screenshots
 
+*What's the point of open sourcing your software if you don't share screenshots ..*
+
 Text interface:
 
 ![image](https://user-images.githubusercontent.com/81011038/224069592-55b7f95f-cc76-41d0-b422-938dcda08e43.png)

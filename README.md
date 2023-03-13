@@ -130,6 +130,7 @@ Hides in your system tray, next to the clock:
 - Send weekly usage logs
 - Text translations history
 - Set cost limit for pro
+- Recognize urls when using global hotkey, insert into webpage tab
 - ~~Support for pasting URLs~~
 - ~~Add 'save translation' support~~
 - ~~Add 'print translation' support~~

@@ -28,11 +28,11 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Why?
 
-[DeepL](https://deepl.com) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. It's possible to translate entire documents as well, preserving the layout in the process.
+[DeepL](https://deepl.com) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, preserving the layout in the process.
 
-DeepL offers a Windows client for their translation services, but it doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
+DeepL offers a Windows app for their translation services, but that client doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
-I'm not a fan of their current Windows client, so I wrote a quick API client I'd want to use. As it goes I ended up with a complete application, and decided to share it here. Might be of use to someone :)
+So, since there isn't an API client available yet, I built one that I'd want to use. It even has a feature that DeepL doesn't provide yet: translating webpages! It uses Firefox's *reading mode* engine to reduce the amount of characters, and make it easy for you to read the translation.
 
 **Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this.**
 If you appreciate my work, I'd appreciate a coffee!
@@ -49,6 +49,8 @@ Summary of the core functions:
 
 * **Documents**: translate a variaty of documents. Has lots of checks to make sure your document will be accepted by DeepL.
 
+* **Webpages**: translate any webpage. Extracts the relevant text to reduce the amount of characters and increase the readability.
+
 * **Hotkey**: easily consult the app by pressing your hotkey. If you have text selected, it'll be conveniently pasted into the source textbox.
 
 * **Formality**: supports setting a different formality (as long as the language supports it).
@@ -56,6 +58,8 @@ Summary of the core functions:
 * **Cost management**: tells you how much your text or document will cost in terms of both characters and hard cash. Shows the current state of your subscription.
 
 * **UI**: full fledged interface, built to be easy and intuitive to use with as little clicks/keys as possible. Resides in the system tray.
+
+* **Print or save**: print your translations, or store them locally for later reference.
 
 * **Updater**: contains an automatic updater that'll keep your version up-to-date without any hassle.
 
@@ -79,11 +83,17 @@ Make sure you set the correct domain, corresponding to your subscription:
 
 Text interface:
 
-![image](https://user-images.githubusercontent.com/81011038/224069592-55b7f95f-cc76-41d0-b422-938dcda08e43.png)
+![image](https://user-images.githubusercontent.com/81011038/224789955-f0333a2f-4e24-48ac-99fe-e4ecb6c7453b.png)
 
 Document interface:
 
-![image](https://user-images.githubusercontent.com/81011038/224069650-cb5e8935-ad74-4799-8fe3-72515556b0ca.png)
+![image](https://user-images.githubusercontent.com/81011038/224789997-1fb33c79-dbeb-4268-930f-9c6b3d01a9a3.png)
+
+Webpage interface:
+
+![image](https://user-images.githubusercontent.com/81011038/224790028-c6307c5c-54b0-43a1-b55d-f57923887c50.png)
+
+![image](https://user-images.githubusercontent.com/81011038/224790048-1b2f3f6b-e8ed-4637-a851-e02f224d1e72.png)
 
 You'll be notified of the costs before translating a document:
 
@@ -91,7 +101,7 @@ You'll be notified of the costs before translating a document:
 
 ![image](https://user-images.githubusercontent.com/81011038/224288107-98c65c5f-3a57-4346-a398-d6b0d29fe637.png)
 
-If a translation will exceed your limit, you'll be notified as well:
+If a document or webpage translation will exceed your limit, you'll be notified as well:
 
 ![image](https://user-images.githubusercontent.com/81011038/224287457-c5f300a0-290b-472f-8a77-8decbbb4de04.png)
 
@@ -107,7 +117,7 @@ Easily check your subscription's state:
 
 Formality support:
 
-![image](https://user-images.githubusercontent.com/81011038/223770387-4b158878-fd43-452b-9f39-4661fc24efd2.png)
+![image](https://user-images.githubusercontent.com/81011038/224790184-dfed63ef-b438-4d2e-8843-e4114d831f78.png)
 
 Hides in your system tray, next to the clock:
 

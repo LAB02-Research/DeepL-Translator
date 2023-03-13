@@ -144,7 +144,7 @@ Hides in your system tray, next to the clock:
 
 ### Credits and Licensing
 
-Thanks to DeepL for provided such a great translation service!
+Thanks to [DeepL](https://deepl.com) for providing such a great translation service!
 
 And a big thank you to all other packages:
 

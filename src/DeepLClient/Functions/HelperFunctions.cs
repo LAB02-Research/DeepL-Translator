@@ -48,7 +48,7 @@ namespace DeepLClient.Functions
             info.AppendLine("By changing the formality, you can change the tone of the translation.");
             info.AppendLine("");
             info.AppendLine("For instance, for friends and family, you could use 'less'.");
-            info.AppendLine("But for business translations, you can use 'more'");
+            info.AppendLine("But for business translations, you can use 'more'.");
             info.AppendLine("");
             info.AppendLine("This is only supported by these languages:");
             info.AppendLine("");

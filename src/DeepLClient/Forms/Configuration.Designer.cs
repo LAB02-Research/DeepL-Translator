@@ -47,6 +47,11 @@
             LblFormalityInfo = new Label();
             CbDomain = new ComboBox();
             CbLaunchOnWindows = new CheckBox();
+            CbEnableGlobalHotkey = new CheckBox();
+            TbHotkey = new TextBox();
+            label4 = new Label();
+            LblHotkeyInfo = new Label();
+            BtnCleanHotkey = new Syncfusion.WinForms.Controls.SfButton();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
             // 
@@ -61,7 +66,7 @@
             BtnStore.ImageSize = new Size(24, 24);
             BtnStore.Location = new Point(196, 369);
             BtnStore.Name = "BtnStore";
-            BtnStore.Size = new Size(518, 34);
+            BtnStore.Size = new Size(590, 34);
             BtnStore.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnStore.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
             BtnStore.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
@@ -118,7 +123,7 @@
             label1.AccessibleRole = AccessibleRole.StaticText;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(115, 103);
+            label1.Location = new Point(115, 98);
             label1.Name = "label1";
             label1.Size = new Size(98, 19);
             label1.TabIndex = 69;
@@ -133,7 +138,7 @@
             TbAPIKey.BorderStyle = BorderStyle.FixedSingle;
             TbAPIKey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TbAPIKey.ForeColor = Color.FromArgb(241, 241, 241);
-            TbAPIKey.Location = new Point(115, 209);
+            TbAPIKey.Location = new Point(115, 180);
             TbAPIKey.Name = "TbAPIKey";
             TbAPIKey.Size = new Size(310, 25);
             TbAPIKey.TabIndex = 72;
@@ -145,7 +150,7 @@
             label2.AccessibleRole = AccessibleRole.StaticText;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(115, 187);
+            label2.Location = new Point(115, 158);
             label2.Name = "label2";
             label2.Size = new Size(98, 19);
             label2.TabIndex = 71;
@@ -160,7 +165,7 @@
             CbLaunchHidden.Checked = true;
             CbLaunchHidden.CheckState = CheckState.Checked;
             CbLaunchHidden.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbLaunchHidden.Location = new Point(115, 268);
+            CbLaunchHidden.Location = new Point(115, 229);
             CbLaunchHidden.Name = "CbLaunchHidden";
             CbLaunchHidden.Size = new Size(114, 23);
             CbLaunchHidden.TabIndex = 73;
@@ -176,7 +181,7 @@
             CbStoreLastUsedSourceLanguage.Checked = true;
             CbStoreLastUsedSourceLanguage.CheckState = CheckState.Checked;
             CbStoreLastUsedSourceLanguage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbStoreLastUsedSourceLanguage.Location = new Point(493, 125);
+            CbStoreLastUsedSourceLanguage.Location = new Point(530, 103);
             CbStoreLastUsedSourceLanguage.Name = "CbStoreLastUsedSourceLanguage";
             CbStoreLastUsedSourceLanguage.Size = new Size(221, 23);
             CbStoreLastUsedSourceLanguage.TabIndex = 74;
@@ -192,7 +197,7 @@
             CbStoreLastUsedTargetLanguage.Checked = true;
             CbStoreLastUsedTargetLanguage.CheckState = CheckState.Checked;
             CbStoreLastUsedTargetLanguage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbStoreLastUsedTargetLanguage.Location = new Point(493, 164);
+            CbStoreLastUsedTargetLanguage.Location = new Point(530, 142);
             CbStoreLastUsedTargetLanguage.Name = "CbStoreLastUsedTargetLanguage";
             CbStoreLastUsedTargetLanguage.Size = new Size(218, 23);
             CbStoreLastUsedTargetLanguage.TabIndex = 75;
@@ -206,7 +211,7 @@
             label3.AccessibleRole = AccessibleRole.StaticText;
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(493, 28);
+            label3.Location = new Point(530, 28);
             label3.Name = "label3";
             label3.Size = new Size(109, 19);
             label3.TabIndex = 77;
@@ -225,9 +230,9 @@
             CbDefaultFormality.ForeColor = Color.FromArgb(241, 241, 241);
             CbDefaultFormality.FormattingEnabled = true;
             CbDefaultFormality.IntegralHeight = false;
-            CbDefaultFormality.Location = new Point(493, 50);
+            CbDefaultFormality.Location = new Point(530, 50);
             CbDefaultFormality.Name = "CbDefaultFormality";
-            CbDefaultFormality.Size = new Size(218, 26);
+            CbDefaultFormality.Size = new Size(256, 26);
             CbDefaultFormality.TabIndex = 76;
             // 
             // CbCopyTranslationToClipboard
@@ -239,7 +244,7 @@
             CbCopyTranslationToClipboard.Checked = true;
             CbCopyTranslationToClipboard.CheckState = CheckState.Checked;
             CbCopyTranslationToClipboard.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbCopyTranslationToClipboard.Location = new Point(493, 209);
+            CbCopyTranslationToClipboard.Location = new Point(115, 308);
             CbCopyTranslationToClipboard.Name = "CbCopyTranslationToClipboard";
             CbCopyTranslationToClipboard.Size = new Size(226, 23);
             CbCopyTranslationToClipboard.TabIndex = 78;
@@ -278,7 +283,7 @@
             LblDomainInfo.AutoSize = true;
             LblDomainInfo.Cursor = Cursors.Hand;
             LblDomainInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblDomainInfo.Location = new Point(431, 127);
+            LblDomainInfo.Location = new Point(431, 122);
             LblDomainInfo.Name = "LblDomainInfo";
             LblDomainInfo.Size = new Size(17, 21);
             LblDomainInfo.TabIndex = 104;
@@ -293,7 +298,7 @@
             LblFormalityInfo.AutoSize = true;
             LblFormalityInfo.Cursor = Cursors.Hand;
             LblFormalityInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFormalityInfo.Location = new Point(694, 28);
+            LblFormalityInfo.Location = new Point(769, 28);
             LblFormalityInfo.Name = "LblFormalityInfo";
             LblFormalityInfo.Size = new Size(17, 21);
             LblFormalityInfo.TabIndex = 105;
@@ -313,7 +318,7 @@
             CbDomain.ForeColor = Color.FromArgb(241, 241, 241);
             CbDomain.FormattingEnabled = true;
             CbDomain.IntegralHeight = false;
-            CbDomain.Location = new Point(115, 124);
+            CbDomain.Location = new Point(115, 119);
             CbDomain.Name = "CbDomain";
             CbDomain.Size = new Size(310, 26);
             CbDomain.TabIndex = 106;
@@ -327,12 +332,95 @@
             CbLaunchOnWindows.Checked = true;
             CbLaunchOnWindows.CheckState = CheckState.Checked;
             CbLaunchOnWindows.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbLaunchOnWindows.Location = new Point(115, 308);
+            CbLaunchOnWindows.Location = new Point(115, 269);
             CbLaunchOnWindows.Name = "CbLaunchOnWindows";
             CbLaunchOnWindows.Size = new Size(179, 23);
             CbLaunchOnWindows.TabIndex = 107;
             CbLaunchOnWindows.Text = "launch on windows login";
             CbLaunchOnWindows.UseVisualStyleBackColor = true;
+            // 
+            // CbEnableGlobalHotkey
+            // 
+            CbEnableGlobalHotkey.AccessibleDescription = "";
+            CbEnableGlobalHotkey.AccessibleName = "";
+            CbEnableGlobalHotkey.AccessibleRole = AccessibleRole.CheckButton;
+            CbEnableGlobalHotkey.AutoSize = true;
+            CbEnableGlobalHotkey.Checked = true;
+            CbEnableGlobalHotkey.CheckState = CheckState.Checked;
+            CbEnableGlobalHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            CbEnableGlobalHotkey.Location = new Point(530, 244);
+            CbEnableGlobalHotkey.Name = "CbEnableGlobalHotkey";
+            CbEnableGlobalHotkey.Size = new Size(155, 23);
+            CbEnableGlobalHotkey.TabIndex = 108;
+            CbEnableGlobalHotkey.Text = "enable global hotkey";
+            CbEnableGlobalHotkey.UseVisualStyleBackColor = true;
+            // 
+            // TbHotkey
+            // 
+            TbHotkey.AccessibleDescription = "";
+            TbHotkey.AccessibleName = "";
+            TbHotkey.AccessibleRole = AccessibleRole.Text;
+            TbHotkey.BackColor = Color.FromArgb(63, 63, 70);
+            TbHotkey.BorderStyle = BorderStyle.FixedSingle;
+            TbHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            TbHotkey.ForeColor = Color.FromArgb(241, 241, 241);
+            TbHotkey.Location = new Point(530, 306);
+            TbHotkey.Name = "TbHotkey";
+            TbHotkey.Size = new Size(218, 25);
+            TbHotkey.TabIndex = 109;
+            // 
+            // label4
+            // 
+            label4.AccessibleDescription = "";
+            label4.AccessibleName = "";
+            label4.AccessibleRole = AccessibleRole.StaticText;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(530, 284);
+            label4.Name = "label4";
+            label4.Size = new Size(131, 19);
+            label4.TabIndex = 110;
+            label4.Text = "hotkey combination";
+            // 
+            // LblHotkeyInfo
+            // 
+            LblHotkeyInfo.AccessibleDescription = "";
+            LblHotkeyInfo.AccessibleName = "";
+            LblHotkeyInfo.AccessibleRole = AccessibleRole.PushButton;
+            LblHotkeyInfo.AutoSize = true;
+            LblHotkeyInfo.Cursor = Cursors.Hand;
+            LblHotkeyInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            LblHotkeyInfo.Location = new Point(769, 284);
+            LblHotkeyInfo.Name = "LblHotkeyInfo";
+            LblHotkeyInfo.Size = new Size(17, 21);
+            LblHotkeyInfo.TabIndex = 111;
+            LblHotkeyInfo.Text = "?";
+            LblHotkeyInfo.Click += LblHotkeyInfo_Click;
+            // 
+            // BtnCleanHotkey
+            // 
+            BtnCleanHotkey.AccessibleDescription = "";
+            BtnCleanHotkey.AccessibleName = "";
+            BtnCleanHotkey.AccessibleRole = AccessibleRole.PushButton;
+            BtnCleanHotkey.BackColor = Color.FromArgb(63, 63, 70);
+            BtnCleanHotkey.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnCleanHotkey.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnCleanHotkey.ImageSize = new Size(16, 16);
+            BtnCleanHotkey.Location = new Point(754, 306);
+            BtnCleanHotkey.Name = "BtnCleanHotkey";
+            BtnCleanHotkey.Size = new Size(32, 25);
+            BtnCleanHotkey.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnCleanHotkey.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnCleanHotkey.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnCleanHotkey.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnCleanHotkey.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnCleanHotkey.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnCleanHotkey.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnCleanHotkey.Style.Image = Properties.Resources.clean_icon_16;
+            BtnCleanHotkey.Style.PressedForeColor = Color.Black;
+            BtnCleanHotkey.TabIndex = 112;
+            BtnCleanHotkey.UseVisualStyleBackColor = false;
+            BtnCleanHotkey.Click += BtnCleanHotkey_Click;
             // 
             // Configuration
             // 
@@ -342,7 +430,12 @@
             CaptionBarColor = Color.FromArgb(63, 63, 70);
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
-            ClientSize = new Size(731, 408);
+            ClientSize = new Size(808, 408);
+            Controls.Add(BtnCleanHotkey);
+            Controls.Add(LblHotkeyInfo);
+            Controls.Add(label4);
+            Controls.Add(TbHotkey);
+            Controls.Add(CbEnableGlobalHotkey);
             Controls.Add(CbLaunchOnWindows);
             Controls.Add(CbDomain);
             Controls.Add(LblFormalityInfo);
@@ -372,6 +465,7 @@
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Configuration   |   LAB02 Research";
+            FormClosing += Configuration_FormClosing;
             Load += Configuration_Load;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
@@ -397,5 +491,10 @@
         private Label LblFormalityInfo;
         private ComboBox CbDomain;
         internal CheckBox CbLaunchOnWindows;
+        internal CheckBox CbEnableGlobalHotkey;
+        internal TextBox TbHotkey;
+        private Label label4;
+        private Label LblHotkeyInfo;
+        private Syncfusion.WinForms.Controls.SfButton BtnCleanHotkey;
     }
 }

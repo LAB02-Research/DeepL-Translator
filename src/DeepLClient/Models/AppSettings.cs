@@ -25,5 +25,7 @@ namespace DeepLClient.Models
         public int DocumentMaxSizeMB { get; set; } = 20;
         public bool CopyTranslationToClipboard { get; set; } = true;
         public bool LaunchOnWindowsLogin { get; set; } = true;
+        public bool GlobalHotkeyEnabled { get; set; } = true;
+        public string GlobalHotkey { get; set; } = "Shift, Control + T";
     }
 }

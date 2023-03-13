@@ -95,6 +95,9 @@ namespace DeepLClient.Managers
         /// <returns></returns>
         internal static async Task<bool> CharactersWillExceedLimit(double characterCount)
         {
+            // only for free
+            if (!UsingFreeSubscription()) return false;
+
             // get the current state
             var state = await Variables.Translator.GetUsageAsync();
 
@@ -118,6 +121,9 @@ namespace DeepLClient.Managers
         /// <returns></returns>
         internal static async Task<bool> IsLimitReached()
         {
+            // only for free
+            if (!UsingFreeSubscription()) return false;
+
             // get the current state
             var state = await Variables.Translator.GetUsageAsync();
 

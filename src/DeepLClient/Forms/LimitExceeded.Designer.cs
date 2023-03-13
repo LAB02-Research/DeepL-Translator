@@ -32,6 +32,8 @@
             BtnNo = new Syncfusion.WinForms.Controls.SfButton();
             BtnYes = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
+            LblLoading = new Label();
+            LblIntro = new Label();
             LblInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
@@ -94,17 +96,43 @@
             PbCost.TabIndex = 6;
             PbCost.TabStop = false;
             // 
+            // LblLoading
+            // 
+            LblLoading.AccessibleDescription = "";
+            LblLoading.AccessibleName = "";
+            LblLoading.AccessibleRole = AccessibleRole.StaticText;
+            LblLoading.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            LblLoading.Location = new Point(115, 28);
+            LblLoading.Name = "LblLoading";
+            LblLoading.Size = new Size(487, 183);
+            LblLoading.TabIndex = 71;
+            LblLoading.Text = "Please hold while we're gathering info ..";
+            // 
+            // LblIntro
+            // 
+            LblIntro.AccessibleDescription = "";
+            LblIntro.AccessibleName = "";
+            LblIntro.AccessibleRole = AccessibleRole.StaticText;
+            LblIntro.AutoSize = true;
+            LblIntro.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LblIntro.ForeColor = Color.FromArgb(255, 128, 128);
+            LblIntro.Location = new Point(115, 28);
+            LblIntro.Name = "LblIntro";
+            LblIntro.Size = new Size(0, 17);
+            LblIntro.TabIndex = 72;
+            LblIntro.Visible = false;
+            // 
             // LblInfo
             // 
             LblInfo.AccessibleDescription = "";
             LblInfo.AccessibleName = "";
             LblInfo.AccessibleRole = AccessibleRole.StaticText;
             LblInfo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblInfo.Location = new Point(115, 28);
+            LblInfo.Location = new Point(115, 71);
             LblInfo.Name = "LblInfo";
-            LblInfo.Size = new Size(487, 183);
-            LblInfo.TabIndex = 71;
-            LblInfo.Text = "Please hold while we're gathering info ..";
+            LblInfo.Size = new Size(487, 140);
+            LblInfo.TabIndex = 73;
+            LblInfo.Visible = false;
             // 
             // LimitExceeded
             // 
@@ -115,10 +143,12 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(626, 266);
+            Controls.Add(LblInfo);
+            Controls.Add(LblIntro);
             Controls.Add(PbCost);
             Controls.Add(BtnYes);
             Controls.Add(BtnNo);
-            Controls.Add(LblInfo);
+            Controls.Add(LblLoading);
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(241, 241, 241);
@@ -140,6 +170,8 @@
         private Syncfusion.WinForms.Controls.SfButton BtnNo;
         private Syncfusion.WinForms.Controls.SfButton BtnYes;
         private PictureBox PbCost;
+        private Label LblLoading;
+        private Label LblIntro;
         private Label LblInfo;
     }
 }

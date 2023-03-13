@@ -33,7 +33,7 @@
             LblSourceDocument = new Label();
             BtnTranslate = new Syncfusion.WinForms.Controls.SfButton();
             LblState = new Label();
-            TbOpenTranslatedFolder = new Syncfusion.WinForms.Controls.SfButton();
+            BtnOpenTranslatedFolder = new Syncfusion.WinForms.Controls.SfButton();
             TbTranslatedDocument = new TextBox();
             label1 = new Label();
             LblTargetLanguage = new Label();
@@ -54,7 +54,7 @@
             BtnBrowse.BackColor = Color.FromArgb(63, 63, 70);
             BtnBrowse.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnBrowse.ForeColor = Color.FromArgb(241, 241, 241);
-            BtnBrowse.Location = new Point(821, 45);
+            BtnBrowse.Location = new Point(821, 96);
             BtnBrowse.Name = "BtnBrowse";
             BtnBrowse.Size = new Size(138, 25);
             BtnBrowse.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -66,7 +66,7 @@
             BtnBrowse.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
             BtnBrowse.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
             BtnBrowse.Style.PressedForeColor = Color.Black;
-            BtnBrowse.TabIndex = 64;
+            BtnBrowse.TabIndex = 1;
             BtnBrowse.Text = "browse";
             BtnBrowse.UseVisualStyleBackColor = false;
             BtnBrowse.Click += BtnBrowse_Click;
@@ -80,10 +80,10 @@
             TbSourceDocument.BorderStyle = BorderStyle.FixedSingle;
             TbSourceDocument.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TbSourceDocument.ForeColor = Color.FromArgb(241, 241, 241);
-            TbSourceDocument.Location = new Point(38, 45);
+            TbSourceDocument.Location = new Point(38, 96);
             TbSourceDocument.Name = "TbSourceDocument";
             TbSourceDocument.Size = new Size(777, 25);
-            TbSourceDocument.TabIndex = 63;
+            TbSourceDocument.TabIndex = 0;
             TbSourceDocument.DoubleClick += TbSourceDocument_DoubleClick;
             // 
             // LblSourceDocument
@@ -93,7 +93,7 @@
             LblSourceDocument.AccessibleRole = AccessibleRole.StaticText;
             LblSourceDocument.AutoSize = true;
             LblSourceDocument.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblSourceDocument.Location = new Point(35, 23);
+            LblSourceDocument.Location = new Point(35, 74);
             LblSourceDocument.Name = "LblSourceDocument";
             LblSourceDocument.Size = new Size(115, 19);
             LblSourceDocument.TabIndex = 65;
@@ -108,9 +108,9 @@
             BtnTranslate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnTranslate.ForeColor = Color.FromArgb(241, 241, 241);
             BtnTranslate.ImageSize = new Size(48, 48);
-            BtnTranslate.Location = new Point(38, 214);
+            BtnTranslate.Location = new Point(486, 185);
             BtnTranslate.Name = "BtnTranslate";
-            BtnTranslate.Size = new Size(822, 77);
+            BtnTranslate.Size = new Size(396, 86);
             BtnTranslate.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
@@ -120,7 +120,7 @@
             BtnTranslate.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
             BtnTranslate.Style.Image = Properties.Resources.book_icon_48;
             BtnTranslate.Style.PressedForeColor = Color.Black;
-            BtnTranslate.TabIndex = 66;
+            BtnTranslate.TabIndex = 5;
             BtnTranslate.UseVisualStyleBackColor = false;
             BtnTranslate.Click += BtnTranslate_Click;
             // 
@@ -131,36 +131,36 @@
             LblState.AccessibleRole = AccessibleRole.StaticText;
             LblState.BorderStyle = BorderStyle.FixedSingle;
             LblState.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblState.Location = new Point(38, 314);
+            LblState.Location = new Point(38, 327);
             LblState.Name = "LblState";
             LblState.Size = new Size(921, 134);
             LblState.TabIndex = 67;
             LblState.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // TbOpenTranslatedFolder
+            // BtnOpenTranslatedFolder
             // 
-            TbOpenTranslatedFolder.AccessibleDescription = "";
-            TbOpenTranslatedFolder.AccessibleName = "";
-            TbOpenTranslatedFolder.AccessibleRole = AccessibleRole.PushButton;
-            TbOpenTranslatedFolder.BackColor = Color.FromArgb(63, 63, 70);
-            TbOpenTranslatedFolder.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            TbOpenTranslatedFolder.ForeColor = Color.FromArgb(241, 241, 241);
-            TbOpenTranslatedFolder.Location = new Point(821, 517);
-            TbOpenTranslatedFolder.Name = "TbOpenTranslatedFolder";
-            TbOpenTranslatedFolder.Size = new Size(138, 25);
-            TbOpenTranslatedFolder.Style.BackColor = Color.FromArgb(63, 63, 70);
-            TbOpenTranslatedFolder.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
-            TbOpenTranslatedFolder.Style.DisabledForeColor = Color.FromArgb(241, 241, 241);
-            TbOpenTranslatedFolder.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
-            TbOpenTranslatedFolder.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
-            TbOpenTranslatedFolder.Style.ForeColor = Color.FromArgb(241, 241, 241);
-            TbOpenTranslatedFolder.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
-            TbOpenTranslatedFolder.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
-            TbOpenTranslatedFolder.Style.PressedForeColor = Color.Black;
-            TbOpenTranslatedFolder.TabIndex = 69;
-            TbOpenTranslatedFolder.Text = "open folder";
-            TbOpenTranslatedFolder.UseVisualStyleBackColor = false;
-            TbOpenTranslatedFolder.Click += TbOpenTranslatedFolder_Click;
+            BtnOpenTranslatedFolder.AccessibleDescription = "";
+            BtnOpenTranslatedFolder.AccessibleName = "";
+            BtnOpenTranslatedFolder.AccessibleRole = AccessibleRole.PushButton;
+            BtnOpenTranslatedFolder.BackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenTranslatedFolder.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnOpenTranslatedFolder.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenTranslatedFolder.Location = new Point(821, 556);
+            BtnOpenTranslatedFolder.Name = "BtnOpenTranslatedFolder";
+            BtnOpenTranslatedFolder.Size = new Size(138, 25);
+            BtnOpenTranslatedFolder.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenTranslatedFolder.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenTranslatedFolder.Style.DisabledForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenTranslatedFolder.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenTranslatedFolder.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenTranslatedFolder.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenTranslatedFolder.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenTranslatedFolder.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenTranslatedFolder.Style.PressedForeColor = Color.Black;
+            BtnOpenTranslatedFolder.TabIndex = 6;
+            BtnOpenTranslatedFolder.Text = "open folder";
+            BtnOpenTranslatedFolder.UseVisualStyleBackColor = false;
+            BtnOpenTranslatedFolder.Click += BtnOpenTranslatedFolder_Click;
             // 
             // TbTranslatedDocument
             // 
@@ -171,7 +171,7 @@
             TbTranslatedDocument.BorderStyle = BorderStyle.FixedSingle;
             TbTranslatedDocument.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TbTranslatedDocument.ForeColor = Color.FromArgb(241, 241, 241);
-            TbTranslatedDocument.Location = new Point(38, 517);
+            TbTranslatedDocument.Location = new Point(38, 556);
             TbTranslatedDocument.Name = "TbTranslatedDocument";
             TbTranslatedDocument.ReadOnly = true;
             TbTranslatedDocument.Size = new Size(777, 25);
@@ -185,7 +185,7 @@
             label1.AccessibleRole = AccessibleRole.StaticText;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(35, 495);
+            label1.Location = new Point(35, 534);
             label1.Name = "label1";
             label1.Size = new Size(136, 19);
             label1.TabIndex = 70;
@@ -198,7 +198,7 @@
             LblTargetLanguage.AccessibleRole = AccessibleRole.StaticText;
             LblTargetLanguage.AutoSize = true;
             LblTargetLanguage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblTargetLanguage.Location = new Point(433, 98);
+            LblTargetLanguage.Location = new Point(38, 223);
             LblTargetLanguage.Name = "LblTargetLanguage";
             LblTargetLanguage.Size = new Size(106, 19);
             LblTargetLanguage.TabIndex = 76;
@@ -211,7 +211,7 @@
             LblTargetFormality.AccessibleRole = AccessibleRole.StaticText;
             LblTargetFormality.AutoSize = true;
             LblTargetFormality.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblTargetFormality.Location = new Point(643, 98);
+            LblTargetFormality.Location = new Point(248, 223);
             LblTargetFormality.Name = "LblTargetFormality";
             LblTargetFormality.Size = new Size(104, 19);
             LblTargetFormality.TabIndex = 75;
@@ -225,7 +225,7 @@
             LblSourceLanguage.AccessibleRole = AccessibleRole.StaticText;
             LblSourceLanguage.AutoSize = true;
             LblSourceLanguage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblSourceLanguage.Location = new Point(35, 98);
+            LblSourceLanguage.Location = new Point(38, 163);
             LblSourceLanguage.Name = "LblSourceLanguage";
             LblSourceLanguage.Size = new Size(109, 19);
             LblSourceLanguage.TabIndex = 74;
@@ -244,10 +244,10 @@
             CbTargetFormality.ForeColor = Color.FromArgb(241, 241, 241);
             CbTargetFormality.FormattingEnabled = true;
             CbTargetFormality.IntegralHeight = false;
-            CbTargetFormality.Location = new Point(643, 120);
+            CbTargetFormality.Location = new Point(248, 245);
             CbTargetFormality.Name = "CbTargetFormality";
             CbTargetFormality.Size = new Size(172, 26);
-            CbTargetFormality.TabIndex = 73;
+            CbTargetFormality.TabIndex = 4;
             CbTargetFormality.Visible = false;
             // 
             // CbTargetLanguage
@@ -263,10 +263,10 @@
             CbTargetLanguage.ForeColor = Color.FromArgb(241, 241, 241);
             CbTargetLanguage.FormattingEnabled = true;
             CbTargetLanguage.IntegralHeight = false;
-            CbTargetLanguage.Location = new Point(433, 120);
+            CbTargetLanguage.Location = new Point(38, 245);
             CbTargetLanguage.Name = "CbTargetLanguage";
             CbTargetLanguage.Size = new Size(204, 26);
-            CbTargetLanguage.TabIndex = 72;
+            CbTargetLanguage.TabIndex = 3;
             CbTargetLanguage.SelectedValueChanged += CbTargetLanguage_SelectedValueChanged;
             // 
             // CbSourceLanguage
@@ -282,10 +282,10 @@
             CbSourceLanguage.ForeColor = Color.FromArgb(241, 241, 241);
             CbSourceLanguage.FormattingEnabled = true;
             CbSourceLanguage.IntegralHeight = false;
-            CbSourceLanguage.Location = new Point(35, 120);
+            CbSourceLanguage.Location = new Point(38, 185);
             CbSourceLanguage.Name = "CbSourceLanguage";
             CbSourceLanguage.Size = new Size(204, 26);
-            CbSourceLanguage.TabIndex = 71;
+            CbSourceLanguage.TabIndex = 2;
             // 
             // LblFormalityInfo
             // 
@@ -295,7 +295,7 @@
             LblFormalityInfo.AutoSize = true;
             LblFormalityInfo.Cursor = Cursors.Hand;
             LblFormalityInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFormalityInfo.Location = new Point(798, 95);
+            LblFormalityInfo.Location = new Point(403, 220);
             LblFormalityInfo.Name = "LblFormalityInfo";
             LblFormalityInfo.Size = new Size(17, 21);
             LblFormalityInfo.TabIndex = 106;
@@ -312,9 +312,9 @@
             BtnClean.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnClean.ForeColor = Color.FromArgb(241, 241, 241);
             BtnClean.ImageSize = new Size(32, 32);
-            BtnClean.Location = new Point(866, 214);
+            BtnClean.Location = new Point(888, 185);
             BtnClean.Name = "BtnClean";
-            BtnClean.Size = new Size(93, 77);
+            BtnClean.Size = new Size(74, 86);
             BtnClean.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnClean.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
             BtnClean.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
@@ -342,7 +342,7 @@
             Controls.Add(CbTargetFormality);
             Controls.Add(CbTargetLanguage);
             Controls.Add(CbSourceLanguage);
-            Controls.Add(TbOpenTranslatedFolder);
+            Controls.Add(BtnOpenTranslatedFolder);
             Controls.Add(TbTranslatedDocument);
             Controls.Add(label1);
             Controls.Add(LblState);
@@ -353,7 +353,7 @@
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(241, 241, 241);
             Name = "DocumentsPage";
-            Size = new Size(993, 589);
+            Size = new Size(993, 654);
             Load += DocumentsPage_Load;
             DragDrop += DocumentsPage_DragDrop;
             DragEnter += DocumentsPage_DragEnter;
@@ -368,7 +368,7 @@
         private Label LblSourceDocument;
         private Syncfusion.WinForms.Controls.SfButton BtnTranslate;
         private Label LblState;
-        internal Syncfusion.WinForms.Controls.SfButton TbOpenTranslatedFolder;
+        internal Syncfusion.WinForms.Controls.SfButton BtnOpenTranslatedFolder;
         internal TextBox TbTranslatedDocument;
         private Label label1;
         private Label LblTargetLanguage;

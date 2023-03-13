@@ -66,7 +66,7 @@ namespace DeepLClient.Managers
             try
             {
                 // don't update in debug mode
-                // if (Variables.DebugMode) return;
+                if (Variables.DebugMode) return;
                 
                 // are we already updating?
                 if (_updateActive) return;

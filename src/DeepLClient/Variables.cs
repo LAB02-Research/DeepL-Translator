@@ -3,6 +3,10 @@ using Serilog.Core;
 using System.Reflection;
 using DeepL;
 using DeepLClient.Forms;
+using System.Globalization;
+using WK.Libraries.HotkeyListenerNS;
+using DeepLClient.Managers;
+using Microsoft.Web.WebView2.Core;
 
 namespace DeepLClient
 {
@@ -11,8 +15,8 @@ namespace DeepLClient
         /// <summary>
         /// Application info
         /// </summary>
-        public static string ApplicationName { get; } = Assembly.GetExecutingAssembly().GetName().Name ?? "DeepL Translator";
-        public static string MessageBoxTitle { get; } = "DeepL Translator  |  LAB02 Research";
+        public static string ApplicationName { get; } = "DeepL Translator";
+        public static string MessageBoxTitle { get; } = $"{ApplicationName}  |  LAB02 Research";
         public static string ApplicationExecutable { get; } = Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
         public static string Version { get; } = Application.ProductVersion;
 
@@ -27,7 +31,15 @@ namespace DeepLClient
         internal static Main MainForm { get; set; }
         internal static HttpClient HttpClient { get; set; } = new();
         internal static Font DefaultFont { get; } = new("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-        internal static bool ShuttingDown { get; set; }
+        internal static CoreWebView2Environment WebViewEnvironment { get; set; } = null;
+        
+        /// <summary>
+        /// HotKey
+        /// </summary>
+        internal static Hotkey GlobalHotkey { get; set; } = new(Keys.Control | Keys.Shift, Keys.T);
+        internal static HotkeyListener HotkeyListener { get; set; }
+        internal static HotkeyManager HotkeyManager { get; } = new();
+
 
         /// <summary>
         /// DeepL
@@ -43,6 +55,7 @@ namespace DeepLClient
         /// </summary>
         internal static LoggingLevelSwitch LevelSwitch { get; } = new();
         internal static bool DebugMode { get; set; } = false;
+        internal static bool ShuttingDown { get; set; }
 
         /// <summary>
         /// Local IO
@@ -52,6 +65,8 @@ namespace DeepLClient
         internal static string ConfigPath { get; } = Path.Combine(StartupPath, "config");
         internal static string AppSettingsFile { get; } = Path.Combine(ConfigPath, "appsettings.json");
         internal static string UsageFile { get; } = Path.Combine(ConfigPath, "usage.json");
+        internal static string CachePath { get; } = Path.Combine(StartupPath, "cache");
+        internal static string WebViewCachePath { get; } = Path.Combine(CachePath, "webview");
 
         /// <summary>
         /// Config

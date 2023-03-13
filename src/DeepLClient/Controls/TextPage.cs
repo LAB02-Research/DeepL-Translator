@@ -6,6 +6,7 @@ using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
 using Syncfusion.Windows.Forms.Tools.Win32API;
+using System.Diagnostics;
 
 namespace DeepLClient.Controls
 {
@@ -156,7 +157,7 @@ namespace DeepLClient.Controls
                 // copy it to the clipbaord if configured
                 if (Variables.AppSettings.CopyTranslationToClipboard && !string.IsNullOrWhiteSpace(translatedText.Text))
                 {
-                    Clipboard.SetText(translatedText.Text);
+                    Clipboard.SetText(translatedText.Text, TextDataFormat.UnicodeText);
                     LblClipboardCopied.Visible = true;
                     _ = Task.Run(HideClipboardCopied);
                 }
@@ -171,22 +172,25 @@ namespace DeepLClient.Controls
             }
             catch (ConnectionException ex)
             {
-                Log.Fatal(ex, "[TEXT] Connection error while translating the document: {err}", ex.Message);
+                Log.Fatal(ex, "[TEXT] Connection error while translating the text: {err}", ex.Message);
                 MessageBoxAdv.Show(this, "Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (DocumentTranslationException ex)
             {
-                Log.Fatal(ex, "[TEXT] Error while translating the document: {err}", ex.Message);
+                Log.Fatal(ex, "[TEXT] Error while translating the text: {err}", ex.Message);
                 MessageBoxAdv.Show(this, "Something went wrong on DeepL's end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "[TEXT] Error while attempting to translate the document: {err}", ex.Message);
+                Log.Fatal(ex, "[TEXT] Error while attempting to translate the text: {err}", ex.Message);
                 MessageBoxAdv.Show(this, "Something went wrong on our end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
                 LockInterface(false);
+
+                // set focus to copy-clipbooard
+                ActiveControl = BtnCopyClipboard;
             }
         }
 
@@ -351,7 +355,7 @@ namespace DeepLClient.Controls
         {
             if (string.IsNullOrEmpty(TbTranslated.Text)) return;
 
-            Clipboard.SetText(TbTranslated.Text);
+            Clipboard.SetText(TbTranslated.Text, TextDataFormat.UnicodeText);
             LblClipboardCopied.Visible = true;
             _ = Task.Run(HideClipboardCopied);
         }
@@ -408,6 +412,9 @@ namespace DeepLClient.Controls
                 LblFormalityInfo.Enabled = !@lock;
                 BtnTranslate.Enabled = !@lock;
                 BtnCopyClipboard.Enabled = !@lock;
+                BtnClean.Enabled = !@lock;
+                BtnSave.Enabled = !@lock;
+                BtnPrint.Enabled = !@lock;
             }));
         }
 
@@ -457,6 +464,74 @@ namespace DeepLClient.Controls
 
             // focus source textbox
             ActiveControl = TbSource;
+        }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(TbTranslated.Text)) return;
+
+                LockInterface();
+
+                using var dialog = new OpenFileDialog();
+                dialog.CheckFileExists = false;
+                dialog.Multiselect = false;
+                dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                dialog.Filter = "Plain text (*.txt)|*.txt";
+
+                var result = dialog.ShowDialog();
+                if (result != DialogResult.OK) return;
+
+                File.WriteAllText(dialog.FileName, TbTranslated.Text);
+
+                var q = MessageBoxAdv.Show(this, "Page succesfully saved as a text file!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (q != DialogResult.OK) return;
+
+                var argument = "/select, \"" + dialog.FileName + "\"";
+                Process.Start("explorer.exe", argument);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[URL] Error while saving to pdf: {err}", ex.Message);
+                MessageBoxAdv.Show(this, "Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                LockInterface(false);
+            }
+        }
+
+        private void BtnPrint_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(TbTranslated.Text)) return;
+
+                // lock the interface
+                LockInterface();
+
+                // get the printer settings
+                using var printDialog = new PrintDialog();
+                var dialogResult = printDialog.ShowDialog();
+                if (dialogResult != DialogResult.OK) return;
+
+                // print the doc
+                var result = PrintFunctions.PrintText(TbTranslated.Text, printDialog.PrinterSettings);
+
+                // done
+                if (result) MessageBoxAdv.Show(this, "The translated text has been sent to your printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBoxAdv.Show(this, "Something went wrong when trying to print the translated text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[URL] Error while trying to print: {err}", ex.Message);
+                MessageBoxAdv.Show(this, "Something went wrong while trying to print.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                LockInterface(false);
+            }
         }
     }
 }

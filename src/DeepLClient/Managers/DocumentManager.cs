@@ -3,6 +3,7 @@ using ByteSizeLib;
 using DeepLClient.Enums;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.Pdf;
+using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Parsing;
 using Syncfusion.Presentation;
 
@@ -102,12 +103,15 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <param name="onlyText"></param>
+        /// <param name="onlyHtml"></param>
         /// <returns></returns>
-        internal static bool FileIsSupported(string file, bool onlyText = false)
+        internal static bool FileIsSupported(string file, bool onlyText = false, bool onlyHtml = false)
         {
-            var supportedExts = onlyText 
-                ? new List<string> { ".txt" } 
-                : new List<string> { ".docx", ".pptx", ".pdf", ".txt", ".html" };
+            List<string> supportedExts;
+
+            if (onlyHtml) supportedExts = new List<string> { ".html" };
+            else if (onlyText) supportedExts = new List<string> { ".txt" };
+            else supportedExts = new List<string> { ".docx", ".pptx", ".pdf", ".txt", ".html" };
 
             var ext = Path.GetExtension(file).ToLower();
             return supportedExts.Contains(ext);

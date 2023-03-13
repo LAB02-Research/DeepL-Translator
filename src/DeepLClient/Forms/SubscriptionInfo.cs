@@ -1,4 +1,4 @@
-using DeepL;
+﻿using DeepL;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
@@ -18,28 +18,38 @@ namespace DeepLClient.Forms
             try
             {
                 // set cost info
-                LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : "� 0,00";
+                LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : "€ 0,00";
 
                 // get the current state
                 var state = await Variables.Translator.GetUsageAsync();
 
                 if (state.Character != null)
                 {
-                    // set character info
-                    LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
+                    // set characters used
                     LblCharactersUsed.Text = $"{state.Character.Count:N0}";
 
-                    // determine how many chars are left
-                    var charsLeft = state.Character.Limit - state.Character.Count;
-                    if (charsLeft < 0) charsLeft = 0;
-                    LblCharactersLeft.Text = $"{charsLeft:N0}";
+                    // determine limit and how many chars are left, only on free
+                    if (SubscriptionManager.UsingFreeSubscription())
+                    {
+                        LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
+                        LblCost.Text = "FREE";
 
-                    // check for reached limit
-                    if (state.Character.LimitReached || charsLeft == 0)
-                        LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
+                        var charsLeft = state.Character.Limit - state.Character.Count;
+                        if (charsLeft < 0) charsLeft = 0;
+                        LblCharactersLeft.Text = $"{charsLeft:N0}";
 
-                    // determine cost
-                    LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : SubscriptionManager.CalculateCost(state.Character.Count, false);
+                        // check for reached limit
+                        if (state.Character.LimitReached || charsLeft == 0) LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
+                    }
+                    else
+                    {
+                        // infinity
+                        LblCharacterLimit.Text = "∞";
+                        LblCharactersLeft.Text = "∞";
+
+                        // not for free though
+                        LblCost.Text = SubscriptionManager.CalculateCost(state.Character.Count, false);
+                    }
                 }
                 else
                 {

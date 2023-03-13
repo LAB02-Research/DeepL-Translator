@@ -163,7 +163,7 @@
             LblCharactersLeft.AccessibleRole = AccessibleRole.StaticText;
             LblCharactersLeft.AutoSize = true;
             LblCharactersLeft.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            LblCharactersLeft.Location = new Point(311, 75);
+            LblCharactersLeft.Location = new Point(312, 74);
             LblCharactersLeft.Name = "LblCharactersLeft";
             LblCharactersLeft.Size = new Size(15, 17);
             LblCharactersLeft.TabIndex = 73;
@@ -174,8 +174,8 @@
             LblCost.AccessibleDescription = "";
             LblCost.AccessibleName = "";
             LblCost.AccessibleRole = AccessibleRole.StaticText;
-            LblCost.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblCost.Location = new Point(519, 73);
+            LblCost.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            LblCost.Location = new Point(519, 74);
             LblCost.Name = "LblCost";
             LblCost.Size = new Size(97, 19);
             LblCost.TabIndex = 75;

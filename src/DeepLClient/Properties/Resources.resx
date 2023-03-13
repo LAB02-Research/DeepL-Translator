@@ -118,67 +118,103 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="book_icon_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\book_icon_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="show_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\show_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="clean_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clean_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="globe_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\globe_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="clean_icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\clean_icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="clipboard_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\clipboard_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="config_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\config_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="config_icon_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\config_icon_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="document_icon_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document_icon_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="document_icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\document_icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="book_icon_48" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\book_icon_48.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="exit_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exit_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="info_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="hide_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hide_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="info_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\info_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="no_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\no_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="no_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\no_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="price_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\price_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="price_icon_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\price_icon_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="save_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\save_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="show_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\show_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="yes_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\yes_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="text_icon_18" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_icon_18.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="price_icon_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\price_icon_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="no_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="exit_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\exit_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="config_icon_64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\config_icon_64.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="globe_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\globe_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clean_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clean_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="book_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\book_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="hide_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\hide_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clipboard_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clipboard_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="clean_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\clean_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="config_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\config_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_notext" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo_notext.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="text_icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\text_icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="yes_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\yes_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="price_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\price_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="no_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="document_icon_32" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\document_icon_32.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="book_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\book_icon_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="print_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\print_icon_16.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="print_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\print_icon_24.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="warning_icon_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning_icon_16.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="warning_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning_icon_24.png;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

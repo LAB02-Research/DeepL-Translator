@@ -34,6 +34,7 @@
             TranslationTabs = new Syncfusion.Windows.Forms.Tools.TabControlAdv();
             TabText = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             TabDocuments = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
+            TabUrl = new Syncfusion.Windows.Forms.Tools.TabPageAdv();
             BtnSubscription = new Syncfusion.WinForms.Controls.SfButton();
             BtnConfig = new Syncfusion.WinForms.Controls.SfButton();
             BtnHide = new Syncfusion.WinForms.Controls.SfButton();
@@ -41,8 +42,10 @@
             CmTrayIcon = new Syncfusion.Windows.Forms.Tools.ContextMenuStripEx();
             TsShow = new ToolStripMenuItem();
             toolStripSeparator1 = new ToolStripSeparator();
+            TsAbout = new ToolStripMenuItem();
             TsExit = new ToolStripMenuItem();
             LblCharLimitReached = new Label();
+            BtnAbout = new Syncfusion.WinForms.Controls.SfButton();
             PnlTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).BeginInit();
             TranslationTabs.SuspendLayout();
@@ -56,7 +59,7 @@
             PnlTabs.Dock = DockStyle.Top;
             PnlTabs.Location = new Point(0, 0);
             PnlTabs.Name = "PnlTabs";
-            PnlTabs.Size = new Size(999, 634);
+            PnlTabs.Size = new Size(999, 699);
             PnlTabs.TabIndex = 0;
             // 
             // TranslationTabs
@@ -66,10 +69,11 @@
             TranslationTabs.AccessibleRole = AccessibleRole.PageTabList;
             TranslationTabs.ActiveTabColor = Color.FromArgb(45, 45, 48);
             TranslationTabs.BackColor = Color.FromArgb(45, 45, 48);
-            TranslationTabs.BeforeTouchSize = new Size(997, 632);
+            TranslationTabs.BeforeTouchSize = new Size(997, 697);
             TranslationTabs.BorderStyle = BorderStyle.None;
             TranslationTabs.Controls.Add(TabText);
             TranslationTabs.Controls.Add(TabDocuments);
+            TranslationTabs.Controls.Add(TabUrl);
             TranslationTabs.Dock = DockStyle.Fill;
             TranslationTabs.FixedSingleBorderColor = Color.FromArgb(241, 241, 241);
             TranslationTabs.FocusOnTabClick = false;
@@ -79,7 +83,7 @@
             TranslationTabs.Location = new Point(0, 0);
             TranslationTabs.Name = "TranslationTabs";
             TranslationTabs.RotateTextWhenVertical = true;
-            TranslationTabs.Size = new Size(997, 632);
+            TranslationTabs.Size = new Size(997, 697);
             TranslationTabs.SizeMode = Syncfusion.Windows.Forms.Tools.TabSizeMode.Fixed;
             TranslationTabs.TabIndex = 1;
             TranslationTabs.TabPanelBackColor = Color.FromArgb(45, 45, 48);
@@ -100,7 +104,7 @@
             TabText.Location = new Point(2, 41);
             TabText.Name = "TabText";
             TabText.ShowCloseButton = false;
-            TabText.Size = new Size(993, 589);
+            TabText.Size = new Size(993, 654);
             TabText.TabBackColor = Color.FromArgb(45, 45, 48);
             TabText.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabText.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -126,6 +130,21 @@
             TabDocuments.TabIndex = 10;
             TabDocuments.ThemesEnabled = false;
             // 
+            // TabUrl
+            // 
+            TabUrl.AutoScroll = true;
+            TabUrl.Image = Properties.Resources.globe_icon_24;
+            TabUrl.ImageSize = new Size(18, 18);
+            TabUrl.Location = new Point(2, 41);
+            TabUrl.Name = "TabUrl";
+            TabUrl.ShowCloseButton = true;
+            TabUrl.Size = new Size(993, 589);
+            TabUrl.TabBackColor = Color.FromArgb(45, 45, 48);
+            TabUrl.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
+            TabUrl.TabForeColor = Color.FromArgb(241, 241, 241);
+            TabUrl.TabIndex = 11;
+            TabUrl.ThemesEnabled = false;
+            // 
             // BtnSubscription
             // 
             BtnSubscription.AccessibleDescription = "";
@@ -135,7 +154,7 @@
             BtnSubscription.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnSubscription.ForeColor = Color.FromArgb(241, 241, 241);
             BtnSubscription.ImageSize = new Size(24, 24);
-            BtnSubscription.Location = new Point(0, 640);
+            BtnSubscription.Location = new Point(79, 705);
             BtnSubscription.Name = "BtnSubscription";
             BtnSubscription.Size = new Size(116, 31);
             BtnSubscription.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -160,7 +179,7 @@
             BtnConfig.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnConfig.ForeColor = Color.FromArgb(241, 241, 241);
             BtnConfig.ImageSize = new Size(24, 24);
-            BtnConfig.Location = new Point(122, 640);
+            BtnConfig.Location = new Point(201, 705);
             BtnConfig.Name = "BtnConfig";
             BtnConfig.Size = new Size(116, 31);
             BtnConfig.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -184,9 +203,9 @@
             BtnHide.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnHide.ForeColor = Color.FromArgb(241, 241, 241);
             BtnHide.ImageSize = new Size(24, 24);
-            BtnHide.Location = new Point(745, 640);
+            BtnHide.Location = new Point(818, 705);
             BtnHide.Name = "BtnHide";
-            BtnHide.Size = new Size(254, 31);
+            BtnHide.Size = new Size(181, 31);
             BtnHide.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnHide.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
             BtnHide.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
@@ -214,10 +233,10 @@
             CmTrayIcon.AccessibleRole = AccessibleRole.MenuPopup;
             CmTrayIcon.DropShadowEnabled = false;
             CmTrayIcon.ImageScalingSize = new Size(24, 24);
-            CmTrayIcon.Items.AddRange(new ToolStripItem[] { TsShow, toolStripSeparator1, TsExit });
+            CmTrayIcon.Items.AddRange(new ToolStripItem[] { TsShow, toolStripSeparator1, TsAbout, TsExit });
             CmTrayIcon.MetroColor = Color.FromArgb(204, 236, 249);
             CmTrayIcon.Name = "CmTrayIcon";
-            CmTrayIcon.Size = new Size(218, 70);
+            CmTrayIcon.Size = new Size(218, 100);
             CmTrayIcon.Style = Syncfusion.Windows.Forms.Tools.ContextMenuStripEx.ContextMenuStyle.Metro;
             CmTrayIcon.ThemeName = "Office2016Black";
             // 
@@ -234,6 +253,15 @@
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
             toolStripSeparator1.Size = new Size(214, 6);
+            // 
+            // TsAbout
+            // 
+            TsAbout.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            TsAbout.Image = Properties.Resources.info_icon_24;
+            TsAbout.Name = "TsAbout";
+            TsAbout.Size = new Size(217, 30);
+            TsAbout.Text = "About";
+            TsAbout.Click += TsAbout_Click;
             // 
             // TsExit
             // 
@@ -253,13 +281,38 @@
             LblCharLimitReached.Cursor = Cursors.Hand;
             LblCharLimitReached.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblCharLimitReached.ForeColor = Color.FromArgb(255, 128, 128);
-            LblCharLimitReached.Location = new Point(248, 645);
+            LblCharLimitReached.Location = new Point(323, 710);
             LblCharLimitReached.Name = "LblCharLimitReached";
             LblCharLimitReached.Size = new Size(489, 20);
             LblCharLimitReached.TabIndex = 72;
             LblCharLimitReached.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
             LblCharLimitReached.Visible = false;
             LblCharLimitReached.Click += LblCharLimitReached_Click;
+            // 
+            // BtnAbout
+            // 
+            BtnAbout.AccessibleDescription = "";
+            BtnAbout.AccessibleName = "";
+            BtnAbout.AccessibleRole = AccessibleRole.PushButton;
+            BtnAbout.BackColor = Color.FromArgb(63, 63, 70);
+            BtnAbout.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnAbout.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnAbout.ImageSize = new Size(24, 24);
+            BtnAbout.Location = new Point(0, 705);
+            BtnAbout.Name = "BtnAbout";
+            BtnAbout.Size = new Size(73, 31);
+            BtnAbout.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnAbout.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnAbout.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnAbout.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnAbout.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnAbout.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnAbout.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnAbout.Style.Image = Properties.Resources.info_icon_24;
+            BtnAbout.Style.PressedForeColor = Color.Black;
+            BtnAbout.TabIndex = 73;
+            BtnAbout.UseVisualStyleBackColor = false;
+            BtnAbout.Click += BtnAbout_Click;
             // 
             // Main
             // 
@@ -269,7 +322,8 @@
             CaptionBarColor = Color.FromArgb(63, 63, 70);
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
-            ClientSize = new Size(999, 671);
+            ClientSize = new Size(999, 737);
+            Controls.Add(BtnAbout);
             Controls.Add(LblCharLimitReached);
             Controls.Add(BtnHide);
             Controls.Add(BtnConfig);
@@ -310,5 +364,8 @@
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem TsExit;
         private Label LblCharLimitReached;
+        private Syncfusion.Windows.Forms.Tools.TabPageAdv TabUrl;
+        private Syncfusion.WinForms.Controls.SfButton BtnAbout;
+        private ToolStripMenuItem TsAbout;
     }
 }

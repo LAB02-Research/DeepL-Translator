@@ -83,6 +83,8 @@ namespace DeepLClient.Controls
 
             TbSourceDocument.Text = dialog.FileName;
             TbSourceDocument.SelectionStart = TbSourceDocument.Text.Length;
+
+            ActiveControl = BtnTranslate;
         }
 
         /// <summary>
@@ -186,6 +188,9 @@ namespace DeepLClient.Controls
             finally
             {
                 LockInterface(false);
+
+                // set focus to translate button
+                ActiveControl = BtnTranslate;
             }
         }
 
@@ -437,6 +442,9 @@ namespace DeepLClient.Controls
             finally
             {
                 LockInterface(false);
+
+                // set focus to open-translated-folder button
+                ActiveControl = BtnOpenTranslatedFolder;
             }
         }
 
@@ -571,8 +579,9 @@ namespace DeepLClient.Controls
                 CbTargetFormality.Enabled = !@lock;
                 LblFormalityInfo.Enabled = !@lock;
                 BtnTranslate.Enabled = !@lock;
-                TbOpenTranslatedFolder.Enabled = !@lock;
+                BtnOpenTranslatedFolder.Enabled = !@lock;
                 TbTranslatedDocument.Enabled = !@lock;
+                BtnClean.Enabled = !@lock;
             }));
         }
 
@@ -614,6 +623,6 @@ namespace DeepLClient.Controls
 
         private void BtnBrowse_Click(object sender, EventArgs e) => SelectSourceFile();
 
-        private void TbOpenTranslatedFolder_Click(object sender, EventArgs e) => OpenTranslatedDocumentFolder();
+        private void BtnOpenTranslatedFolder_Click(object sender, EventArgs e) => OpenTranslatedDocumentFolder();
     }
 }

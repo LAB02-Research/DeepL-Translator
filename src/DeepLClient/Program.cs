@@ -48,7 +48,7 @@ namespace DeepLClient
                 Application.SetCompatibleTextRenderingDefault(false);
 
                 // set scaling
-                Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+                Application.SetHighDpiMode(HighDpiMode.DpiUnaware);
 
                 // register the encoding provider for non-default encodings
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);

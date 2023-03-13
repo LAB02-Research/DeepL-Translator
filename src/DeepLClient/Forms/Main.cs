@@ -3,6 +3,7 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
+using WK.Libraries.HotkeyListenerNS;
 
 namespace DeepLClient.Forms
 {
@@ -10,6 +11,7 @@ namespace DeepLClient.Forms
     {
         private TextPage _text;
         private DocumentsPage _documents;
+        private UrlPage _url;
 
         private bool _isClosing = false;
 
@@ -37,6 +39,9 @@ namespace DeepLClient.Forms
                 // initialise
                 Initialise();
 
+                // initialise hotkey
+                InitialiseHotkey();
+
 #if DEBUG
                 // always show when debugging
                 await Task.Delay(250);
@@ -50,59 +55,6 @@ namespace DeepLClient.Forms
 
                 // we're done for
                 Close();
-            }
-        }
-
-        private void BtnSubscriptionInfo_Click(object sender, EventArgs e)
-        {
-            // show subscription info dialog
-            using var subscriptionInfo = new SubscriptionInfo();
-            subscriptionInfo.ShowDialog();
-        }
-
-        private void LblCharLimitReached_Click(object sender, EventArgs e)
-        {
-            // show subscription info dialog
-            using var subscriptionInfo = new SubscriptionInfo();
-            subscriptionInfo.ShowDialog();
-        }
-
-        private void Main_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (_isClosing) return;
-
-            Invoke(new MethodInvoker(Hide));
-
-            if (!Variables.ShuttingDown)
-            {
-                e.Cancel = true;
-                return;
-            }
-
-            // we're calling the shutdown function, but async won't hold so ignore that
-            Task.Run(ProcessManager.Shutdown);
-
-            // cancel and let the shutdown function handle it
-            _isClosing = true;
-            e.Cancel = true;
-        }
-
-        private void BtnConfig_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // show configuration dialog
-                using var config = new Configuration();
-                var result = config.ShowDialog();
-                if (result != DialogResult.OK) return;
-
-                // reload
-                Initialise();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "[MAIN] Error on BtnConfig_Click: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while processing your configuration.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -123,7 +75,7 @@ namespace DeepLClient.Forms
             var deepL = await DeepLManager.Initialise();
             if (!deepL.result)
             {
-                MessageBoxAdv.Show(this, $"Something went wrong when initialising DeepL.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv.Show(this, $"Something went wrong when initializing DeepL.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 BtnSubscription.Enabled = false;
                 return;
             }
@@ -142,25 +94,60 @@ namespace DeepLClient.Forms
                 _documents.Dispose();
             }
 
+            // optionally remove the url page
+            if (_url != null)
+            {
+                TabDocuments.Controls.Remove(_url);
+                _url.Dispose();
+            }
+
             // load pages
             _text = new TextPage();
             _documents = new DocumentsPage();
+            _url = new UrlPage();
 
             // set controls
             TabText.Controls.Add(_text);
             TabDocuments.Controls.Add(_documents);
+            TabUrl.Controls.Add(_url);
+        }
 
-            // check for reached limit
-            if (await SubscriptionManager.IsLimitReached())
+        /// <summary>
+        /// Initialises and bindes the hotkey
+        /// </summary>
+        private void InitialiseHotkey()
+        {
+            try
             {
-                // todo: notify
+                // create a hotkey listener
+                Variables.HotkeyListener = new HotkeyListener();
+
+                // prepare listener
+                Variables.HotkeyListener.HotkeyPressed += HotkeyListener_HotkeyPressed;
+
+                // initialise the manager
+                Variables.HotkeyManager.Initialise();
             }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[MAIN] Error setting up the hotkey: {err}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Fires when a registered hotkey is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void HotkeyListener_HotkeyPressed(object sender, HotkeyEventArgs e)
+        {
+            HotkeyManager.ProcessHotkey(e);
         }
 
         /// <summary>
         /// Show/hide ourself
         /// </summary>
-        private async void ShowMain(bool hideIfVisible = true)
+        internal async void ShowMain(bool hideIfVisible = true)
         {
             try
             {
@@ -170,6 +157,9 @@ namespace DeepLClient.Forms
                 if (Visible && hideIfVisible)
                 {
                     Hide();
+
+                    // set to text (if possible)
+                    ActivateText();
                     return;
                 }
 
@@ -178,11 +168,6 @@ namespace DeepLClient.Forms
                 await Task.Delay(250);
                 BringToFront();
                 Activate();
-
-                // set to text (if possible)
-                if (_text == null) return;
-                if (TranslationTabs.SelectedTab != TabText) TranslationTabs.SelectedTab = TabText;
-                ActiveControl = _text.TbSource;
             }
             catch (Exception ex)
             {
@@ -201,10 +186,25 @@ namespace DeepLClient.Forms
             ProcessManager.Shutdown();
         }
 
-        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Attempts to revert back to the default text tab
+        /// </summary>
+        private void ActivateText()
         {
-            if (e.Button == MouseButtons.Right) return;
-            ShowMain(false);
+            try
+            {
+                if (!IsHandleCreated) return;
+                if (IsDisposed) return;
+
+                // set to text (if possible)
+                if (_text == null) return;
+                if (TranslationTabs.SelectedTab != TabText) TranslationTabs.SelectedTab = TabText;
+                ActiveControl = _text.TbSource;
+            }
+            catch
+            {
+                // best effort
+            }
         }
 
         /// <summary>
@@ -265,6 +265,111 @@ namespace DeepLClient.Forms
         }
 
         /// <summary>
+        /// Sets the provided text in the source field, and optionally shows the form
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="showForm"></param>
+        internal void SetSourceText(string text, bool showForm)
+        {
+            try
+            {
+                if (!IsHandleCreated) return;
+                if (IsDisposed) return;
+
+                Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        // is the ui ready?
+                        if (_text == null) return;
+                        if (TranslationTabs.SelectedTab != TabText) TranslationTabs.SelectedTab = TabText;
+
+                        // set the selected text
+                        _text.TbSource.Text = text;
+                        _text.TbSource.SelectionStart = _text.TbSource.Text.Length;
+
+                        // focus the textbox
+                        ActiveControl = _text.BtnTranslate;
+
+                        // show our ui
+                        if (showForm) ShowMain(false);
+                    }
+                    catch
+                    {
+                        // best effort
+                    }
+                }));
+            }
+            catch
+            {
+                // best effort
+            }
+        }
+
+        private void BtnConfig_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // show configuration dialog
+                using var config = new Configuration();
+                var result = config.ShowDialog();
+                if (result != DialogResult.OK) return;
+
+                // reload
+                Initialise();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[MAIN] Error on BtnConfig_Click: {err}", ex.Message);
+                MessageBoxAdv.Show(this, "Something went wrong while processing your configuration.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnSubscriptionInfo_Click(object sender, EventArgs e)
+        {
+            // show subscription info dialog
+            using var subscriptionInfo = new SubscriptionInfo();
+            subscriptionInfo.ShowDialog();
+        }
+
+        private void LblCharLimitReached_Click(object sender, EventArgs e)
+        {
+            // show subscription info dialog
+            using var subscriptionInfo = new SubscriptionInfo();
+            subscriptionInfo.ShowDialog();
+        }
+
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_isClosing) return;
+
+            Invoke(new MethodInvoker(Hide));
+
+            if (!Variables.ShuttingDown)
+            {
+                // cancel closing
+                e.Cancel = true;
+
+                // set to text (if possible)
+                ActivateText();
+                return;
+            }
+
+            // we're calling the shutdown function, but async won't hold so ignore that
+            Task.Run(ProcessManager.Shutdown);
+
+            // cancel and let the shutdown function handle it
+            _isClosing = true;
+            e.Cancel = true;
+        }
+
+        private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right) return;
+            ShowMain(false);
+        }
+
+        /// <summary>
         /// Hides or closes the application
         /// </summary>
         /// <param name="sender"></param>
@@ -278,8 +383,11 @@ namespace DeepLClient.Forms
                 return;
             }
 
-            // just hide
+            // hide
             Hide();
+
+            // set to text (if possible)
+            ActivateText();
         }
 
         private void Main_KeyUp(object sender, KeyEventArgs e)
@@ -287,6 +395,9 @@ namespace DeepLClient.Forms
             // hide on esc
             if (e.KeyCode != Keys.Escape) return;
             Hide();
+
+            // set to text (if possible)
+            ActivateText();
         }
 
         private void NotifyIcon_DoubleClick(object sender, EventArgs e) => ShowMain(false);
@@ -294,5 +405,17 @@ namespace DeepLClient.Forms
         private void TsExit_Click(object sender, EventArgs e) => Shutdown();
 
         private void TsShow_Click(object sender, EventArgs e) => ShowMain(false);
+
+        private void BtnAbout_Click(object sender, EventArgs e)
+        {
+            using var about = new About();
+            about.ShowDialog();
+        }
+
+        private void TsAbout_Click(object sender, EventArgs e)
+        {
+            using var about = new About();
+            about.ShowDialog();
+        }
     }
 }

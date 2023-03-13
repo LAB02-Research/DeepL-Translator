@@ -121,6 +121,8 @@ Hides in your system tray, next to the clock:
 - Text translations history
 - Set cost limit for pro
 - Support for pasting URL
+- Add 'save translation' support
+- Add 'print translation' support
 - ~~Global hotkey~~
 - ~~Fetch selection after using global hotkey~~
 - ~~Set focus to 'translate' button after selecting document~~

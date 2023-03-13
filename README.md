@@ -132,6 +132,7 @@ Hides in your system tray, next to the clock:
 - Set cost limit for pro
 - Support for other currencies
 - Recognize urls when using global hotkey, insert into webpage tab
+- Add 'open in browser' button for translated webpage
 
 Done:
 

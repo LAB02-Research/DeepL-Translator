@@ -32,7 +32,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 DeepL offers a Windows app for their translation services, but that client doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
-So, since there isn't an API client available, I built one that I'd want to use. It even has a feature that DeepL doesn't yet provide: translating webpages! It uses Firefox's *reading mode* engine to reduce the amount of characters, and make it easy for you to read the translation.
+So, since there isn't an API client available, I built one that I'd want to use. It even has a feature that DeepL doesn't yet provide: **translating webpages**! It uses Firefox's *reading mode* engine to reduce the amount of characters, besides making it easier for you to read the translation.
 
 **Note: regardless of how it may seem, I'm not affiliated with DeepL in any way. I did not get a dime for writing this.**
 If you appreciate my work, I'd appreciate a coffee!

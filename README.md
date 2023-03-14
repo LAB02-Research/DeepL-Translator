@@ -45,13 +45,15 @@ If you appreciate my work, I'd appreciate a coffee!
 
 Summary of the core functions:
 
-* **Text**: translate text, written or just drag a .txt file to the text field. Supports automatic language detection.
+* **Text**: translate text, written or just drag a .txt file to the text field.
 
 * **Documents**: translate a variaty of documents. Has lots of checks to make sure your document will be accepted by DeepL.
 
 * **Webpages**: translate any webpage. Extracts the relevant text to reduce the amount of characters and increase the readability.
 
-* **Hotkey**: easily consult the app by pressing your hotkey. If you have text selected, it'll be conveniently pasted into the source textbox.
+* **Language detection**: all of the above support automatic source language detection.
+
+* **Hotkey**: easily consult the app by pressing your hotkey. If you have text selected, it'll be conveniently pasted into the source textbox. Select an url and it'll get translated on the webpage tab right away.
 
 * **Formality**: supports setting a different formality (as long as the language supports it).
 
@@ -75,7 +77,7 @@ Make sure you set the correct domain, corresponding to your subscription:
 
 ![image](https://user-images.githubusercontent.com/81011038/225081800-ebb6d3cd-727a-4f34-96c3-6c87791694ff.png)
 
-**Note: if you use a different currency than euros, make sure to set the correct price-per-character value.**
+**Note: if you use a pro subscription and a different currency than euros, make sure to set the correct price-per-character value.**
 
 ----
 

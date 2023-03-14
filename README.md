@@ -51,7 +51,7 @@ Summary of the core functions:
 
 * **Webpages**: translate any webpage. Extracts the relevant text to reduce the amount of characters and increase the readability.
 
-* **Language detection**: all of the above support automatic source language detection.
+* **Language detection**: all of the above options support automatic source language detection.
 
 * **Hotkey**: easily consult the app by pressing your hotkey. If you have text selected, it'll be conveniently pasted into the source textbox. Select an url and it'll get translated on the webpage tab right away.
 
@@ -69,7 +69,7 @@ Summary of the core functions:
 
 ### Usage
 
-Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). The application will launch when done, and notify you of a missing API key.
+Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). It'll make sure you have all the required prerequisites, and the application will launch when done (and notify you of a missing API key).
 
 You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header-pro-api/](https://www.deepl.com/pro-api?cta=header-pro-api/)
 
@@ -181,6 +181,6 @@ Please consult their individual licensing if you plan to use any of their code.
 
 DeepL Translator is released under the [MIT license](https://opensource.org/licenses/MIT).
 
-**LAB02 Research is not in any way affiliated to DeepL, and does not receive any commisions or other payment for developing this application.**
+**LAB02 Research is not in any way affiliated with DeepL, and does not receive any commisions or other payment for developing this application.**
 
 ---

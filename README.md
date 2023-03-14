@@ -73,7 +73,9 @@ You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header
 
 Make sure you set the correct domain, corresponding to your subscription:
 
-![image](https://user-images.githubusercontent.com/81011038/224321723-3be00ae3-447b-4684-9d45-bf85e940283b.png)
+![image](https://user-images.githubusercontent.com/81011038/225081800-ebb6d3cd-727a-4f34-96c3-6c87791694ff.png)
+
+**Note: if you use a different currency than euros, make sure to set the correct price-per-character value.**
 
 ----
 
@@ -91,29 +93,31 @@ Document interface:
 
 Webpage interface:
 
-![image](https://user-images.githubusercontent.com/81011038/224790028-c6307c5c-54b0-43a1-b55d-f57923887c50.png)
+![image](https://user-images.githubusercontent.com/81011038/225082337-98a958df-109d-4536-a59c-c82f896cbd41.png)
 
-![image](https://user-images.githubusercontent.com/81011038/224790048-1b2f3f6b-e8ed-4637-a851-e02f224d1e72.png)
+![image](https://user-images.githubusercontent.com/81011038/225082364-0a407055-d298-4023-a5fe-333354baa634.png)
 
 You'll be notified of the costs before translating a document:
 
-![image](https://user-images.githubusercontent.com/81011038/224069716-131833e9-82d8-497f-a2b4-80da5b482fcd.png)
+![image](https://user-images.githubusercontent.com/81011038/225082514-5d73345a-1e4d-4e30-85f3-6eedfe9114f4.png)
 
-![image](https://user-images.githubusercontent.com/81011038/224288107-98c65c5f-3a57-4346-a398-d6b0d29fe637.png)
+![image](https://user-images.githubusercontent.com/81011038/225082586-eb3c6ada-7c28-49c4-81c9-d08498469ff5.png)
+
+![image](https://user-images.githubusercontent.com/81011038/225082691-96a85ca7-6bc0-48a6-a3d3-d6eea768336f.png)
 
 If a document or webpage translation will exceed your limit, you'll be notified as well:
 
-![image](https://user-images.githubusercontent.com/81011038/224287457-c5f300a0-290b-472f-8a77-8decbbb4de04.png)
+![image](https://user-images.githubusercontent.com/81011038/225082718-046a7d04-76f0-4026-9d9e-aaf1fbef0ceb.png)
 
 Or if you've already reached your limit:
 
-![image](https://user-images.githubusercontent.com/81011038/224287843-6320232c-cdae-465d-90d5-ee56a281582e.png)
+![image](https://user-images.githubusercontent.com/81011038/225083048-44d79723-366a-455e-9a89-26eaee470227.png)
 
 Easily check your subscription's state:
 
-![image](https://user-images.githubusercontent.com/81011038/224290688-7d464c33-5d64-4704-be9b-615d3f553d9b.png)
+![image](https://user-images.githubusercontent.com/81011038/225083226-9b4efe83-d717-4da7-8eda-9c61553215ae.png)
 
-![image](https://user-images.githubusercontent.com/81011038/224290855-48c2e721-4a59-4467-becf-cda1a4ba06a5.png)
+![image](https://user-images.githubusercontent.com/81011038/225083250-0be21350-363c-432b-a498-d5bf18535281.png)
 
 Formality support:
 
@@ -130,13 +134,13 @@ Hides in your system tray, next to the clock:
 - Send weekly usage logs
 - Text translations history
 - Set cost limit for pro
-- Support for other currencies
-- Recognize urls when using global hotkey, insert into webpage tab
-- Add 'open in browser' button for translated webpage
 - Button tooltips
 
 Done:
 
+- ~~Support for other currencies~~
+- ~~Recognize urls when using global hotkey, insert into webpage tab~~
+- ~~Add 'open in browser' button for translated webpage~~
 - ~~Support for pasting URLs~~
 - ~~Add 'save translation' support~~
 - ~~Add 'print translation' support~~

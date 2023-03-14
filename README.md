@@ -179,8 +179,8 @@ And a big thank you to all other packages:
 
 Please consult their individual licensing if you plan to use any of their code.
 
-DeepL Translator released under the [MIT license](https://opensource.org/licenses/MIT).
+DeepL Translator is released under the [MIT license](https://opensource.org/licenses/MIT).
 
-LAB02 Research is not in any way affiliated to DeepL, and does not receive any commisions or other payment for developing this application.
+**LAB02 Research is not in any way affiliated to DeepL, and does not receive any commisions or other payment for developing this application.**
 
 ---

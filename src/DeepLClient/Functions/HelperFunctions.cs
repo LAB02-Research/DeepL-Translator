@@ -100,5 +100,18 @@ namespace DeepLClient.Functions
         {
             using (_ = Process.Start(new ProcessStartInfo(url) { UseShellExecute = true })) { }
         }
+
+        /// <summary>
+        /// Opens Explorer with the provided file selected
+        /// </summary>
+        /// <param name="file"></param>
+        internal static void OpenFileInExplorer(string file)
+        {
+            if (string.IsNullOrEmpty(file)) return;
+            if (!File.Exists(file)) return;
+
+            var argument = "/select, \"" + file + "\"";
+            Process.Start("explorer.exe", argument);
+        }
     }
 }

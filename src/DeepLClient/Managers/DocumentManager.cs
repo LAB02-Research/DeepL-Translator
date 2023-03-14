@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using ByteSizeLib;
 using DeepLClient.Enums;
+using Serilog;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Graphics;
@@ -36,7 +37,6 @@ namespace DeepLClient.Managers
 
         /// <summary>
         /// Try to determine the character count of the DOCX file
-        /// <para>Source: https://www.syncfusion.com/document-processing/word-framework/net</para>
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -70,7 +70,6 @@ namespace DeepLClient.Managers
 
         /// <summary>
         /// Try to determine the character count of the PPTX file
-        /// <para>Source: https://github.com/syncfusion/file-formats-windows-forms-demos/blob/master/Presentation/Getting%20Started/HelloWorld/CS/Form1.cs</para> 
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
@@ -82,6 +81,39 @@ namespace DeepLClient.Managers
                 select (IShape)slideItem
                 into shape 
                 select shape.TextBody.Text.Length).Sum();
+        }
+
+        /// <summary>
+        /// Tries to determine the character count of the file, based on its document type
+        /// </summary>
+        /// <param name="docType"></param>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        internal static async Task<long> GetDocumentCharacterCountAsync(DocumentType docType, string file)
+        {
+            try
+            {
+                switch (docType)
+                {
+                    case DocumentType.Word:
+                        return await Task.Run(() => GetDocCharacterCount(file));
+                    case DocumentType.PowerPoint:
+                        return await Task.Run(() => GetPowerPointCharacterCount(file));
+                    case DocumentType.PDF:
+                        return await Task.Run(() => GetPdfCharacterCount(file));
+                    case DocumentType.Text:
+                        return await Task.Run(() => GetTxtCharacterCount(file));
+                    case DocumentType.HTML:
+                        return await Task.Run(() => GetHtmlCharacterCount(file));
+                }
+
+                return 0L;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal("[DM] Error determining character count for {file}: {err}", file, ex.Message);
+                return 0L;
+            }
         }
 
         /// <summary>
@@ -150,10 +182,16 @@ namespace DeepLClient.Managers
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         internal static (bool tooLarge, double sizeMB) CheckDocumentSize(string file)
         {
-            var sizeBytes = Convert.ToDouble(new FileInfo(file).Length);
-            var sizeMB = new ByteSize(sizeBytes).MegaBytes;
-
-            return sizeMB > Variables.AppSettings.DocumentMaxSizeMB ? (true, sizeMB) : (false, sizeMB);
+            try
+            {
+                var sizeMB = GetDocumentSizeMB(file);
+                return sizeMB > Variables.AppSettings.DocumentMaxSizeMB ? (true, sizeMB) : (false, sizeMB);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal("[DM] Error checking file size for {file}: {err}", file, ex.Message);
+                return (false, 0d);
+            }
         }
 
         /// <summary>
@@ -164,8 +202,16 @@ namespace DeepLClient.Managers
         [SuppressMessage("ReSharper", "InconsistentNaming")]
         internal static double GetDocumentSizeMB(string file)
         {
-            var sizeBytes = Convert.ToDouble(new FileInfo(file).Length);
-            return new ByteSize(sizeBytes).MegaBytes;
+            try
+            {
+                var sizeBytes = Convert.ToDouble(new FileInfo(file).Length);
+                return new ByteSize(sizeBytes).MegaBytes;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal("[DM] Error getting file size for {file}: {err}", file, ex.Message);
+                return 0d;
+            }
         }
     }
 }

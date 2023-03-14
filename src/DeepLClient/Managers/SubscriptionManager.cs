@@ -1,7 +1,9 @@
-﻿using Serilog;
+﻿using System.Diagnostics.CodeAnalysis;
+using Serilog;
 
 namespace DeepLClient.Managers
 {
+    [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     internal static class SubscriptionManager
     {
         private static bool _limitWarningShown = false;
@@ -10,7 +12,7 @@ namespace DeepLClient.Managers
         /// <summary>
         /// Initialises the background watcher, which will notify when a subscription limit has been reached
         /// </summary>
-        internal static void Initialise()
+        internal static void Initialize()
         {
             // start monitoring subscription limits
             _ = Task.Run(MonitorLimits);
@@ -48,10 +50,7 @@ namespace DeepLClient.Managers
                     // increase our recheck time
                     _checkInterval = 15;
                 }
-                catch
-                {
-                    // ignore
-                }
+                catch { }
                 finally
                 {
                     await Task.Delay(TimeSpan.FromSeconds(_checkInterval));
@@ -68,15 +67,20 @@ namespace DeepLClient.Managers
         /// <returns></returns>
         internal static string CalculateCost(double characterCount, bool isDocument = true)
         {
+            // ignore for free
+            if (UsingFreeSubscription()) return "FREE";
+
+            // any chars?
             if (characterCount == 0) return $"{0:C2}";
 
+            // yep, calculate accordingly
             if (isDocument && characterCount < Variables.AppSettings.MinimumCharactersPerDocument) characterCount = Variables.AppSettings.MinimumCharactersPerDocument;
             var price = characterCount * Variables.AppSettings.PricePerCharacter;
 
-            var retval = $"{price:C2}";
-            if (price < 0.01) retval = $"< {0.01:C2}";
+            var priceString = $"{price:C2}";
+            if (price < 0.01) priceString = $"< {0.01:C2}";
 
-            return retval;
+            return priceString;
         }
 
         /// <summary>
@@ -89,11 +93,21 @@ namespace DeepLClient.Managers
         }
 
         /// <summary>
+        /// Returns either free or 0,00
+        /// </summary>
+        /// <returns></returns>
+        internal static string BaseCostNotation()
+        {
+            return UsingFreeSubscription() ? "FREE" : $"{Variables.CurrencySymbol}0,00";
+        }
+
+        /// <summary>
         /// Calculates whether the amount of chars will exceed the subscription limit
         /// </summary>
         /// <param name="characterCount"></param>
+        /// <param name="isDocument"></param>
         /// <returns></returns>
-        internal static async Task<bool> CharactersWillExceedLimit(double characterCount)
+        internal static async Task<bool> CharactersWillExceedLimitAsync(double characterCount, bool isDocument = false)
         {
             // only for free
             if (!UsingFreeSubscription()) return false;
@@ -111,6 +125,9 @@ namespace DeepLClient.Managers
             // is the limit already reached?
             if (state.Character.LimitReached) return true;
 
+            // correct for doc minimum chars
+            if (isDocument && characterCount < Variables.AppSettings.MinimumCharactersPerDocument) characterCount = Variables.AppSettings.MinimumCharactersPerDocument;
+
             // return projected state
             return (state.Character.Limit - state.Character.Count - characterCount) < 0;
         }
@@ -119,7 +136,7 @@ namespace DeepLClient.Managers
         /// Returns whether the character limit has been reached
         /// </summary>
         /// <returns></returns>
-        internal static async Task<bool> IsLimitReached()
+        internal static async Task<bool> IsLimitReachedAsync()
         {
             // only for free
             if (!UsingFreeSubscription()) return false;

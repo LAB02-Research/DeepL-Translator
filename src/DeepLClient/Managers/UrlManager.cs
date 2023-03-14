@@ -19,7 +19,7 @@ namespace DeepLClient.Managers
         /// <param name="url"></param>
         /// <param name="isLocaLFile"></param>
         /// <returns></returns>
-        internal static async Task<(bool success, bool isReadable, string content, string error)> GetReadableContent(string url, bool isLocaLFile = false)
+        internal static async Task<(bool success, bool isReadable, string content, string error)> GetReadableContentAsync(string url, bool isLocaLFile = false)
         {
             try
             {
@@ -55,20 +55,22 @@ namespace DeepLClient.Managers
                 {
                     var exc = (SocketException)ex.InnerException;
 
-                    if (exc.SocketErrorCode == SocketError.HostNotFound) return (false, false, string.Empty, "the remote host address wasn't found");
-                    if (exc.SocketErrorCode == SocketError.AccessDenied) return (false, false, string.Empty, "access denied by the remote host");
-                    if (exc.SocketErrorCode == SocketError.TimedOut) return (false, false, string.Empty, "the host didn't respond");
-                    if (exc.SocketErrorCode == SocketError.HostDown) return (false, false, string.Empty, "the remote host is offline");
-                    if (exc.SocketErrorCode is SocketError.HostUnreachable or SocketError.NetworkUnreachable) return (false, false, string.Empty, "the remote host couldn't be reached");
-                    if (exc.SocketErrorCode == SocketError.NotConnected) return (false, false, string.Empty, "no internet connection");
-
-                    return (false, false, string.Empty, $"error trying to contact the host: {exc.SocketErrorCode.ToString().ToLower()}");
+                    return exc.SocketErrorCode switch
+                    {
+                        SocketError.HostNotFound => (false, false, string.Empty, "the remote host address wasn't found"),
+                        SocketError.AccessDenied => (false, false, string.Empty, "access denied by the remote host"),
+                        SocketError.TimedOut => (false, false, string.Empty, "the host didn't respond"),
+                        SocketError.HostDown => (false, false, string.Empty, "the remote host is offline"),
+                        SocketError.HostUnreachable or SocketError.NetworkUnreachable => (false, false, string.Empty, "the remote host couldn't be reached"),
+                        SocketError.NotConnected => (false, false, string.Empty, "no internet connection"), 
+                        _ => (false, false, string.Empty, $"error trying to contact the host: {exc.SocketErrorCode.ToString().ToLower()}")
+                    };
                 }
 
                 var statusCode = ex.StatusCode.ToString();
-                if (!string.IsNullOrWhiteSpace(statusCode)) return (false, false, string.Empty, $"error trying to contact the host: {statusCode}");
-                
-                return (false, false, string.Empty, "unknown error trying to contact the host");
+                return !string.IsNullOrWhiteSpace(statusCode) 
+                    ? (false, false, string.Empty, $"error trying to contact the host: {statusCode}") 
+                    : (false, false, string.Empty, "unknown error trying to contact the host");
             }
             catch (Exception ex)
             {
@@ -100,8 +102,7 @@ namespace DeepLClient.Managers
         /// <returns></returns>
         internal static bool IsUrl(string value)
         {
-            if (string.IsNullOrWhiteSpace(value)) return false;
-            return value.ToLower().StartsWith("http");
+            return !string.IsNullOrWhiteSpace(value) && value.ToLower().StartsWith("http");
         }
 
         /// <summary>

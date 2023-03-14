@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configuration));
             BtnStore = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
@@ -52,7 +53,10 @@
             label4 = new Label();
             LblHotkeyInfo = new Label();
             BtnCleanHotkey = new Syncfusion.WinForms.Controls.SfButton();
+            TbCostPerChar = new Syncfusion.Windows.Forms.Tools.CurrencyTextBox();
+            label5 = new Label();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TbCostPerChar).BeginInit();
             SuspendLayout();
             // 
             // BtnStore
@@ -64,7 +68,7 @@
             BtnStore.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnStore.ForeColor = Color.FromArgb(241, 241, 241);
             BtnStore.ImageSize = new Size(24, 24);
-            BtnStore.Location = new Point(196, 369);
+            BtnStore.Location = new Point(196, 467);
             BtnStore.Name = "BtnStore";
             BtnStore.Size = new Size(590, 34);
             BtnStore.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -165,7 +169,7 @@
             CbLaunchHidden.Checked = true;
             CbLaunchHidden.CheckState = CheckState.Checked;
             CbLaunchHidden.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbLaunchHidden.Location = new Point(115, 229);
+            CbLaunchHidden.Location = new Point(115, 318);
             CbLaunchHidden.Name = "CbLaunchHidden";
             CbLaunchHidden.Size = new Size(114, 23);
             CbLaunchHidden.TabIndex = 73;
@@ -244,7 +248,7 @@
             CbCopyTranslationToClipboard.Checked = true;
             CbCopyTranslationToClipboard.CheckState = CheckState.Checked;
             CbCopyTranslationToClipboard.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbCopyTranslationToClipboard.Location = new Point(115, 308);
+            CbCopyTranslationToClipboard.Location = new Point(115, 397);
             CbCopyTranslationToClipboard.Name = "CbCopyTranslationToClipboard";
             CbCopyTranslationToClipboard.Size = new Size(226, 23);
             CbCopyTranslationToClipboard.TabIndex = 78;
@@ -260,7 +264,7 @@
             BtnCancel.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCancel.ForeColor = Color.FromArgb(241, 241, 241);
             BtnCancel.ImageSize = new Size(16, 16);
-            BtnCancel.Location = new Point(22, 369);
+            BtnCancel.Location = new Point(22, 467);
             BtnCancel.Name = "BtnCancel";
             BtnCancel.Size = new Size(157, 34);
             BtnCancel.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -332,7 +336,7 @@
             CbLaunchOnWindows.Checked = true;
             CbLaunchOnWindows.CheckState = CheckState.Checked;
             CbLaunchOnWindows.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbLaunchOnWindows.Location = new Point(115, 269);
+            CbLaunchOnWindows.Location = new Point(115, 358);
             CbLaunchOnWindows.Name = "CbLaunchOnWindows";
             CbLaunchOnWindows.Size = new Size(179, 23);
             CbLaunchOnWindows.TabIndex = 107;
@@ -348,7 +352,7 @@
             CbEnableGlobalHotkey.Checked = true;
             CbEnableGlobalHotkey.CheckState = CheckState.Checked;
             CbEnableGlobalHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbEnableGlobalHotkey.Location = new Point(530, 244);
+            CbEnableGlobalHotkey.Location = new Point(530, 335);
             CbEnableGlobalHotkey.Name = "CbEnableGlobalHotkey";
             CbEnableGlobalHotkey.Size = new Size(155, 23);
             CbEnableGlobalHotkey.TabIndex = 108;
@@ -364,7 +368,7 @@
             TbHotkey.BorderStyle = BorderStyle.FixedSingle;
             TbHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TbHotkey.ForeColor = Color.FromArgb(241, 241, 241);
-            TbHotkey.Location = new Point(530, 306);
+            TbHotkey.Location = new Point(530, 397);
             TbHotkey.Name = "TbHotkey";
             TbHotkey.Size = new Size(218, 25);
             TbHotkey.TabIndex = 109;
@@ -376,7 +380,7 @@
             label4.AccessibleRole = AccessibleRole.StaticText;
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label4.Location = new Point(530, 284);
+            label4.Location = new Point(530, 375);
             label4.Name = "label4";
             label4.Size = new Size(131, 19);
             label4.TabIndex = 110;
@@ -390,7 +394,7 @@
             LblHotkeyInfo.AutoSize = true;
             LblHotkeyInfo.Cursor = Cursors.Hand;
             LblHotkeyInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblHotkeyInfo.Location = new Point(769, 284);
+            LblHotkeyInfo.Location = new Point(769, 375);
             LblHotkeyInfo.Name = "LblHotkeyInfo";
             LblHotkeyInfo.Size = new Size(17, 21);
             LblHotkeyInfo.TabIndex = 111;
@@ -406,7 +410,7 @@
             BtnCleanHotkey.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCleanHotkey.ForeColor = Color.FromArgb(241, 241, 241);
             BtnCleanHotkey.ImageSize = new Size(16, 16);
-            BtnCleanHotkey.Location = new Point(754, 306);
+            BtnCleanHotkey.Location = new Point(754, 397);
             BtnCleanHotkey.Name = "BtnCleanHotkey";
             BtnCleanHotkey.Size = new Size(32, 25);
             BtnCleanHotkey.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -422,6 +426,41 @@
             BtnCleanHotkey.UseVisualStyleBackColor = false;
             BtnCleanHotkey.Click += BtnCleanHotkey_Click;
             // 
+            // TbCostPerChar
+            // 
+            TbCostPerChar.BackGroundColor = Color.FromArgb(63, 63, 70);
+            TbCostPerChar.BeforeTouchSize = new Size(118, 25);
+            TbCostPerChar.BorderColor = Color.FromArgb(241, 241, 241);
+            TbCostPerChar.BorderStyle = BorderStyle.FixedSingle;
+            TbCostPerChar.CurrencyDecimalDigits = 5;
+            TbCostPerChar.DecimalValue = new decimal(new int[] { 0, 0, 0, 327680 });
+            TbCostPerChar.FocusBorderColor = Color.FromArgb(209, 211, 212);
+            TbCostPerChar.ForeColor = Color.FromArgb(241, 241, 241);
+            TbCostPerChar.Location = new Point(115, 245);
+            TbCostPerChar.MaxValue = new decimal(new int[] { 100000, 0, 0, 0 });
+            TbCostPerChar.Metrocolor = Color.FromArgb(241, 241, 241);
+            TbCostPerChar.MinValue = new decimal(new int[] { 1, 0, 0, 851968 });
+            TbCostPerChar.Name = "TbCostPerChar";
+            TbCostPerChar.PositiveColor = Color.FromArgb(241, 241, 241);
+            TbCostPerChar.Size = new Size(118, 25);
+            TbCostPerChar.TabIndex = 113;
+            TbCostPerChar.Text = "€ 0,00000";
+            TbCostPerChar.ThemeName = "Metro";
+            TbCostPerChar.ZeroColor = Color.FromArgb(241, 241, 241);
+            // 
+            // label5
+            // 
+            label5.AccessibleDescription = "";
+            label5.AccessibleName = "";
+            label5.AccessibleRole = AccessibleRole.StaticText;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            label5.Location = new Point(115, 223);
+            label5.Name = "label5";
+            label5.Size = new Size(118, 19);
+            label5.TabIndex = 114;
+            label5.Text = "cost per character";
+            // 
             // Configuration
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -430,7 +469,9 @@
             CaptionBarColor = Color.FromArgb(63, 63, 70);
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
-            ClientSize = new Size(808, 408);
+            ClientSize = new Size(808, 510);
+            Controls.Add(label5);
+            Controls.Add(TbCostPerChar);
             Controls.Add(BtnCleanHotkey);
             Controls.Add(LblHotkeyInfo);
             Controls.Add(label4);
@@ -464,10 +505,12 @@
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Configuration   |   LAB02 Research";
+            Text = "Configuration";
             FormClosing += Configuration_FormClosing;
             Load += Configuration_Load;
+            KeyUp += Configuration_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TbCostPerChar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -496,5 +539,7 @@
         private Label label4;
         private Label LblHotkeyInfo;
         private Syncfusion.WinForms.Controls.SfButton BtnCleanHotkey;
+        private Syncfusion.Windows.Forms.Tools.CurrencyTextBox TbCostPerChar;
+        private Label label5;
     }
 }

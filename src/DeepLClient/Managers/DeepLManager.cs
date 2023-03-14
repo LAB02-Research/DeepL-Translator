@@ -11,7 +11,7 @@ namespace DeepLClient.Managers
         /// Establishes contact with DeepL's API and fetches all entities
         /// </summary>
         /// <returns></returns>
-        internal static async Task<(bool result, string error)> Initialise()
+        internal static async Task<bool> InitializeAsync()
         {
             try
             {
@@ -51,18 +51,56 @@ namespace DeepLClient.Managers
 
                 // done
                 IsInitialised = true;
-                return (true, string.Empty);
+                return true;
             }
             catch (ConnectionException ex)
             {
                 Log.Fatal(ex, "[DEEPL] Error trying to contact the DeepL server: {err}", ex.Message);
-                return (false, ex.Message);
+                return false;
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[DEEPL] Error initialising: {err}", ex.Message);
-                return (false, ex.Message);
+                return false;
             }
+        }
+
+        /// <summary>
+        /// Returns whether the selected target language supports formality
+        /// </summary>
+        /// <param name="selectedTargetLanguage"></param>
+        /// <returns></returns>
+        internal static bool TargetLanguageSupportsFormality(ComboBox selectedTargetLanguage)
+        {
+            try
+            {
+                string targetLanguage = null;
+                if (selectedTargetLanguage.SelectedItem != null)
+                {
+                    var item = (KeyValuePair<string, string>)selectedTargetLanguage.SelectedItem;
+                    targetLanguage = item.Value;
+                }
+
+                if (targetLanguage == null) return false;
+
+                // check formality supported
+                return Variables.FormalitySupportedLanguages.Contains(targetLanguage);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DEEPL] Error determining whether target language supports formality: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Looks up the human readable language value for the provided language code
+        /// </summary>
+        /// <param name="languageCode"></param>
+        /// <returns></returns>
+        internal static string GetSourceLanguageByLanguageCode(string languageCode)
+        {
+            return Variables.SourceLanguages.FirstOrDefault(x => x.Value == languageCode, new KeyValuePair<string, string>(string.Empty, string.Empty)).Key;
         }
     }
 }

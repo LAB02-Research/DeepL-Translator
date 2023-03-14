@@ -24,6 +24,7 @@ namespace DeepLClient
         /// Constants
         /// </summary>
         internal const string SyncfusionLicense = "MTI0OTg2NUAzMjMwMmUzNDJlMzBSblBWOVBUdEZITG5WZVkyZWUvV0xPWjMyTWJ5S0Yvb3JzbUExTVdDWVdVPQ==";
+        internal static string CurrencySymbol { get; } = NumberFormatInfo.CurrentInfo.CurrencySymbol;
 
         /// <summary>
         /// Internal references
@@ -67,6 +68,7 @@ namespace DeepLClient
         internal static string UsageFile { get; } = Path.Combine(ConfigPath, "usage.json");
         internal static string CachePath { get; } = Path.Combine(StartupPath, "cache");
         internal static string WebViewCachePath { get; } = Path.Combine(CachePath, "webview");
+        internal static string WebPagesCachePath { get; } = Path.Combine(CachePath, "webpages");
 
         /// <summary>
         /// Config

@@ -24,14 +24,24 @@ namespace DeepLClient.Functions
             try
             {
                 _stringReader = new StringReader (text);
+
+                // prepare our document with the provided settings
                 using var pd = new PrintDocument();
                 pd.PrinterSettings = printerSettings;
                 
+                // bind to the print handler
                 pd.PrintPage += PrintTextFileHandler;
+
+                // print
                 pd.Print();
+
+                // close the stringreader
                 _stringReader?.Close();
+
+                // unbind
                 pd.PrintPage -= PrintTextFileHandler; 
 
+                // done
                 return true;
             }
             catch (Exception ex)
@@ -41,25 +51,32 @@ namespace DeepLClient.Functions
             }
         }
 
-        private static void PrintTextFileHandler (object sender, PrintPageEventArgs ppeArgs)
+        private static void PrintTextFileHandler(object sender, PrintPageEventArgs ppeArgs)
         {
             try
             {
                 if (_stringReader == null) return;
             
-                using var g = ppeArgs.Graphics;
+                // get the graphics handler
+                using var graphics = ppeArgs.Graphics;
+                if (graphics == null) return;
+                
+                // prepare some vars
                 float leftMargin = ppeArgs.MarginBounds.Left;
                 float topMargin = ppeArgs.MarginBounds.Top;
-                string line = null;
-                var linesPerPage = ppeArgs.MarginBounds.Height/Font.GetHeight (g);
+                var linesPerPage = ppeArgs.MarginBounds.Height/Font.GetHeight(graphics);
+                
+                // print
                 var count = 0;
-                while (count<linesPerPage && ( line = _stringReader.ReadLine ()) != null)
+                string line = null;
+                while (count < linesPerPage && ( line = _stringReader.ReadLine ()) != null)
                 {
-                    var yPos = topMargin + count * Font.GetHeight (g);
-                    g.DrawString (line, Font, Brushes.Black,leftMargin, yPos, new StringFormat());
+                    var yPos = topMargin + count * Font.GetHeight(graphics);
+                    graphics.DrawString (line, Font, Brushes.Black,leftMargin, yPos, new StringFormat());
                     count++;
                 }  
 
+                // todo: check multiple pages
                 ppeArgs.HasMorePages = line != null;
             }
             catch (Exception ex)

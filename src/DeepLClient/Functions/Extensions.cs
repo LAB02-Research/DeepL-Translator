@@ -18,6 +18,12 @@ namespace DeepLClient.Functions
             return new KeyValuePair<TKey, TValue>(key, dictionary[key]);
         }
 
+        /// <summary>
+        /// Fetch a KeyValuePair by entry
+        /// </summary>
+        /// <param name="dictionary"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public static KeyValuePair<string, string> GetKeyByEntry(this IDictionary<string, string> dictionary, string value)
         {
             var key = dictionary.FirstOrDefault(x => x.Value == value).Key;

@@ -11,9 +11,9 @@ namespace DeepLClient.Managers
     internal class HotkeyManager
     {
         /// <summary>
-        /// Initializes the global hotkey
+        /// Initialises the global hotkey
         /// </summary>
-        internal void Initialise()
+        internal void Initialize()
         {
             Variables.MainForm?.BeginInvoke(new MethodInvoker(delegate
             {
@@ -56,7 +56,9 @@ namespace DeepLClient.Managers
                 var selection = e.SourceApplication.Selection;
                 if (!string.IsNullOrWhiteSpace(selection))
                 {
-                    Variables.MainForm?.SetSourceText(selection.Trim(), true);
+                    // set url or text
+                    if (selection.ToLower().StartsWith("http")) Variables.MainForm?.SetSourceUrl(selection.Trim());
+                    else Variables.MainForm?.SetSourceText(selection.Trim(), true);
                     return;
                 }
 

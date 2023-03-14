@@ -17,47 +17,54 @@ namespace DeepLClient.Forms
         {
             try
             {
+                // catch all key presses
+                KeyPreview = true;
+
+                // set title
+                Text = $"Subscription Information   |   {Variables.ApplicationName}";
+
                 // set cost info
-                LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : "€ 0,00";
+                LblCost.Text = SubscriptionManager.BaseCostNotation();
 
                 // get the current state
                 var state = await Variables.Translator.GetUsageAsync();
 
-                if (state.Character != null)
-                {
-                    // set characters used
-                    LblCharactersUsed.Text = $"{state.Character.Count:N0}";
-
-                    // determine limit and how many chars are left, only on free
-                    if (SubscriptionManager.UsingFreeSubscription())
-                    {
-                        LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
-                        LblCost.Text = "FREE";
-
-                        var charsLeft = state.Character.Limit - state.Character.Count;
-                        if (charsLeft < 0) charsLeft = 0;
-                        LblCharactersLeft.Text = $"{charsLeft:N0}";
-
-                        // check for reached limit
-                        if (state.Character.LimitReached || charsLeft == 0) LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
-                    }
-                    else
-                    {
-                        // infinity
-                        LblCharacterLimit.Text = "∞";
-                        LblCharactersLeft.Text = "∞";
-
-                        // not for free though
-                        LblCost.Text = SubscriptionManager.CalculateCost(state.Character.Count, false);
-                    }
-                }
-                else
+                if (state.Character == null)
                 {
                     // unknown, weird
                     LblCharacterLimit.Text = "?";
                     LblCharactersUsed.Text = "?";
                     LblCharactersLeft.Text = "?";
                     LblCost.Text = "?";
+
+                    // we're done
+                    return;
+                }
+
+                // set characters used
+                LblCharactersUsed.Text = $"{state.Character.Count:N0}";
+
+                // determine limit and how many chars are left, only on free
+                if (SubscriptionManager.UsingFreeSubscription())
+                {
+                    LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
+                    LblCost.Text = "FREE";
+
+                    var charsLeft = state.Character.Limit - state.Character.Count;
+                    if (charsLeft < 0) charsLeft = 0;
+                    LblCharactersLeft.Text = $"{charsLeft:N0}";
+
+                    // check for reached limit
+                    if (state.Character.LimitReached || charsLeft == 0) LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
+                }
+                else
+                {
+                    // infinity
+                    LblCharacterLimit.Text = "∞";
+                    LblCharactersLeft.Text = "∞";
+
+                    // not for free though
+                    LblCost.Text = SubscriptionManager.CalculateCost(state.Character.Count, false);
                 }
 
                 // done
@@ -77,6 +84,12 @@ namespace DeepLClient.Forms
                 MessageBoxAdv.Show(this, $"Something went wrong:\r\n\r\n{ex.Message}", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+        }
+
+        private void SubscriptionInfo_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Escape) return;
+            Close();
         }
 
         private void BtnYes_Click(object sender, EventArgs e) => DialogResult = DialogResult.OK;

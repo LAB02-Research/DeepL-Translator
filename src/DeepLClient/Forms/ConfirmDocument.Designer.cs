@@ -49,7 +49,7 @@
             BtnNo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnNo.ForeColor = Color.FromArgb(241, 241, 241);
             BtnNo.ImageSize = new Size(16, 16);
-            BtnNo.Location = new Point(115, 227);
+            BtnNo.Location = new Point(115, 288);
             BtnNo.Name = "BtnNo";
             BtnNo.Size = new Size(157, 31);
             BtnNo.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -73,7 +73,7 @@
             BtnYes.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnYes.ForeColor = Color.FromArgb(241, 241, 241);
             BtnYes.ImageSize = new Size(24, 24);
-            BtnYes.Location = new Point(278, 227);
+            BtnYes.Location = new Point(278, 288);
             BtnYes.Name = "BtnYes";
             BtnYes.Size = new Size(324, 31);
             BtnYes.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -117,11 +117,11 @@
             LblTxt.AccessibleName = "";
             LblTxt.AccessibleRole = AccessibleRole.StaticText;
             LblTxt.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point);
-            LblTxt.Location = new Point(115, 191);
+            LblTxt.Location = new Point(115, 252);
             LblTxt.Name = "LblTxt";
             LblTxt.Size = new Size(487, 33);
             LblTxt.TabIndex = 77;
-            LblTxt.Text = "Tip: you're trying to translate a .txt file. Did you know you can just drag and drop them onto the text page? That's cheaper for small documents.";
+            LblTxt.Text = "Tip: you're trying to translate a small .txt file. Did you know you can just drag and drop them onto the text page? That way it'll use up less characters.";
             LblTxt.Visible = false;
             // 
             // LblDocument
@@ -142,11 +142,10 @@
             LblCostInfo.AccessibleDescription = "";
             LblCostInfo.AccessibleName = "";
             LblCostInfo.AccessibleRole = AccessibleRole.StaticText;
-            LblCostInfo.AutoSize = true;
             LblCostInfo.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblCostInfo.Location = new Point(115, 114);
             LblCostInfo.Name = "LblCostInfo";
-            LblCostInfo.Size = new Size(370, 19);
+            LblCostInfo.Size = new Size(487, 87);
             LblCostInfo.TabIndex = 79;
             LblCostInfo.Text = "It contains {0} characters, and will probably cost around {1}.";
             // 
@@ -157,7 +156,7 @@
             LblConfirm.AccessibleRole = AccessibleRole.StaticText;
             LblConfirm.AutoSize = true;
             LblConfirm.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblConfirm.Location = new Point(115, 156);
+            LblConfirm.Location = new Point(115, 208);
             LblConfirm.Name = "LblConfirm";
             LblConfirm.Size = new Size(288, 19);
             LblConfirm.TabIndex = 80;
@@ -171,7 +170,7 @@
             CaptionBarColor = Color.FromArgb(63, 63, 70);
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
-            ClientSize = new Size(626, 266);
+            ClientSize = new Size(626, 330);
             Controls.Add(LblConfirm);
             Controls.Add(LblCostInfo);
             Controls.Add(LblDocument);
@@ -190,8 +189,9 @@
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Cost Confirmation   |   LAB02 Research";
+            Text = "Cost Confirmation";
             Load += ConfirmDocument_Load;
+            KeyUp += ConfirmDocument_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
             PerformLayout();

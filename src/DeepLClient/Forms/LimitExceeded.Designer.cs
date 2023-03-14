@@ -159,8 +159,9 @@
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Limit Warning   |   LAB02 Research";
+            Text = "Limit Warning";
             Load += LimitExceeded_Load;
+            KeyUp += LimitExceeded_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
             PerformLayout();

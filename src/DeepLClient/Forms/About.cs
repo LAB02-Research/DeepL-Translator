@@ -16,8 +16,11 @@ namespace DeepLClient.Forms
             // catch all key presses
             KeyPreview = true;
 
+            // set title
+            Text = $"About   |   {Variables.ApplicationName}";
+
             // set version
-            LblVersion.Text = Variables.Version;
+            LblVersion.Text = $"v{Variables.Version}";
         }
 
         private void BtnYes_Click(object sender, EventArgs e)

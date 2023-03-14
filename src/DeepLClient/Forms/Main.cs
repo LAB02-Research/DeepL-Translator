@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using DeepLClient.Controls;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
@@ -7,6 +8,7 @@ using WK.Libraries.HotkeyListenerNS;
 
 namespace DeepLClient.Forms
 {
+    [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     public partial class Main : MetroForm
     {
         private TextPage _text;
@@ -25,22 +27,22 @@ namespace DeepLClient.Forms
             try
             {
                 // set title
-                Text = $"DeepL Translator   |   LAB02 Research   |   {Variables.Version}";
+                Text = $"{Variables.ApplicationName}   |   LAB02 Research   |   {Variables.Version}";
 
                 // catch all key presses
                 KeyPreview = true;
 
                 // check for updates
-                _ = Task.Run(UpdateManager.Initialise);
+                _ = Task.Run(UpdateManager.Initialize);
 
                 // monitor subscription limits
-                _ = Task.Run(SubscriptionManager.Initialise);
+                _ = Task.Run(SubscriptionManager.Initialize);
 
-                // initialise
-                Initialise();
+                // initialize ourselves
+                Initialize();
 
-                // initialise hotkey
-                InitialiseHotkey();
+                // initialize the global hotkey
+                InitializeHotkey();
 
 #if DEBUG
                 // always show when debugging
@@ -54,11 +56,14 @@ namespace DeepLClient.Forms
                 MessageBoxAdv.Show(this, "Something went wrong while launching the app.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // we're done for
-                Close();
+                ProcessManager.Shutdown();
             }
         }
 
-        private async void Initialise()
+        /// <summary>
+        /// Initialises the application and interface
+        /// </summary>
+        private async void Initialize()
         {
             // check autolaunch state
             if (Variables.AppSettings.LaunchOnWindowsLogin) LaunchManager.EnableLaunchOnUserLogin();
@@ -66,40 +71,73 @@ namespace DeepLClient.Forms
             // check if we have an API key
             if (string.IsNullOrEmpty(Variables.AppSettings.DeepLAPIKey))
             {
-                MessageBoxAdv.Show(this, "No API key has been set.\r\n\r\nIn the main window, click the configuration button at the bottom left to set your personal key.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                // show api notification, and provide some extra info for non-euro users
+                MessageBoxAdv.Show(this,
+                    Variables.CurrencySymbol == "€"
+                        ? "No API key has been set.\r\n\r\nIn the main window, click the configuration button at the bottom left to set your personal key.\r\n\r\nTip: if you're on a pro subscription, remember to set the right domain."
+                        : "No API key has been set.\r\n\r\nIn the main window, click the configuration button at the bottom left to set your personal key.\r\n\r\nTip: if you're on a pro subscription, remember to set the right domain.\r\n\r\nAlso check the price-per-character, as the default value is only valid for euros.",
+                    Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+                // no subscription yet
                 BtnSubscription.Enabled = false;
+
+                // don't continue
                 return;
             }
 
             // initialise DeepL
-            var deepL = await DeepLManager.Initialise();
-            if (!deepL.result)
+            var deepLisInitialised = await DeepLManager.InitializeAsync();
+            if (!deepLisInitialised)
             {
-                MessageBoxAdv.Show(this, $"Something went wrong when initializing DeepL.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // failed
+                MessageBoxAdv.Show(this, $"Something went wrong when initialising DeepL.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nYou can try again later, but if the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 BtnSubscription.Enabled = false;
+
+                // no point going on
                 return;
             }
 
-            // optionally remove the text page
+            // optionally remove current pages
+            ClearTabPages();
+
+            // load fresh ones
+            LoadTabPages();
+        }
+
+        /// <summary>
+        /// Disposes and removes all initialised tab pages
+        /// </summary>
+        private void ClearTabPages()
+        {
+            if (!IsHandleCreated) return;
+            if (IsDisposed) return;
+
             if (_text != null)
             {
                 TabText.Controls.Remove(_text);
                 _text.Dispose();
             }
-
-            // optionally remove the documents page
+            
             if (_documents != null)
             {
                 TabDocuments.Controls.Remove(_documents);
                 _documents.Dispose();
             }
-
-            // optionally remove the url page
+            
             if (_url != null)
             {
                 TabDocuments.Controls.Remove(_url);
                 _url.Dispose();
             }
+        }
+
+        /// <summary>
+        /// Creates and sets new tab pages
+        /// </summary>
+        private void LoadTabPages()
+        {
+            if (!IsHandleCreated) return;
+            if (IsDisposed) return;
 
             // load pages
             _text = new TextPage();
@@ -115,7 +153,7 @@ namespace DeepLClient.Forms
         /// <summary>
         /// Initialises and bindes the hotkey
         /// </summary>
-        private void InitialiseHotkey()
+        private void InitializeHotkey()
         {
             try
             {
@@ -126,7 +164,7 @@ namespace DeepLClient.Forms
                 Variables.HotkeyListener.HotkeyPressed += HotkeyListener_HotkeyPressed;
 
                 // initialise the manager
-                Variables.HotkeyManager.Initialise();
+                Variables.HotkeyManager.Initialize();
             }
             catch (Exception ex)
             {
@@ -156,16 +194,22 @@ namespace DeepLClient.Forms
 
                 if (Visible && hideIfVisible)
                 {
+                    // hide us
                     Hide();
 
-                    // set to text (if possible)
+                    // set to text so it'll laod faster on return
                     ActivateText();
                     return;
                 }
 
                 // show interface
                 Show();
+
+                // wait a bit
+                // todo: ugly
                 await Task.Delay(250);
+
+                // make sure we get the attention we deserve
                 BringToFront();
                 Activate();
             }
@@ -201,10 +245,7 @@ namespace DeepLClient.Forms
                 if (TranslationTabs.SelectedTab != TabText) TranslationTabs.SelectedTab = TabText;
                 ActiveControl = _text.TbSource;
             }
-            catch
-            {
-                // best effort
-            }
+            catch { }
         }
 
         /// <summary>
@@ -223,16 +264,10 @@ namespace DeepLClient.Forms
                     {
                         NotifyIcon.Visible = false;
                     }
-                    catch
-                    {
-                        // best effort
-                    }
+                    catch { }
                 }));
             }
-            catch
-            {
-                // best effort
-            }
+            catch { }
         }
 
         /// <summary>
@@ -252,16 +287,10 @@ namespace DeepLClient.Forms
                     {
                         LblCharLimitReached.Visible = show;
                     }
-                    catch
-                    {
-                        // best effort
-                    }
+                    catch { }
                 }));
             }
-            catch
-            {
-                // best effort
-            }
+            catch { }
         }
 
         /// <summary>
@@ -294,35 +323,65 @@ namespace DeepLClient.Forms
                         // show our ui
                         if (showForm) ShowMain(false);
                     }
-                    catch
+                    catch (Exception ex)
                     {
-                        // best effort
+                        Log.Fatal(ex, "[MAIN] Error while setting source text: {err}", ex.Message);
                     }
                 }));
             }
-            catch
+            catch { }
+        }
+
+        /// <summary>
+        /// Sets the provided url, shows the form and starts translation
+        /// </summary>
+        /// <param name="url"></param>
+        internal void SetSourceUrl(string url)
+        {
+            try
             {
-                // best effort
+                if (!IsHandleCreated) return;
+                if (IsDisposed) return;
+
+                Invoke(new MethodInvoker(delegate
+                {
+                    try
+                    {
+                        // is the ui ready?
+                        if (_text == null) return;
+                        if (TranslationTabs.SelectedTab != TabUrl) TranslationTabs.SelectedTab = TabUrl;
+
+                        // set the selected text
+                        _url.TbUrl.Text = url;
+                        _url.TbUrl.SelectionStart = _url.TbUrl.Text.Length;
+
+                        // focus the textbox
+                        ActiveControl = _text.BtnTranslate;
+
+                        // show our ui
+                        ShowMain(false);
+
+                        // start translation
+                        _url.ExecuteTranslation();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Fatal(ex, "[MAIN] Error while setting source url: {err}", ex.Message);
+                    }
+                }));
             }
+            catch { }
         }
 
         private void BtnConfig_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // show configuration dialog
-                using var config = new Configuration();
-                var result = config.ShowDialog();
-                if (result != DialogResult.OK) return;
+            // show configuration dialog
+            using var config = new Configuration();
+            var result = config.ShowDialog();
+            if (result != DialogResult.OK) return;
 
-                // reload
-                Initialise();
-            }
-            catch (Exception ex)
-            {
-                Log.Fatal(ex, "[MAIN] Error on BtnConfig_Click: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while processing your configuration.\r\n\r\nPlease make sure everything's configured correctly, and your internet connection is working.\r\n\r\nIf the problem persists, check your logs and contact the developer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            // reload
+            Initialize();
         }
 
         private void BtnSubscriptionInfo_Click(object sender, EventArgs e)
@@ -363,6 +422,11 @@ namespace DeepLClient.Forms
             e.Cancel = true;
         }
 
+        /// <summary>
+        /// Shows the application by clicking the tray icon
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right) return;
@@ -390,6 +454,11 @@ namespace DeepLClient.Forms
             ActivateText();
         }
 
+        /// <summary>
+        /// Hides and resets when esc is pressed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Main_KeyUp(object sender, KeyEventArgs e)
         {
             // hide on esc
@@ -400,22 +469,23 @@ namespace DeepLClient.Forms
             ActivateText();
         }
 
+        /// <summary>
+        /// Shows the 'about' form
+        /// </summary>
+        private static void ShowAbout()
+        {
+            using var about = new About();
+            about.ShowDialog();
+        }
+
+        private void BtnAbout_Click(object sender, EventArgs e) => ShowAbout();
+
+        private void TsAbout_Click(object sender, EventArgs e) => ShowAbout();
+
         private void NotifyIcon_DoubleClick(object sender, EventArgs e) => ShowMain(false);
 
         private void TsExit_Click(object sender, EventArgs e) => Shutdown();
 
         private void TsShow_Click(object sender, EventArgs e) => ShowMain(false);
-
-        private void BtnAbout_Click(object sender, EventArgs e)
-        {
-            using var about = new About();
-            about.ShowDialog();
-        }
-
-        private void TsAbout_Click(object sender, EventArgs e)
-        {
-            using var about = new About();
-            about.ShowDialog();
-        }
     }
 }

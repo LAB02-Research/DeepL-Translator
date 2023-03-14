@@ -8,12 +8,13 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
-using Syncfusion.Windows.Forms.Tools.Win32API;
 
 namespace DeepLClient.Controls
 {
     public partial class DocumentsPage : UserControl
     {
+        private bool _isInitialised;
+
         public DocumentsPage()
         {
             InitializeComponent();
@@ -33,33 +34,59 @@ namespace DeepLClient.Controls
             CbTargetFormality.DrawItem += ComboBoxTheme.DrawDictionaryIntStringItem;
         }
 
-        private async void DocumentsPage_Load(object sender, EventArgs e)
+        private void DocumentsPage_Load(object sender, EventArgs e)
         {
-            // wait for DeepL to load
-            while (!DeepLManager.IsInitialised) await Task.Delay(50);
+            if (!_isInitialised) _ = InitializeAsync();
+        }
 
-            // set formalities
-            CbTargetFormality.DataSource = new BindingSource(Variables.Formalities, null);
-
-            // set source languages
-            CbSourceLanguage.DataSource = new BindingSource(Variables.SourceLanguages, null);
-
-            // set target languages
-            CbTargetLanguage.DataSource = new BindingSource(Variables.TargetLanguages, null);
-
-            // load default formality
-            CbTargetFormality.SelectedItem = Variables.Formalities.GetEntry((int)Variables.AppSettings.DefaultFormality);
-
-            // optionally set last source language
-            if (Variables.AppSettings.StoreLastUsedSourceLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastSourceLanguage))
+        /// <summary>
+        /// Initialises the interface
+        /// </summary>
+        /// <returns></returns>
+        private async Task<bool> InitializeAsync()
+        {
+            try
             {
-                CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(Variables.AppSettings.LastSourceLanguage);
+                // wait for DeepL to load
+                while (!DeepLManager.IsInitialised) await Task.Delay(50);
+
+                // set formalities
+                CbTargetFormality.DataSource = new BindingSource(Variables.Formalities, null);
+
+                // set source languages
+                CbSourceLanguage.DataSource = new BindingSource(Variables.SourceLanguages, null);
+
+                // set target languages
+                CbTargetLanguage.DataSource = new BindingSource(Variables.TargetLanguages, null);
+
+                // load default formality
+                CbTargetFormality.SelectedItem = Variables.Formalities.GetEntry((int)Variables.AppSettings.DefaultFormality);
+
+                // optionally set last source language
+                if (Variables.AppSettings.StoreLastUsedSourceLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastSourceLanguage))
+                {
+                    CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(Variables.AppSettings.LastSourceLanguage);
+                }
+
+                // optionally set last target language
+                if (Variables.AppSettings.StoreLastUsedTargetLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastTargetLanguage))
+                {
+                    CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(Variables.AppSettings.LastTargetLanguage);
+                }
+
+                // done
+                return true;
             }
-
-            // optionally set last target language
-            if (Variables.AppSettings.StoreLastUsedTargetLanguage && !string.IsNullOrEmpty(Variables.AppSettings.LastTargetLanguage))
+            catch (Exception ex)
             {
-                CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(Variables.AppSettings.LastTargetLanguage);
+                LockInterface();
+                LblState.Text = "something went wrong trying to initialise the document translator\r\n\r\ncheck the logs and contact the developer for help";
+                Log.Fatal(ex, "[DOCUMENT] Unable to initialize: {err}", ex.Message);
+                return false;
+            }
+            finally
+            {
+                _isInitialised = true;
             }
         }
 
@@ -78,7 +105,7 @@ namespace DeepLClient.Controls
             if (result != DialogResult.OK) return;
 
             // process selected file
-            var processed = await ProcessSelectedDocument(dialog.FileName);
+            var processed = await ProcessSelectedDocumentAsync(dialog.FileName);
             if (!processed) return;
 
             TbSourceDocument.Text = dialog.FileName;
@@ -93,8 +120,14 @@ namespace DeepLClient.Controls
         /// <param name="file"></param>
         /// <returns></returns>
         [SuppressMessage("ReSharper", "InconsistentNaming")]
-        private async Task<bool> ProcessSelectedDocument(string file)
+        internal async Task<bool> ProcessSelectedDocumentAsync(string file)
         {
+            if (!_isInitialised)
+            {
+                var initialised = await InitializeAsync();
+                if (!initialised) return false;
+            }
+
             try
             {
                 // lock the interface
@@ -130,30 +163,12 @@ namespace DeepLClient.Controls
                 }
 
                 // get the character count
-                var characterCount = 0L;
-                switch (docType)
-                {
-                    case DocumentType.Word:
-                        characterCount = await Task.Run(() => DocumentManager.GetDocCharacterCount(file));
-                        break;
-                    case DocumentType.PowerPoint:
-                        characterCount = await Task.Run(() => DocumentManager.GetPowerPointCharacterCount(file));
-                        break;
-                    case DocumentType.PDF:
-                        characterCount = await Task.Run(() => DocumentManager.GetPdfCharacterCount(file));
-                        break;
-                    case DocumentType.Text:
-                        characterCount = await Task.Run(() => DocumentManager.GetTxtCharacterCount(file));
-                        break;
-                    case DocumentType.HTML:
-                        characterCount = await Task.Run(() => DocumentManager.GetHtmlCharacterCount(file));
-                        break;
-                }
+                var characterCount = await DocumentManager.GetDocumentCharacterCountAsync(docType, file);
 
                 // do we have enough chars left?
-                if (await SubscriptionManager.CharactersWillExceedLimit(characterCount))
+                if (await SubscriptionManager.CharactersWillExceedLimitAsync(characterCount, true))
                 {
-                    using var limit = new LimitExceeded(characterCount);
+                    using var limit = new LimitExceeded(characterCount, true);
                     var ignoreLimit = limit.ShowDialog();
                     if (ignoreLimit != DialogResult.OK)
                     {
@@ -164,7 +179,7 @@ namespace DeepLClient.Controls
                 else
                 {
                     // yep, ask the user if they're sure
-                    using var confirmDoc = new ConfirmDocument(characterCount, SubscriptionManager.CalculateCost(characterCount), Path.GetFileName(file), docType == DocumentType.Text);
+                    using var confirmDoc = new ConfirmDocument(characterCount, Path.GetFileName(file), docType == DocumentType.Text);
                     var confirmed = confirmDoc.ShowDialog();
                     if (confirmed != DialogResult.OK)
                     {
@@ -197,8 +212,14 @@ namespace DeepLClient.Controls
         /// <summary>
         /// Executes the translation of the document.
         /// </summary>
-        private async void ExecuteTranslation()
+        internal async void ExecuteTranslation()
         {
+            if (!_isInitialised)
+            {
+                var initialised = await InitializeAsync();
+                if (!initialised) return;
+            }
+
             try
             {
                 // lock the interface
@@ -404,7 +425,7 @@ namespace DeepLClient.Controls
                 // check if it's there
                 if (!File.Exists(targetFile))
                 {
-                    LblState.Text = "something went wrong: file not found after download.";
+                    LblState.Text = "something went wrong:\r\n\r\nfile not found after download";
                     return;
                 }
 
@@ -419,25 +440,27 @@ namespace DeepLClient.Controls
                 else LblState.Text = "translation complete!";
 
                 // store the selected languages
-                StoreSelectedLanguages();
+                SettingsManager.StoreSelectedLanguages(CbSourceLanguage, CbTargetLanguage);
 
                 // set the translated doc
                 TbTranslatedDocument.Text = targetFile;
+
+                // note: doesn't look like DeepL provides the detected source language value?
             }
             catch (ConnectionException ex)
             {
                 Log.Fatal(ex, "[DOCUMENT] Connection error while translating the document: {err}", ex.Message);
-                LblState.Text = "unable to establish a connection to DeepL's servers.\r\n\r\nplease try again later.";
+                LblState.Text = "unable to establish a connection to DeepL's servers\r\n\r\nplease try again later";
             }
             catch (DocumentTranslationException ex)
             {
                 Log.Fatal(ex, "[DOCUMENT] Error while translating the document: {err}", ex.Message);
-                LblState.Text = "something went wrong on DeepL's end while translating the document.";
+                LblState.Text = "something went wrong on DeepL's end while translating the document";
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[DOCUMENT] Error while attempting to translate the document: {err}", ex.Message);
-                LblState.Text = "something went wrong on our end while translating the document.";
+                LblState.Text = "something went wrong on our end while translating the document";
             }
             finally
             {
@@ -449,80 +472,17 @@ namespace DeepLClient.Controls
         }
 
         /// <summary>
-        /// Gets and stores the selected languages for both source and target.
-        /// </summary>
-        private void StoreSelectedLanguages()
-        {
-            // get source language
-            string sourceLanguage = null;
-            if (CbSourceLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbSourceLanguage.SelectedItem;
-                sourceLanguage = item.Value;
-            }
-
-            if (sourceLanguage != null)
-            {
-                // store last used
-                Variables.AppSettings.LastSourceLanguage = sourceLanguage;
-            }
-
-            // get target language
-            string targetLanguage = null;
-            if (CbTargetLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
-                targetLanguage = item.Value;
-            }
-
-            if (targetLanguage != null)
-            {
-                // store last used
-                Variables.AppSettings.LastTargetLanguage = targetLanguage;
-            }
-
-            // store them
-            SettingsManager.Store();
-
-            // done
-        }
-
-        /// <summary>
         /// Shows or hides the formality dropbox, depending on whether the selected language supports it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CbTargetLanguage_SelectedValueChanged(object sender, EventArgs e)
         {
-            string targetLanguage = null;
-            if (CbTargetLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
-                targetLanguage = item.Value;
-            }
-
-            if (targetLanguage == null)
-            {
-                // notify
-                return;
-            }
-
             // check formality supported
-            var supported = Variables.FormalitySupportedLanguages.Contains(targetLanguage);
+            var supported = DeepLManager.TargetLanguageSupportsFormality(CbTargetLanguage);
             CbTargetFormality.Visible = supported;
             LblTargetFormality.Visible = supported;
             LblFormalityInfo.Visible = supported;
-        }
-
-        /// <summary>
-        /// Opens the translated document's folder in Explorer, selecting the document.
-        /// </summary>
-        private void OpenTranslatedDocumentFolder()
-        {
-            if (string.IsNullOrEmpty(TbTranslatedDocument.Text)) return;
-
-            var argument = "/select, \"" + TbTranslatedDocument.Text + "\"";
-            Process.Start("explorer.exe", argument);
         }
 
         /// <summary>
@@ -543,23 +503,41 @@ namespace DeepLClient.Controls
         /// <param name="e"></param>
         private async void DocumentsPage_DragDrop(object sender, DragEventArgs e)
         {
-            var files = (string[])e.Data?.GetData(DataFormats.FileDrop);
-            if (files == null) return;
-            if (!files.Any()) return;
-
-            var file = files.First();
-            if (!DocumentManager.FileIsSupported(file))
+            try
             {
-                MessageBoxAdv.Show(this, "The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // get filelist
+                var files = (string[])e.Data?.GetData(DataFormats.FileDrop);
+                if (files == null) return;
+                if (!files.Any()) return;
+
+                // we can only handle one
+                var file = files.First();
+
+                // do we support it?
+                if (!DocumentManager.FileIsSupported(file))
+                {
+                    MessageBoxAdv.Show(this, "The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // yep, process it
+                var processed = await ProcessSelectedDocumentAsync(file);
+                if (!processed) return;
+
+                // all good
+                TbSourceDocument.Text = file;
+                TbSourceDocument.SelectionStart = TbSourceDocument.Text.Length;
+
+                // enable auto detect
+                CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetEntry("AUTO DETECT");
+
+                // select the translation button
+                ActiveControl = BtnTranslate;
             }
-
-            // process selected file
-            var processed = await ProcessSelectedDocument(file);
-            if (!processed) return;
-
-            TbSourceDocument.Text = file;
-            TbSourceDocument.SelectionStart = TbSourceDocument.Text.Length;
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DOCUMENT] Error while processing dropped document: {err}", ex.Message);
+            }
         }
 
         /// <summary>
@@ -619,10 +597,10 @@ namespace DeepLClient.Controls
 
         private void TbSourceDocument_DoubleClick(object sender, EventArgs e) => SelectSourceFile();
 
-        private void TbTranslatedDocument_DoubleClick(object sender, EventArgs e) => OpenTranslatedDocumentFolder();
+        private void TbTranslatedDocument_DoubleClick(object sender, EventArgs e) => HelperFunctions.OpenFileInExplorer(TbTranslatedDocument.Text);
 
         private void BtnBrowse_Click(object sender, EventArgs e) => SelectSourceFile();
 
-        private void BtnOpenTranslatedFolder_Click(object sender, EventArgs e) => OpenTranslatedDocumentFolder();
+        private void BtnOpenTranslatedFolder_Click(object sender, EventArgs e) => HelperFunctions.OpenFileInExplorer(TbTranslatedDocument.Text);
     }
 }

@@ -356,7 +356,7 @@
             LblVersion.AccessibleRole = AccessibleRole.StaticText;
             LblVersion.AutoSize = true;
             LblVersion.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            LblVersion.Location = new Point(0, 166);
+            LblVersion.Location = new Point(12, 522);
             LblVersion.Name = "LblVersion";
             LblVersion.Size = new Size(12, 15);
             LblVersion.TabIndex = 73;
@@ -434,7 +434,7 @@
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "About   |   LAB02 Research";
+            Text = "About";
             Load += About_Load;
             KeyUp += About_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbLogo).EndInit();
@@ -447,7 +447,6 @@
         }
 
         #endregion
-        private Syncfusion.WinForms.Controls.SfButton BtnNo;
         private Syncfusion.WinForms.Controls.SfButton BtnYes;
         private PictureBox PbLogo;
         private PictureBox PbPayPal;
@@ -471,10 +470,5 @@
         private Label LblVersion;
         private Label LblHotkeyListener;
         private Label LblNewtonsoftJson;
-        private Label LblIntro;
-        private Label LblTxt;
-        private Label LblDocument;
-        private Label LblCostInfo;
-        private Label LblConfirm;
     }
 }

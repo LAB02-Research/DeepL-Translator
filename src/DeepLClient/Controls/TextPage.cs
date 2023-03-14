@@ -5,11 +5,12 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
-using Syncfusion.Windows.Forms.Tools.Win32API;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace DeepLClient.Controls
 {
+    [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     public partial class TextPage : UserControl
     {
         public TextPage()
@@ -34,7 +35,7 @@ namespace DeepLClient.Controls
         private async void TextPage_Load(object sender, EventArgs e)
         {
             // set cost info
-            LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : "€ 0,00";
+            LblCost.Text = SubscriptionManager.BaseCostNotation();
 
             // activate source textbox
             ActiveControl = TbSource;
@@ -84,7 +85,7 @@ namespace DeepLClient.Controls
                 if (string.IsNullOrWhiteSpace(sourceText)) return;
 
                 // do we have enough chars left?
-                if (await SubscriptionManager.CharactersWillExceedLimit(sourceText.Length))
+                if (await SubscriptionManager.CharactersWillExceedLimitAsync(sourceText.Length))
                 {
                     using var limit = new LimitExceeded(sourceText.Length);
                     var ignoreLimit = limit.ShowDialog();
@@ -152,15 +153,10 @@ namespace DeepLClient.Controls
                 TbTranslated.Text = translatedText.Text;
 
                 // store the selected languages
-                StoreSelectedLanguages();
+                SettingsManager.StoreSelectedLanguages(CbSourceLanguage, CbTargetLanguage);
 
                 // copy it to the clipbaord if configured
-                if (Variables.AppSettings.CopyTranslationToClipboard && !string.IsNullOrWhiteSpace(translatedText.Text))
-                {
-                    Clipboard.SetText(translatedText.Text, TextDataFormat.UnicodeText);
-                    LblClipboardCopied.Visible = true;
-                    _ = Task.Run(HideClipboardCopied);
-                }
+                CopyToClipboard();
 
                 // is auto detect enabled?
                 if (sourceLanguage != null) return;
@@ -168,7 +164,7 @@ namespace DeepLClient.Controls
                 // yep, set the detected source language
                 LblDetectedInfo.Visible = true;
                 LblDetected.Visible = true;
-                LblDetected.Text = Variables.SourceLanguages.First(x => x.Value == translatedText.DetectedSourceLanguageCode).Key;
+                LblDetected.Text = DeepLManager.GetSourceLanguageByLanguageCode(translatedText.DetectedSourceLanguageCode);
             }
             catch (ConnectionException ex)
             {
@@ -195,66 +191,14 @@ namespace DeepLClient.Controls
         }
 
         /// <summary>
-        /// Gets and stores the selected languages for both source and target.
-        /// </summary>
-        private void StoreSelectedLanguages()
-        {
-            // get source language
-            string sourceLanguage = null;
-            if (CbSourceLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbSourceLanguage.SelectedItem;
-                sourceLanguage = item.Value;
-            }
-
-            if (sourceLanguage != null)
-            {
-                // store last used
-                Variables.AppSettings.LastSourceLanguage = sourceLanguage;
-            }
-
-            // get target language
-            string targetLanguage = null;
-            if (CbTargetLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
-                targetLanguage = item.Value;
-            }
-
-            if (targetLanguage != null)
-            {
-                // store last used
-                Variables.AppSettings.LastTargetLanguage = targetLanguage;
-            }
-
-            // store them
-            SettingsManager.Store();
-
-            // done
-        }
-
-        /// <summary>
         /// Shows or hides the formality dropbox, depending on whether the selected language supports it.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void CbTargetLanguage_SelectedValueChanged(object sender, EventArgs e)
         {
-            string targetLanguage = null;
-            if (CbTargetLanguage.SelectedItem != null)
-            {
-                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
-                targetLanguage = item.Value;
-            }
-
-            if (targetLanguage == null)
-            {
-                // notify
-                return;
-            }
-
             // check formality supported
-            var supported = Variables.FormalitySupportedLanguages.Contains(targetLanguage);
+            var supported = DeepLManager.TargetLanguageSupportsFormality(CbTargetLanguage);
             CbTargetFormality.Visible = supported;
             LblTargetFormality.Visible = supported;
             LblFormalityInfo.Visible = supported;
@@ -268,16 +212,9 @@ namespace DeepLClient.Controls
         private void TbSource_TextChanged(object sender, EventArgs e)
         {
             LblCharacters.Text = TbSource.Text.Length.ToString();
-            LblCost.Text = SubscriptionManager.UsingFreeSubscription() ? "FREE" : SubscriptionManager.CalculateCost(TbSource.Text.Length, false);
+            LblCost.Text = SubscriptionManager.CalculateCost(TbSource.Text.Length, false);
         }
-
-        /// <summary>
-        /// Hide the auto detected language info when a new source language is selected.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void CbSourceLanguage_SelectedValueChanged(object sender, EventArgs e) => ResetDetectedSourceLanguage();
-
+        
         /// <summary>
         /// Shows the dragdrop effect when hovering a file or text.
         /// </summary>
@@ -299,67 +236,98 @@ namespace DeepLClient.Controls
         /// <param name="e"></param>
         private void TextPage_DragDrop(object sender, DragEventArgs e)
         {
-            if (e.Data == null) return;
-            var text = string.Empty;
-
-            if (e.Data.GetDataPresent(DataFormats.Text))
+            try
             {
-                // simple text
-                text = (string)e.Data?.GetData(DataFormats.Text);
-            }
-            else if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                // file was dropped, fetch the relevant info
-                var files = (string[])e.Data?.GetData(DataFormats.FileDrop);
-                if (files == null) return;
-                if (!files.Any()) return;
-                var file = files.First();
+                if (e.Data == null) return;
+                var text = string.Empty;
 
-                // is it supported?
-                if (!DocumentManager.FileIsSupported(file, true))
+                if (e.Data.GetDataPresent(DataFormats.Text))
                 {
-                    MessageBoxAdv.Show(this, "Only .txt documents are supported here.\r\n\r\nFor other formats, use the 'documents' tab.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
+                    // simple text, use as-is
+                    text = (string)e.Data?.GetData(DataFormats.Text);
+                }
+                else if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                {
+                    // file was dropped, fetch the relevant info
+                    var files = (string[])e.Data?.GetData(DataFormats.FileDrop);
+                    if (files == null) return;
+                    if (!files.Any()) return;
+                    var file = files.First();
+
+                    // is it supported?
+                    if (!DocumentManager.FileIsSupported(file, true))
+                    {
+                        MessageBoxAdv.Show(this, "Only .txt documents are supported here.\r\n\r\nFor other formats, use the 'documents' tab.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+
+                    // and does it still exist?
+                    if (!File.Exists(file))
+                    {
+                        MessageBoxAdv.Show(this, "The selected document doesn't exist (anymore).", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return;
+                    }
+
+                    // yep, use its content
+                    text = File.ReadAllText(file);
                 }
 
-                // and does it still exist?
-                if (!File.Exists(file))
-                {
-                    MessageBoxAdv.Show(this, "The selected document doesn't exist (anymore).", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return;
-                }
+                // check for empty
+                if (string.IsNullOrWhiteSpace(text)) return;
 
-                // yep, use its content
-                text = File.ReadAllText(file);
+                // set the text
+                TbSource.Text = text.Trim();
+
+                // enable auto detect
+                CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetEntry("AUTO DETECT");
+
+                // select the translation button
+                ActiveControl = BtnTranslate;
             }
-
-            // check for empty
-            if (string.IsNullOrWhiteSpace(text)) return;
-
-            // set the text
-            TbSource.Text = text.Trim();
-
-            // enable auto detect
-            CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetEntry("AUTO DETECT");
-
-            // select the translation button
-            ActiveControl = BtnTranslate;
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[TEXT] Error while processing dropped content: {err}", ex.Message);
+            }
         }
 
         /// <summary>
-        /// Copy the translated text (if any) to the clipboard.
+        /// Copies the translated text text to clipboard
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnCopyClipboard_Click(object sender, EventArgs e)
+        /// <param name="force"></param>
+        private void CopyToClipboard(bool force = false)
         {
-            if (string.IsNullOrEmpty(TbTranslated.Text)) return;
+            try
+            {
+                // copy the text
+                var cleanText = TbTranslated.Text.Trim();
+                
+                // copy it to the clipboard if not empty and configured as such
+                if (string.IsNullOrWhiteSpace(cleanText) || (!force && !Variables.AppSettings.CopyTranslationToClipboard)) return;
 
-            Clipboard.SetText(TbTranslated.Text, TextDataFormat.UnicodeText);
-            LblClipboardCopied.Visible = true;
-            _ = Task.Run(HideClipboardCopied);
+                // prepare sta thread
+                var clipboardThread = new Thread(new ThreadStart(delegate
+                {
+                    Clipboard.SetDataObject(cleanText, true, 10, 100);
+                }));
+
+                // set it
+                clipboardThread.SetApartmentState(ApartmentState.STA);
+
+                // go
+                clipboardThread.Start();
+
+                // notify the user
+                LblClipboardCopied.Visible = true;
+
+                // hide the notification after a bit
+                _ = Task.Run(HideClipboardCopied);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[TEXT] Error while copying to clipboard: {err}", ex.Message);
+            }
         }
-
+        
         /// <summary>
         /// Resets and hides the detected source language info
         /// </summary>
@@ -385,13 +353,13 @@ namespace DeepLClient.Controls
             try
             {
                 await Task.Delay(TimeSpan.FromSeconds(3));
+
                 if (IsDisposed) return;
+                if (!IsHandleCreated) return;
+
                 LblClipboardCopied.Invoke(delegate { LblClipboardCopied.Visible = false; });
             }
-            catch
-            {
-                // best effort
-            }
+            catch { }
         }
 
         /// <summary>
@@ -401,6 +369,7 @@ namespace DeepLClient.Controls
         private void LockInterface(bool @lock = true)
         {
             if (IsDisposed) return;
+            if (!IsHandleCreated) return;
 
             Invoke(new MethodInvoker(delegate
             {
@@ -436,11 +405,9 @@ namespace DeepLClient.Controls
             ExecuteTranslation();
         }
 
-        private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();
-
         private void BtnClean_Click(object sender, EventArgs e)
         {
-            // clear the text
+            // clear the text (will also clear costs)
             TbSource.Text = string.Empty;
             TbTranslated.Text = string.Empty;
 
@@ -488,8 +455,7 @@ namespace DeepLClient.Controls
                 var q = MessageBoxAdv.Show(this, "Page succesfully saved as a text file!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (q != DialogResult.OK) return;
 
-                var argument = "/select, \"" + dialog.FileName + "\"";
-                Process.Start("explorer.exe", argument);
+                HelperFunctions.OpenFileInExplorer(dialog.FileName);
             }
             catch (Exception ex)
             {
@@ -533,5 +499,11 @@ namespace DeepLClient.Controls
                 LockInterface(false);
             }
         }
+
+        private void BtnCopyClipboard_Click(object sender, EventArgs e) => CopyToClipboard(true);
+
+        private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();
+
+        private void CbSourceLanguage_SelectedValueChanged(object sender, EventArgs e) => ResetDetectedSourceLanguage();
     }
 }

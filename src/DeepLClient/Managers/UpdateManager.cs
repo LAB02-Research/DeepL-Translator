@@ -19,7 +19,7 @@ namespace DeepLClient.Managers
         /// <summary>
         /// Executes an initial update check, with periodic checks afterwards
         /// </summary>
-        internal static async void Initialise()
+        internal static async void Initialize()
         {
             try
             {
@@ -27,7 +27,7 @@ namespace DeepLClient.Managers
                 AreWeUpdated();
 
                 // initial update check, regardless of idle
-                await CheckForUpdate(false);
+                await CheckForUpdateAsync(false);
 
                 // commence periodic check
                 _ = Task.Run(PeriodicUpdateCheck);
@@ -52,7 +52,7 @@ namespace DeepLClient.Managers
                 await Task.Delay(TimeSpan.FromMinutes(30));
 
                 // check updates
-                await CheckForUpdate();
+                await CheckForUpdateAsync();
             }
         }
 
@@ -61,7 +61,7 @@ namespace DeepLClient.Managers
         /// <para>Only if the user is idle long enough, when checkForIdle is TRUE</para>
         /// </summary>
         /// <param name="checkForIdle"></param>
-        internal static async Task CheckForUpdate(bool checkForIdle = true)
+        internal static async Task CheckForUpdateAsync(bool checkForIdle = true)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace DeepLClient.Managers
                 }
 
                 // updater is available, let's check for an update
-                var isUpdateReady = await IsUpdateReady();
+                var isUpdateReady = await IsUpdateReadyAsync();
                 if (!isUpdateReady)
                 {
                     // nothing to do
@@ -139,7 +139,7 @@ namespace DeepLClient.Managers
         /// <para>Using wyUpdate.exe instead of the library, as recommended by wyDay</para>
         /// </summary>
         /// <returns></returns>
-        private static async Task<bool> IsUpdateReady()
+        private static async Task<bool> IsUpdateReadyAsync()
         {
             try
             {

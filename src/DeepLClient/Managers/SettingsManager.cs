@@ -103,5 +103,53 @@ namespace DeepLClient.Managers
                 return false;
             }
         }
+
+        /// <summary>
+        /// Stores the selected languages
+        /// </summary>
+        /// <param name="selectedSourceLanguage"></param>
+        /// <param name="selectedTargetLanguage"></param>
+        internal static void StoreSelectedLanguages(ComboBox selectedSourceLanguage, ComboBox selectedTargetLanguage)
+        {
+            try
+            {
+                // get source language
+                string sourceLanguage = null;
+                if (selectedSourceLanguage.SelectedItem != null)
+                {
+                    var item = (KeyValuePair<string, string>)selectedSourceLanguage.SelectedItem;
+                    sourceLanguage = item.Value;
+                }
+
+                if (sourceLanguage != null)
+                {
+                    // store last used
+                    Variables.AppSettings.LastSourceLanguage = sourceLanguage;
+                }
+
+                // get target language
+                string targetLanguage = null;
+                if (selectedTargetLanguage.SelectedItem != null)
+                {
+                    var item = (KeyValuePair<string, string>)selectedTargetLanguage.SelectedItem;
+                    targetLanguage = item.Value;
+                }
+
+                if (targetLanguage != null)
+                {
+                    // store last used
+                    Variables.AppSettings.LastTargetLanguage = targetLanguage;
+                }
+
+                // store them
+                Store();
+
+                // done
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing selected languages: {err}", ex.Message);
+            }
+        }
     }
 }

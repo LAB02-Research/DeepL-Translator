@@ -37,8 +37,18 @@ namespace DeepLClient.Forms
         {
             try
             {
+                // catch all key presses
+                KeyPreview = true;
+
+                // set title
+                Text = $"Configuration   |   {Variables.ApplicationName}";
+
                 // suspend global hotkeys
                 Variables.HotkeyListener.Suspend();
+
+                // make sure our currency field is ok
+                TbCostPerChar.CurrencySymbol = Variables.CurrencySymbol;
+                TbCostPerChar.CurrencyDecimalDigits = 5;
 
                 // load domains
                 LoadDomains();
@@ -69,6 +79,7 @@ namespace DeepLClient.Forms
                 CbStoreLastUsedTargetLanguage.Checked = Variables.AppSettings.StoreLastUsedTargetLanguage;
                 CbLaunchHidden.Checked = Variables.AppSettings.LaunchOnWindowsLogin;
                 CbEnableGlobalHotkey.Checked = Variables.AppSettings.GlobalHotkeyEnabled;
+                TbCostPerChar.DecimalValue = Convert.ToDecimal(Variables.AppSettings.PricePerCharacter);
 
                 // set hotkey
                 if (Variables.GlobalHotkey != null) _hotkeySelector.Enable(TbHotkey, Variables.GlobalHotkey);
@@ -107,6 +118,7 @@ namespace DeepLClient.Forms
                 var storeTarget = CbStoreLastUsedTargetLanguage.Checked;
                 var launchWindows = CbLaunchOnWindows.Checked;
                 var hotkeyEnabled = CbEnableGlobalHotkey.Checked;
+                var pricePerChar = Convert.ToDouble(TbCostPerChar.DecimalValue);
 
                 // get formality
                 var formality = Formality.Default;
@@ -149,6 +161,7 @@ namespace DeepLClient.Forms
                 Variables.AppSettings.DefaultFormality = formality;
                 Variables.AppSettings.DeepLDomain = domain;
                 Variables.AppSettings.LaunchOnWindowsLogin = launchWindows;
+                Variables.AppSettings.PricePerCharacter = pricePerChar;
 
                 // hotkey config
                 Variables.AppSettings.GlobalHotkeyEnabled = hotkeyEnabled;
@@ -200,7 +213,7 @@ namespace DeepLClient.Forms
 
             MessageBoxAdv.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-        
+
         private void Configuration_FormClosing(object sender, FormClosingEventArgs e)
         {
             // resume global hotkeys
@@ -224,10 +237,18 @@ namespace DeepLClient.Forms
             info.AppendLine("Simply press the hotkey anytime, and the text translation page will pop up.");
             info.AppendLine("");
             info.AppendLine("Tip: if you press the hotkey after selecting text, it'll be conveniently pasted into the source textbox!");
+            info.AppendLine("");
+            info.AppendLine("Or press it after selecting an url, and the webpage tab will fetch and translate it for you.");
 
             MessageBoxAdv.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;
+
+        private void Configuration_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Escape) return;
+            Close();
+        }
     }
 }

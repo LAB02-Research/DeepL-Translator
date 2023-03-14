@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
@@ -10,6 +11,7 @@ using Serilog;
 
 namespace DeepLClient.Managers
 {
+    [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     internal static class ProcessManager
     {
         private static bool _shutdownCalled = false;
@@ -43,10 +45,7 @@ namespace DeepLClient.Managers
             {
                 _mutex?.ReleaseMutex();
             }
-            catch
-            {
-                // best effort
-            }
+            catch { }
         }
 
         /// <summary>
@@ -70,10 +69,7 @@ namespace DeepLClient.Managers
                         proc.Kill();
                         Thread.Sleep(1500);
                     }
-                    catch
-                    {
-                        // best effort
-                    }
+                    catch { }
                     finally
                     {
                         proc?.Dispose();

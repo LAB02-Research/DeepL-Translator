@@ -51,6 +51,7 @@
             PbWarning = new PictureBox();
             BtnPrint = new Syncfusion.WinForms.Controls.SfButton();
             BtnSave = new Syncfusion.WinForms.Controls.SfButton();
+            BtnOpenInBrowser = new Syncfusion.WinForms.Controls.SfButton();
             ((System.ComponentModel.ISupportInitialize)WebView).BeginInit();
             PnlWebView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PbWarning).BeginInit();
@@ -206,7 +207,7 @@
             BtnCopyClipboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCopyClipboard.ForeColor = Color.FromArgb(241, 241, 241);
             BtnCopyClipboard.ImageSize = new Size(16, 16);
-            BtnCopyClipboard.Location = new Point(725, 621);
+            BtnCopyClipboard.Location = new Point(639, 621);
             BtnCopyClipboard.Name = "BtnCopyClipboard";
             BtnCopyClipboard.Size = new Size(80, 24);
             BtnCopyClipboard.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -229,7 +230,7 @@
             LblClipboardCopied.AccessibleRole = AccessibleRole.StaticText;
             LblClipboardCopied.AutoSize = true;
             LblClipboardCopied.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblClipboardCopied.Location = new Point(589, 624);
+            LblClipboardCopied.Location = new Point(503, 624);
             LblClipboardCopied.Name = "LblClipboardCopied";
             LblClipboardCopied.Size = new Size(130, 19);
             LblClipboardCopied.TabIndex = 76;
@@ -356,7 +357,7 @@
             // 
             PbWarning.Cursor = Cursors.Hand;
             PbWarning.Image = (Image)resources.GetObject("PbWarning.Image");
-            PbWarning.Location = new Point(484, 621);
+            PbWarning.Location = new Point(473, 621);
             PbWarning.Name = "PbWarning";
             PbWarning.Size = new Size(24, 24);
             PbWarning.SizeMode = PictureBoxSizeMode.AutoSize;
@@ -415,12 +416,38 @@
             BtnSave.UseVisualStyleBackColor = false;
             BtnSave.Click += BtnSave_Click;
             // 
+            // BtnOpenInBrowser
+            // 
+            BtnOpenInBrowser.AccessibleDescription = "";
+            BtnOpenInBrowser.AccessibleName = "";
+            BtnOpenInBrowser.AccessibleRole = AccessibleRole.PushButton;
+            BtnOpenInBrowser.BackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenInBrowser.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnOpenInBrowser.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenInBrowser.ImageSize = new Size(16, 16);
+            BtnOpenInBrowser.Location = new Point(725, 621);
+            BtnOpenInBrowser.Name = "BtnOpenInBrowser";
+            BtnOpenInBrowser.Size = new Size(80, 24);
+            BtnOpenInBrowser.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenInBrowser.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenInBrowser.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenInBrowser.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenInBrowser.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenInBrowser.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnOpenInBrowser.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnOpenInBrowser.Style.Image = Properties.Resources.globe_icon_24;
+            BtnOpenInBrowser.Style.PressedForeColor = Color.Black;
+            BtnOpenInBrowser.TabIndex = 115;
+            BtnOpenInBrowser.UseVisualStyleBackColor = false;
+            BtnOpenInBrowser.Click += BtnOpenInBrowser_Click;
+            // 
             // UrlPage
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(45, 45, 48);
+            Controls.Add(BtnOpenInBrowser);
             Controls.Add(BtnSave);
             Controls.Add(BtnPrint);
             Controls.Add(PbWarning);
@@ -478,5 +505,6 @@
         private PictureBox PbWarning;
         private Syncfusion.WinForms.Controls.SfButton BtnPrint;
         private Syncfusion.WinForms.Controls.SfButton BtnSave;
+        private Syncfusion.WinForms.Controls.SfButton BtnOpenInBrowser;
     }
 }

@@ -241,8 +241,9 @@
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Subscription Information   |   LAB02 Research";
+            Text = "Subscription Information";
             Load += SubscriptionInfo_Load;
+            KeyUp += SubscriptionInfo_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
             ResumeLayout(false);
             PerformLayout();

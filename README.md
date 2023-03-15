@@ -29,7 +29,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Introduction
 
-[DeepL](https://www.deepl.com/pro-api) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, preserving the layout in the process.
+[DeepL](https://www.deepl.com/pro-api) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, while preserving their layout.
 
 DeepL offers a Windows app for their translation services, but that client doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
@@ -52,9 +52,9 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 Summary of the core functions:
 
-* **Text**: translate text, written or just drag a .txt file to the text field.
+* **Text**: translate written text, or just drag and drop a .txt file.
 
-* **Documents**: translate a variaty of documents. Has lots of checks to make sure your document will be accepted by DeepL.
+* **Documents**: translate a variaty of document types. Supports drag and drop, and has lots of checks to make sure your document will be accepted by DeepL.
 
 * **Webpages**: translate any webpage. Extracts the relevant text to reduce the amount of characters and increase the readability.
 
@@ -66,11 +66,11 @@ Summary of the core functions:
 
 * **Cost management**: tells you how much your text or document will cost in terms of both characters and hard cash. Shows the current state of your subscription.
 
-* **UI**: full fledged interface, built to be easy and intuitive to use with as little clicks/keys as possible. Resides in the system tray.
+* **UI**: full fledged interface, built to be easy and intuitive to use with as little input as possible. Resides in the system tray.
 
 * **Print or save**: print your translations, or store them locally for later reference.
 
-* **Updater**: contains an automatic updater that'll keep your version up-to-date without any hassle.
+* **Updater**: contains an automatic updater that'll keep your translator up-to-date in the background.
 
 ----
 

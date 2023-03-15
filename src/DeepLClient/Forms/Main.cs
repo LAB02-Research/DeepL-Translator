@@ -97,6 +97,9 @@ namespace DeepLClient.Forms
                 return;
             }
 
+            // optionally re-enable subscription button
+            if (!BtnSubscription.Enabled) BtnSubscription.Enabled = true;
+
             // optionally remove current pages
             ClearTabPages();
 

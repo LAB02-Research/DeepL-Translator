@@ -14,10 +14,6 @@ namespace DeepLClient.Managers
         /// </summary>
         internal static void Initialize()
         {
-            // only free subscriptions atm
-            // todo: monitor pro cost limit
-            if (!UsingFreeSubscription()) return;
-
             // start monitoring subscription limits
             _ = Task.Run(MonitorLimits);
         }
@@ -28,6 +24,9 @@ namespace DeepLClient.Managers
             {
                 try
                 {
+                    // only on free
+                    if (!UsingFreeSubscription()) continue;
+
                     // check if the manager's ready
                     while (!DeepLManager.IsInitialised) await Task.Delay(150);
 

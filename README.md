@@ -17,7 +17,8 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Content
 
- * [Why?](#why)
+ * [Introduction](#introduction)
+ * [Download](#download)
  * [Functionality](#functionality)
  * [Usage](#usage)
  * [Screenshots](#screenshots)
@@ -26,7 +27,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ----
 
-### Why?
+### Introduction
 
 [DeepL](https://deepl.com) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, preserving the layout in the process.
 
@@ -38,6 +39,12 @@ So, since there isn't an API client available, I built one that I'd want to use.
 If you appreciate my work, I'd appreciate a coffee!
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/lab02research)
+
+----
+
+### Download
+
+Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe) to download the latest installer, or [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/) for the zip package and source code.
 
 ----
 

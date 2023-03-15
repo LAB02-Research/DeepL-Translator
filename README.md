@@ -50,8 +50,6 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Functionality
 
-Summary of the core functions:
-
 * **Text**: translate written text, or just drag and drop a .txt file.
 
 * **Documents**: translate a variaty of document types. Supports drag and drop, and has lots of checks to make sure your document will be accepted by DeepL.

@@ -133,6 +133,9 @@ namespace DeepLClient.Managers
                 // remove tray icon
                 Variables.MainForm?.HideTrayIcon();
 
+                // unbind all hotkeys
+                Variables.HotkeyListener?.RemoveAll();
+
                 // dispose global hotkey
                 Variables.HotkeyListener?.Dispose();
 

@@ -151,9 +151,9 @@
             LblCost.AccessibleName = "";
             LblCost.AccessibleRole = AccessibleRole.StaticText;
             LblCost.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblCost.Location = new Point(295, 624);
+            LblCost.Location = new Point(302, 624);
             LblCost.Name = "LblCost";
-            LblCost.Size = new Size(84, 22);
+            LblCost.Size = new Size(77, 22);
             LblCost.TabIndex = 69;
             LblCost.Text = "€ 0,00";
             LblCost.TextAlign = ContentAlignment.TopRight;
@@ -192,7 +192,7 @@
             label1.AccessibleRole = AccessibleRole.StaticText;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(188, 624);
+            label1.Location = new Point(204, 624);
             label1.Name = "label1";
             label1.Size = new Size(101, 19);
             label1.TabIndex = 72;

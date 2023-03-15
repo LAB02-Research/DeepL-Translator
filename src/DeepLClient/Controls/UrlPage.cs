@@ -254,7 +254,7 @@ namespace DeepLClient.Controls
                     sourceLanguage,
                     targetLanguage,
                     options);
-                
+
                 // set the cost
                 LblCharacters.Text = translatedText.Text.Length.ToString();
                 LblCost.Text = SubscriptionManager.CalculateCost(translatedText.Text.Length, false);

@@ -3,6 +3,7 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
+using System.Windows.Forms;
 
 namespace DeepLClient.Forms
 {
@@ -47,15 +48,22 @@ namespace DeepLClient.Forms
                 // determine limit and how many chars are left, only on free
                 if (SubscriptionManager.UsingFreeSubscription())
                 {
+                    // get our limit
                     LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
+                    
+                    // get our remaining chars
+                    var charactersLeft = state.Character.Limit - state.Character.Count;
+                    if (charactersLeft < 0) charactersLeft = 0;
+                    LblCharactersLeft.Text = $"{charactersLeft:N0}";
+
+                    // warn the user if we're getting close to the limit
+                    if (charactersLeft < 10000) LblCharactersLeft.ForeColor = Color.FromArgb(255, 128, 128);
+
+                    // no cost :D
                     LblCost.Text = "FREE";
 
-                    var charsLeft = state.Character.Limit - state.Character.Count;
-                    if (charsLeft < 0) charsLeft = 0;
-                    LblCharactersLeft.Text = $"{charsLeft:N0}";
-
                     // check for reached limit
-                    if (state.Character.LimitReached || charsLeft == 0) LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
+                    if (state.Character.LimitReached || charactersLeft == 0) LblLimitReached.Text = "you've reached the monthly limit, and are unable to translate until next month!";
                 }
                 else
                 {
@@ -75,21 +83,21 @@ namespace DeepLClient.Forms
                 if (IsDisposed) return;
                 Log.Fatal(ex, "[SUBSCRIPTION] Unable to establish a connection to DeepL's servers: {err}", ex.Message);
                 MessageBoxAdv.Show(this, "Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+                DialogResult = DialogResult.Cancel;
             }
             catch (Exception ex)
             {
                 if (IsDisposed) return;
                 Log.Fatal(ex, "[SUBSCRIPTION] Something went wrong: {err}", ex.Message);
                 MessageBoxAdv.Show(this, $"Something went wrong:\r\n\r\n{ex.Message}", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+                DialogResult = DialogResult.Cancel;
             }
         }
 
         private void SubscriptionInfo_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Escape) return;
-            Close();
+            DialogResult = DialogResult.Cancel;
         }
 
         private void BtnYes_Click(object sender, EventArgs e) => DialogResult = DialogResult.OK;

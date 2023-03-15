@@ -117,13 +117,13 @@ namespace DeepLClient.Forms
                 TabText.Controls.Remove(_text);
                 _text.Dispose();
             }
-            
+
             if (_documents != null)
             {
                 TabDocuments.Controls.Remove(_documents);
                 _documents.Dispose();
             }
-            
+
             if (_url != null)
             {
                 TabDocuments.Controls.Remove(_url);
@@ -274,7 +274,8 @@ namespace DeepLClient.Forms
         /// Shows (or optionally hides) the 'limit reached' warning
         /// </summary>
         /// <param name="show"></param>
-        internal void ShowLimitWarning(bool show = true)
+        /// <param name="message"></param>
+        internal void ShowLimitWarning(bool show = true, string message = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION")
         {
             try
             {
@@ -285,7 +286,8 @@ namespace DeepLClient.Forms
                 {
                     try
                     {
-                        LblCharLimitReached.Visible = show;
+                        LblLimitInfo.Text = message;
+                        LblLimitInfo.Visible = show;
                     }
                     catch { }
                 }));

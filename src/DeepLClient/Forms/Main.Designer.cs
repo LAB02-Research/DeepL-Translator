@@ -44,7 +44,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             TsAbout = new ToolStripMenuItem();
             TsExit = new ToolStripMenuItem();
-            LblCharLimitReached = new Label();
+            LblLimitInfo = new Label();
             BtnAbout = new Syncfusion.WinForms.Controls.SfButton();
             PnlTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).BeginInit();
@@ -123,7 +123,7 @@
             TabDocuments.Location = new Point(2, 41);
             TabDocuments.Name = "TabDocuments";
             TabDocuments.ShowCloseButton = true;
-            TabDocuments.Size = new Size(993, 589);
+            TabDocuments.Size = new Size(993, 654);
             TabDocuments.TabBackColor = Color.FromArgb(45, 45, 48);
             TabDocuments.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -138,7 +138,7 @@
             TabUrl.Location = new Point(2, 41);
             TabUrl.Name = "TabUrl";
             TabUrl.ShowCloseButton = true;
-            TabUrl.Size = new Size(993, 589);
+            TabUrl.Size = new Size(993, 654);
             TabUrl.TabBackColor = Color.FromArgb(45, 45, 48);
             TabUrl.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabUrl.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -272,22 +272,22 @@
             TsExit.Text = "Exit";
             TsExit.Click += TsExit_Click;
             // 
-            // LblCharLimitReached
+            // LblLimitInfo
             // 
-            LblCharLimitReached.AccessibleDescription = "";
-            LblCharLimitReached.AccessibleName = "";
-            LblCharLimitReached.AccessibleRole = AccessibleRole.StaticText;
-            LblCharLimitReached.AutoSize = true;
-            LblCharLimitReached.Cursor = Cursors.Hand;
-            LblCharLimitReached.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LblCharLimitReached.ForeColor = Color.FromArgb(255, 128, 128);
-            LblCharLimitReached.Location = new Point(323, 710);
-            LblCharLimitReached.Name = "LblCharLimitReached";
-            LblCharLimitReached.Size = new Size(489, 20);
-            LblCharLimitReached.TabIndex = 72;
-            LblCharLimitReached.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
-            LblCharLimitReached.Visible = false;
-            LblCharLimitReached.Click += LblCharLimitReached_Click;
+            LblLimitInfo.AccessibleDescription = "";
+            LblLimitInfo.AccessibleName = "";
+            LblLimitInfo.AccessibleRole = AccessibleRole.StaticText;
+            LblLimitInfo.Cursor = Cursors.Hand;
+            LblLimitInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LblLimitInfo.ForeColor = Color.FromArgb(255, 128, 128);
+            LblLimitInfo.Location = new Point(323, 710);
+            LblLimitInfo.Name = "LblLimitInfo";
+            LblLimitInfo.Size = new Size(489, 20);
+            LblLimitInfo.TabIndex = 72;
+            LblLimitInfo.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
+            LblLimitInfo.TextAlign = ContentAlignment.TopCenter;
+            LblLimitInfo.Visible = false;
+            LblLimitInfo.Click += LblCharLimitReached_Click;
             // 
             // BtnAbout
             // 
@@ -324,7 +324,7 @@
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(999, 737);
             Controls.Add(BtnAbout);
-            Controls.Add(LblCharLimitReached);
+            Controls.Add(LblLimitInfo);
             Controls.Add(BtnHide);
             Controls.Add(BtnConfig);
             Controls.Add(BtnSubscription);
@@ -347,7 +347,6 @@
             TranslationTabs.ResumeLayout(false);
             CmTrayIcon.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -363,7 +362,7 @@
         private ToolStripMenuItem TsShow;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem TsExit;
-        private Label LblCharLimitReached;
+        private Label LblLimitInfo;
         private Syncfusion.Windows.Forms.Tools.TabPageAdv TabUrl;
         private Syncfusion.WinForms.Controls.SfButton BtnAbout;
         private ToolStripMenuItem TsAbout;

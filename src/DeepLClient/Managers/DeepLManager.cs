@@ -16,7 +16,7 @@ namespace DeepLClient.Managers
             try
             {
                 IsInitialised = false;
-
+                
                 // load translator
                 if (Variables.Translator != null) Variables.Translator.Dispose();
                 Variables.Translator = new Translator(Variables.AppSettings.DeepLAPIKey);

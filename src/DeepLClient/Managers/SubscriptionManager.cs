@@ -6,14 +6,18 @@ namespace DeepLClient.Managers
     [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     internal static class SubscriptionManager
     {
-        private static bool _limitWarningShown = false;
-        private static int _checkInterval = 300;
+        private static bool _limitReachedWarningShown = false;
+        private static bool _limitPendingWarningShown = false;
 
         /// <summary>
         /// Initialises the background watcher, which will notify when a subscription limit has been reached
         /// </summary>
         internal static void Initialize()
         {
+            // only free subscriptions atm
+            // todo: monitor pro cost limit
+            if (!UsingFreeSubscription()) return;
+
             // start monitoring subscription limits
             _ = Task.Run(MonitorLimits);
         }
@@ -25,35 +29,55 @@ namespace DeepLClient.Managers
                 try
                 {
                     // check if the manager's ready
-                    if (!DeepLManager.IsInitialised) continue;
+                    while (!DeepLManager.IsInitialised) await Task.Delay(150);
 
                     // get the current state
                     var state = await Variables.Translator.GetUsageAsync();
+                    if (state.Character == null) continue;
 
-                    if (!state.AnyLimitReached)
+                    // get remaining chars
+                    var charsRemaining = state.Character.Limit - state.Character.Count;
+                    
+                    // anything to warn about?
+                    switch (state.AnyLimitReached)
                     {
-                        if (_limitWarningShown)
+                        case false when charsRemaining > 10000:
                         {
-                            // ok again, hide and slow down
+                            // nope
+                            if (!_limitReachedWarningShown && !_limitPendingWarningShown) break;
+
+                            // hide the warnings
                             Variables.MainForm?.ShowLimitWarning(false);
-                            _limitWarningShown = false;
-                            _checkInterval = 300;
+                            _limitReachedWarningShown = false;
+                            _limitPendingWarningShown = false;
+
+                            break;
                         }
+                        case true when !_limitReachedWarningShown:
+                        {
+                            // we've reached a limit, motify
+                            Variables.MainForm?.ShowLimitWarning();
+                            _limitReachedWarningShown = true;
 
-                        continue;
+                            break;
+                        }
+                        default:
+                        {
+                            if (charsRemaining > 10000) break;
+                            
+                            // we're near a limit
+                            Variables.MainForm?.ShowLimitWarning(true, $"YOU HAVE {charsRemaining:N0} CHARACTERS LEFT");
+                            _limitPendingWarningShown = true;
+
+                            break;
+                        }
                     }
-
-                    // we've reached a limit, motify
-                    Variables.MainForm?.ShowLimitWarning();
-                    _limitWarningShown = true;
-
-                    // increase our recheck time
-                    _checkInterval = 15;
                 }
                 catch { }
                 finally
                 {
-                    await Task.Delay(TimeSpan.FromSeconds(_checkInterval));
+                    // don't bother the api too much
+                    await Task.Delay(TimeSpan.FromMinutes(5));
                 }
             }
         }

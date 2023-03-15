@@ -184,26 +184,26 @@ namespace DeepLClient.Controls
                 LblState.Visible = true;
 
                 // get the content
-                var (success, isReadable, sourceText, error) = await UrlManager.GetReadableContentAsync(url, isLocal);
-                if (!success)
+                var webpageResult = await UrlManager.GetReadableContentAsync(url, isLocal);
+                if (!webpageResult.Success)
                 {
-                    LblState.Text = !string.IsNullOrEmpty(error)
-                        ? $"something went wrong while trying to fetch your webpage:\r\n\r\n{error}"
+                    LblState.Text = !string.IsNullOrEmpty(webpageResult.Error)
+                        ? $"something went wrong while trying to fetch your webpage:\r\n\r\n{webpageResult.Error}"
                         : "something went wrong while trying to fetch your webpage";
                     return;
                 }
 
                 // check it
-                if (string.IsNullOrWhiteSpace(sourceText))
+                if (string.IsNullOrWhiteSpace(webpageResult.Content))
                 {
                     LblState.Text = "your webpage doesn't seem to contain any text";
                     return;
                 }
 
                 // do we have enough chars left?
-                if (await SubscriptionManager.CharactersWillExceedLimitAsync(sourceText.Length))
+                if (await SubscriptionManager.CharactersWillExceedLimitAsync(webpageResult.Content.Length))
                 {
-                    using var limit = new LimitExceeded(sourceText.Length);
+                    using var limit = new LimitExceeded(webpageResult.Content.Length);
                     var ignoreLimit = limit.ShowDialog();
                     if (ignoreLimit != DialogResult.OK)
                     {
@@ -213,7 +213,7 @@ namespace DeepLClient.Controls
                 }
 
                 // readable?
-                if (!isReadable) PbWarning.Visible = true;
+                if (!webpageResult.IsReadable) PbWarning.Visible = true;
 
                 // fetch the source language
                 string sourceLanguage = null;
@@ -250,21 +250,24 @@ namespace DeepLClient.Controls
 
                 // don't use formality, send the text as-is to DeepL for translation
                 var translatedText = await Variables.Translator.TranslateTextAsync(
-                    sourceText,
+                    webpageResult.Content,
                     sourceLanguage,
                     targetLanguage,
                     options);
-
-                // hide info
-                LblState.Text = string.Empty;
-                LblState.Visible = false;
-
+                
                 // set the cost
                 LblCharacters.Text = translatedText.Text.Length.ToString();
                 LblCost.Text = SubscriptionManager.CalculateCost(translatedText.Text.Length, false);
 
+                // wrap it in html for styling
+                var source = UrlManager.WrapContentInHtml(translatedText.Text, webpageResult.Title);
+
                 // set the translated text
-                WebView.NavigateToString(translatedText.Text);
+                WebView.NavigateToString(source);
+
+                // hide info
+                LblState.Text = string.Empty;
+                LblState.Visible = false;
 
                 // store the selected languages
                 SettingsManager.StoreSelectedLanguages(CbSourceLanguage, CbTargetLanguage);
@@ -318,7 +321,7 @@ namespace DeepLClient.Controls
 
             WebView.NavigateToString(string.Empty);
         }
-        
+
         /// <summary>
         /// Shows the dragdrop effect when hovering a file or text.
         /// </summary>
@@ -405,7 +408,7 @@ namespace DeepLClient.Controls
 
                 // set the value
                 TbUrl.Text = value;
-                
+
                 // enable auto detect
                 CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetEntry("AUTO DETECT");
 
@@ -417,7 +420,7 @@ namespace DeepLClient.Controls
                 Log.Fatal(ex, "[URL] Error while processing dropped content: {err}", ex.Message);
             }
         }
-        
+
         /// <summary>
         /// Copies the current webview text to clipboard
         /// </summary>
@@ -430,12 +433,8 @@ namespace DeepLClient.Controls
                 var cleanText = await WebView.ExecuteScriptAsync("document.body.innerText");
                 if (string.IsNullOrWhiteSpace(cleanText)) return;
 
-                // trim
+                // clean it up
                 cleanText = UrlManager.CleanText(cleanText.Trim());
-                
-                // optionally remove start & end quotes
-                if (cleanText.StartsWith("\"")) cleanText = cleanText.Remove(0, 1);
-                if (cleanText.EndsWith("\"")) cleanText = cleanText.Remove(cleanText.Length - 1, 1);
 
                 // copy it to the clipboard if not empty and configured as such
                 if (string.IsNullOrWhiteSpace(cleanText) || (!force && !Variables.AppSettings.CopyTranslationToClipboard)) return;
@@ -629,7 +628,7 @@ namespace DeepLClient.Controls
 
                 // prepare a temp file
                 var tempFile = Path.Combine(Variables.WebPagesCachePath, $"{Guid.NewGuid().ToString().Replace("-", "")}.html");
-                
+
                 // write the source to it
                 await File.WriteAllTextAsync(tempFile, source);
 

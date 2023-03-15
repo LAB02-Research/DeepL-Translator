@@ -214,7 +214,7 @@ namespace DeepLClient.Controls
             LblCharacters.Text = TbSource.Text.Length.ToString();
             LblCost.Text = SubscriptionManager.CalculateCost(TbSource.Text.Length, false);
         }
-        
+
         /// <summary>
         /// Shows the dragdrop effect when hovering a file or text.
         /// </summary>
@@ -300,7 +300,7 @@ namespace DeepLClient.Controls
             {
                 // copy the text
                 var cleanText = TbTranslated.Text.Trim();
-                
+
                 // copy it to the clipboard if not empty and configured as such
                 if (string.IsNullOrWhiteSpace(cleanText) || (!force && !Variables.AppSettings.CopyTranslationToClipboard)) return;
 
@@ -327,7 +327,7 @@ namespace DeepLClient.Controls
                 Log.Fatal(ex, "[TEXT] Error while copying to clipboard: {err}", ex.Message);
             }
         }
-        
+
         /// <summary>
         /// Resets and hides the detected source language info
         /// </summary>

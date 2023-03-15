@@ -6,8 +6,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using AngleSharp.Dom;
 using Serilog;
-using static System.Net.Mime.MediaTypeNames;
+using DeepLClient.Models;
+using Newtonsoft.Json;
 
 namespace DeepLClient.Managers
 {
@@ -19,33 +21,35 @@ namespace DeepLClient.Managers
         /// <param name="url"></param>
         /// <param name="isLocaLFile"></param>
         /// <returns></returns>
-        internal static async Task<(bool success, bool isReadable, string content, string error)> GetReadableContentAsync(string url, bool isLocaLFile = false)
+        internal static async Task<WebpageResult> GetReadableContentAsync(string url, bool isLocaLFile = false)
         {
+            var webpageResult = new WebpageResult();
+
             try
             {
                 // fetch the content if it's a local file, otherwise download it
                 var reader = isLocaLFile 
                     ? new Reader(url, await File.ReadAllTextAsync(url)) 
                     : new Reader(url);
-
+                
                 // get the article
                 var article = await reader.GetArticleAsync();
-
+                
                 // readable?
                 if (!article.IsReadable)
                 {
                     // nope
                     Log.Warning("[URL] Fetching readable text failed: {url}", url);
-                    return (true, false, article.Content, "unable to determine what part of the site is relevant text");
+                    return webpageResult.SetReadableFailed(article.Content, article.Title);
                 }
-
-                // yep
-                return (true, true, article.Content, string.Empty);
+                
+                // done
+                return webpageResult.SetSuccess(article.Content, article.Title);
             }
             catch (UriFormatException ex)
             {
                 Log.Fatal(ex, "[URL] Unable to parse host '{url}': {err}", url, ex.Message);
-                return (false, false, string.Empty, "provided url is in the wrong format");
+                return webpageResult.SetFailed("provided url is in the wrong format");
             }
             catch (HttpRequestException ex)
             {
@@ -57,25 +61,25 @@ namespace DeepLClient.Managers
 
                     return exc.SocketErrorCode switch
                     {
-                        SocketError.HostNotFound => (false, false, string.Empty, "the remote host address wasn't found"),
-                        SocketError.AccessDenied => (false, false, string.Empty, "access denied by the remote host"),
-                        SocketError.TimedOut => (false, false, string.Empty, "the host didn't respond"),
-                        SocketError.HostDown => (false, false, string.Empty, "the remote host is offline"),
-                        SocketError.HostUnreachable or SocketError.NetworkUnreachable => (false, false, string.Empty, "the remote host couldn't be reached"),
-                        SocketError.NotConnected => (false, false, string.Empty, "no internet connection"), 
-                        _ => (false, false, string.Empty, $"error trying to contact the host: {exc.SocketErrorCode.ToString().ToLower()}")
+                        SocketError.HostNotFound => webpageResult.SetFailed("the remote host address wasn't found"),
+                        SocketError.AccessDenied => webpageResult.SetFailed("access denied by the remote host"),
+                        SocketError.TimedOut => webpageResult.SetFailed("the host didn't respond"),
+                        SocketError.HostDown => webpageResult.SetFailed("the remote host is offline"),
+                        SocketError.HostUnreachable or SocketError.NetworkUnreachable => webpageResult.SetFailed("the remote host couldn't be reached"),
+                        SocketError.NotConnected => webpageResult.SetFailed("no internet connection"), 
+                        _ => webpageResult.SetFailed($"error trying to contact the host: {exc.SocketErrorCode.ToString().ToLower()}")
                     };
                 }
 
                 var statusCode = ex.StatusCode.ToString();
-                return !string.IsNullOrWhiteSpace(statusCode) 
-                    ? (false, false, string.Empty, $"error trying to contact the host: {statusCode}") 
-                    : (false, false, string.Empty, "unknown error trying to contact the host");
+                return !string.IsNullOrWhiteSpace(statusCode)
+                    ? webpageResult.SetFailed($"error trying to contact the host: {statusCode}")
+                    : webpageResult.SetFailed("unknown error trying to contact the host");
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[URL] Unable to process host '{url}': {err}", url, ex.Message);
-                return (false, false, string.Empty, "unknown error trying to contact the host");
+                return webpageResult.SetFailed("unknown error trying to contact the host");
             }
         }
 
@@ -87,6 +91,9 @@ namespace DeepLClient.Managers
         internal static string CleanText(string rawText)
         {
             if (string.IsNullOrEmpty(rawText)) return string.Empty;
+
+            if (rawText.StartsWith("\"")) rawText = rawText.Remove(0, 1);
+            if (rawText.EndsWith("\"")) rawText = rawText.Remove(rawText.Length - 1, 1);
 
             rawText = rawText.Replace("\\n\\n", Environment.NewLine);
             rawText = rawText.Replace("\\n", Environment.NewLine);
@@ -114,6 +121,30 @@ namespace DeepLClient.Managers
         {
             if (string.IsNullOrWhiteSpace(value)) return false;
             return value.Substring(1, 2) == ":\\" || value[..2] == "\\\\";
+        }
+
+        /// <summary>
+        /// Wraps the provided content into a reading mode html page, and adds the title
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        internal static string WrapContentInHtml(string content, string title)
+        {
+            var htmlContent = new StringBuilder();
+            htmlContent.AppendLine("<html>");
+            htmlContent.AppendLine("<head>");
+            htmlContent.AppendLine($"<title>{title}</title>");
+            htmlContent.AppendLine("<style>");
+            htmlContent.AppendLine("a:link, a:visited, a:hover, a:active { color: #6590fd }");
+            htmlContent.AppendLine("</style>");
+            htmlContent.AppendLine("</head>");
+            htmlContent.AppendLine("<body style=\"background-color: #3f3f46; color: #f1f1f1;\">");
+            htmlContent.AppendLine(content);
+            htmlContent.AppendLine("</body>");
+            htmlContent.AppendLine("</html>");
+
+            return htmlContent.ToString();
         }
     }
 }

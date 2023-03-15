@@ -320,9 +320,9 @@
             // WebView
             // 
             WebView.AllowExternalDrop = true;
-            WebView.BackColor = Color.White;
+            WebView.BackColor = Color.FromArgb(63, 63, 70);
             WebView.CreationProperties = null;
-            WebView.DefaultBackgroundColor = Color.White;
+            WebView.DefaultBackgroundColor = Color.FromArgb(63, 63, 70);
             WebView.Dock = DockStyle.Fill;
             WebView.Location = new Point(0, 0);
             WebView.Name = "WebView";
@@ -332,6 +332,7 @@
             // 
             // PnlWebView
             // 
+            PnlWebView.BackColor = Color.FromArgb(63, 63, 70);
             PnlWebView.BorderStyle = BorderStyle.FixedSingle;
             PnlWebView.Controls.Add(LblState);
             PnlWebView.Controls.Add(WebView);
@@ -345,8 +346,10 @@
             LblState.AccessibleDescription = "";
             LblState.AccessibleName = "";
             LblState.AccessibleRole = AccessibleRole.StaticText;
+            LblState.BackColor = Color.FromArgb(63, 63, 70);
             LblState.BorderStyle = BorderStyle.FixedSingle;
             LblState.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            LblState.ForeColor = Color.FromArgb(241, 241, 241);
             LblState.Location = new Point(0, 0);
             LblState.Name = "LblState";
             LblState.Size = new Size(962, 482);

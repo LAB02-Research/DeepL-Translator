@@ -275,14 +275,11 @@ namespace DeepLClient.Managers
             }
             finally
             {
-                // note: this is a risk, incase the updater doesn't properly launch
+                // note: this is a risk, in case the updater doesn't properly launch
                 // but if we're not closed when it has launched, it'll get stuck waiting for us until the end of times
-
-                // flush our logs
-                Log.CloseAndFlush();
-
+                
                 // bye bye
-                Environment.Exit(0);
+                ProcessManager.Shutdown();
             }
         }
 

@@ -29,7 +29,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ### Introduction
 
-[DeepL](https://deepl.com) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, preserving the layout in the process.
+[DeepL](https://www.deepl.com/pro-api) provides AI/ML translation services. They differ from for example Google Translate in that they don't translate *as-is*, but also contextually. I've been using it a lot for translating from and into French, and it's truly amazing what they can do. Besides plain text, it's also possible to translate entire documents, preserving the layout in the process.
 
 DeepL offers a Windows app for their translation services, but that client doesn't support the API, only regular subscriptions. Using the API can be more cost efficient for both the free and pro subscriptions: the free subscription offers 500.000 characters per month, which can be used for both documents and text. The pro subscription charges per character, instead of having to pay a set price monthly regardless of usage.
 
@@ -78,7 +78,7 @@ Summary of the core functions:
 
 Just install the [latest installer](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/download/DeepL.Translator.Installer.exe). It'll make sure you have all the required prerequisites, and the application will launch when done (and notify you of a missing API key).
 
-You can get your free or pro key here: [https://www.deepl.com/pro-api?cta=header-pro-api/](https://www.deepl.com/pro-api?cta=header-pro-api/)
+You can get your free or pro key here: [https://www.deepl.com/pro-api/](https://www.deepl.com/pro-api/)
 
 Make sure you set the correct domain, corresponding to your subscription:
 
@@ -178,7 +178,7 @@ Done:
 
 ### Credits and Licensing
 
-Thanks to [DeepL](https://deepl.com) for providing such a great translation service!
+Thanks to [DeepL](https://www.deepl.com/pro-api) for providing such a great translation service!
 
 And a big thank you to all other packages:
 

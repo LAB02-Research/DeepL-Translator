@@ -104,7 +104,7 @@ Webpage interface:
 
 ![image](https://user-images.githubusercontent.com/81011038/225082337-98a958df-109d-4536-a59c-c82f896cbd41.png)
 
-![image](https://user-images.githubusercontent.com/81011038/225082364-0a407055-d298-4023-a5fe-333354baa634.png)
+![image](https://user-images.githubusercontent.com/81011038/225346182-356cf46e-dbbd-4e3e-9299-78c97abfa240.png)
 
 You'll be notified of the costs before translating a document:
 

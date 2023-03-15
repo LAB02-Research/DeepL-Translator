@@ -15,7 +15,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
 
 ----
 
-### Contents
+### Content
 
  * [Why?](#why)
  * [Functionality](#functionality)

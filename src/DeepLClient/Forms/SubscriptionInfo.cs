@@ -3,7 +3,6 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
-using System.Windows.Forms;
 
 namespace DeepLClient.Forms
 {
@@ -18,6 +17,9 @@ namespace DeepLClient.Forms
         {
             try
             {
+                // set topmost
+                TopMost = Variables.AppSettings.AlwaysOnTop;
+
                 // catch all key presses
                 KeyPreview = true;
 
@@ -50,7 +52,7 @@ namespace DeepLClient.Forms
                 {
                     // get our limit
                     LblCharacterLimit.Text = $"{state.Character.Limit:N0}";
-                    
+
                     // get our remaining chars
                     var charactersLeft = state.Character.Limit - state.Character.Count;
                     if (charactersLeft < 0) charactersLeft = 0;
@@ -82,14 +84,14 @@ namespace DeepLClient.Forms
             {
                 if (IsDisposed) return;
                 Log.Fatal(ex, "[SUBSCRIPTION] Unable to establish a connection to DeepL's servers: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show(this, "Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.Cancel;
             }
             catch (Exception ex)
             {
                 if (IsDisposed) return;
                 Log.Fatal(ex, "[SUBSCRIPTION] Something went wrong: {err}", ex.Message);
-                MessageBoxAdv.Show(this, $"Something went wrong:\r\n\r\n{ex.Message}", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show(this, $"Something went wrong:\r\n\r\n{ex.Message}", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DialogResult = DialogResult.Cancel;
             }
         }

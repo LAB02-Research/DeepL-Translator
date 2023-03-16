@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace DeepLClient.Functions
+﻿namespace DeepLClient.Functions
 {
     public static class Extensions
     {

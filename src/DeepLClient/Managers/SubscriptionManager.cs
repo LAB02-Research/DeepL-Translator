@@ -46,7 +46,7 @@ namespace DeepLClient.Managers
                             if (!_limitReachedWarningShown && !_limitPendingWarningShown) break;
 
                             // hide the warnings
-                            Variables.MainForm?.ShowLimitWarning(false);
+                            Variables.MainFormManager?.HideWarningMessage();
                             _limitReachedWarningShown = false;
                             _limitPendingWarningShown = false;
 
@@ -55,7 +55,7 @@ namespace DeepLClient.Managers
                         case true when !_limitReachedWarningShown:
                         {
                             // we've reached a limit, motify
-                            Variables.MainForm?.ShowLimitWarning();
+                            Variables.MainFormManager?.ShowWarningMessage("CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION");
                             _limitReachedWarningShown = true;
 
                             break;
@@ -65,7 +65,7 @@ namespace DeepLClient.Managers
                             if (charsRemaining > 10000) break;
                             
                             // we're near a limit
-                            Variables.MainForm?.ShowLimitWarning(true, $"YOU HAVE {charsRemaining:N0} CHARACTERS LEFT");
+                            Variables.MainFormManager?.ShowWarningMessage($"YOU HAVE {charsRemaining:N0} CHARACTERS LEFT");
                             _limitPendingWarningShown = true;
 
                             break;

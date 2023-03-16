@@ -1,4 +1,5 @@
 ﻿using DeepLClient.Models;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 using Serilog;
 
@@ -149,6 +150,78 @@ namespace DeepLClient.Managers
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[SETTINGS] Error storing selected languages: {err}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the 'ApiKeyMissingShown' setting from registry
+        /// </summary>
+        /// <returns></returns>
+        internal static bool GetApiKeyMissingShown()
+        {
+            try
+            {
+                var setting = (string)Registry.GetValue(Variables.RootRegKey, "ApiKeyMissingShown", "0");
+                if (string.IsNullOrEmpty(setting)) return false;
+
+                return setting == "1";
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error retrieving 'ApiKeyMissingShown' setting: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Stores the 'ApiKeyMissingShown' setting in registry
+        /// </summary>
+        /// <param name="shown"></param>
+        internal static void SetApiKeyMissingShown(bool shown)
+        {
+            try
+            {
+                Registry.SetValue(Variables.RootRegKey, "ApiKeyMissingShown", shown ? "1" : "0", RegistryValueKind.String);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing 'ApiKeyMissingShown' setting: {err}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the 'DomainConfirmationShown' setting from registry
+        /// </summary>
+        /// <returns></returns>
+        internal static bool GetDomainConfirmationShown()
+        {
+            try
+            {
+                var setting = (string)Registry.GetValue(Variables.RootRegKey, "DomainConfirmationShown", "0");
+                if (string.IsNullOrEmpty(setting)) return false;
+
+                return setting == "1";
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error retrieving 'DomainConfirmationShown' setting: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Stores the 'DomainConfirmationShown' setting in registry
+        /// </summary>
+        /// <param name="shown"></param>
+        internal static void SetDomainConfirmationShown(bool shown)
+        {
+            try
+            {
+                Registry.SetValue(Variables.RootRegKey, "DomainConfirmationShown", shown ? "1" : "0", RegistryValueKind.String);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing 'DomainConfirmationShown' setting: {err}", ex.Message);
             }
         }
     }

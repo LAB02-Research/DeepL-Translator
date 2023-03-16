@@ -86,6 +86,7 @@
             // 
             // PbLogo
             // 
+            PbLogo.Cursor = Cursors.Hand;
             PbLogo.Image = Properties.Resources.logo_notext;
             PbLogo.Location = new Point(0, 19);
             PbLogo.Name = "PbLogo";
@@ -93,6 +94,7 @@
             PbLogo.SizeMode = PictureBoxSizeMode.Zoom;
             PbLogo.TabIndex = 6;
             PbLogo.TabStop = false;
+            PbLogo.Click += PbLogo_Click;
             // 
             // PbPayPal
             // 

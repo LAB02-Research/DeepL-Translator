@@ -8,7 +8,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>Resources\icon_white_32.ico</ApplicationIcon>
     <Title>DeepL Translator</Title>
-    <Version>2023.3.15.2</Version>
+    <Version>2023.3.16.0</Version>
     <Authors>LAB02 RESEARCH</Authors>
     <Description>Front-end client for DeepL translation services.</Description>
   </PropertyGroup>
@@ -48,13 +48,13 @@
     <Compile Update="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\LimitExceeded.cs">
+    <Compile Update="Forms\Dialogs\LimitExceeded.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Forms\SubscriptionInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\ConfirmDocument.cs">
+    <Compile Update="Forms\Dialogs\ConfirmDocument.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">

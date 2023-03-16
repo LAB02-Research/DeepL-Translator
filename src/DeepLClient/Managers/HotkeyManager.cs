@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Serilog;
+﻿using Serilog;
 using WK.Libraries.HotkeyListenerNS;
 
 namespace DeepLClient.Managers
@@ -15,7 +10,7 @@ namespace DeepLClient.Managers
         /// </summary>
         internal void Initialize()
         {
-            Variables.MainForm?.BeginInvoke(new MethodInvoker(delegate
+            Variables.MainFormManager?.RunOnUiThread(delegate
             {
                 // check if the global hotkey's active
                 if (!Variables.AppSettings.GlobalHotkeyEnabled) return;
@@ -33,7 +28,7 @@ namespace DeepLClient.Managers
                 Variables.HotkeyListener?.Add(Variables.GlobalHotkey);
 
                 Log.Information("[HOTKEY] Completed bind for global hotkey: {key}", Variables.GlobalHotkey.ToString());
-            }));
+            });
         }
 
         /// <summary>
@@ -57,13 +52,13 @@ namespace DeepLClient.Managers
                 if (!string.IsNullOrWhiteSpace(selection))
                 {
                     // set url or text
-                    if (selection.ToLower().StartsWith("http")) Variables.MainForm?.SetSourceUrl(selection.Trim());
-                    else Variables.MainForm?.SetSourceText(selection.Trim(), true);
+                    if (selection.ToLower().StartsWith("http")) Variables.MainFormManager?.SetSourceUrl(selection.Trim());
+                    else Variables.MainFormManager?.SetSourceText(selection.Trim(), true);
                     return;
                 }
 
                 // nope, just show
-                Variables.MainForm?.ShowMain(false);
+                Variables.MainFormManager?.ShowMain(false);
             }
             catch (Exception ex)
             {
@@ -78,11 +73,11 @@ namespace DeepLClient.Managers
         /// <param name="register"></param>
         internal void HotkeyChanged(Hotkey previousKey, bool register = true)
         {
-            Variables.MainForm?.BeginInvoke(new MethodInvoker(delegate
+            Variables.MainFormManager?.RunOnUiThread(delegate
             {
                 Variables.HotkeyListener?.Remove(previousKey);
                 if (register && Variables.GlobalHotkey != null && Variables.GlobalHotkey.KeyCode != Keys.None) Variables.HotkeyListener?.Add(Variables.GlobalHotkey);
-            }));
+            });
         }
     }
 }

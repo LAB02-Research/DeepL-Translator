@@ -1,6 +1,5 @@
 using System.Text;
 using DeepL;
-using DeepL.Model;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
@@ -15,6 +14,11 @@ namespace DeepLClient.Forms
         private readonly Hotkey _previousHotkey = Variables.GlobalHotkey;
 
         private readonly Dictionary<string, string> _deepLDomains = new();
+
+        private readonly string _currentApiKey = Variables.AppSettings.DeepLAPIKey;
+        private readonly string _currentDomain = Variables.AppSettings.DeepLDomain;
+
+        public bool ResetDeepL { get; private set; } = false;
 
         public Configuration()
         {
@@ -37,6 +41,9 @@ namespace DeepLClient.Forms
         {
             try
             {
+                // set topmost
+                TopMost = Variables.AppSettings.AlwaysOnTop;
+
                 // catch all key presses
                 KeyPreview = true;
 
@@ -80,6 +87,7 @@ namespace DeepLClient.Forms
                 CbLaunchHidden.Checked = Variables.AppSettings.LaunchOnWindowsLogin;
                 CbEnableGlobalHotkey.Checked = Variables.AppSettings.GlobalHotkeyEnabled;
                 TbCostPerChar.DecimalValue = Convert.ToDecimal(Variables.AppSettings.PricePerCharacter);
+                CbAlwaysOnTop.Checked = Variables.AppSettings.AlwaysOnTop;
 
                 // set hotkey
                 if (Variables.GlobalHotkey != null) _hotkeySelector.Enable(TbHotkey, Variables.GlobalHotkey);
@@ -94,7 +102,7 @@ namespace DeepLClient.Forms
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[CONFIGURATION] Error loading settings: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong loading your settings.\r\n\r\nPlease manually review your config file and restart.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show(this, "Something went wrong loading your settings.\r\n\r\nPlease manually review your config file and restart.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
         }
@@ -119,6 +127,7 @@ namespace DeepLClient.Forms
                 var launchWindows = CbLaunchOnWindows.Checked;
                 var hotkeyEnabled = CbEnableGlobalHotkey.Checked;
                 var pricePerChar = Convert.ToDouble(TbCostPerChar.DecimalValue);
+                var alwaysOnTop = CbAlwaysOnTop.Checked;
 
                 // get formality
                 var formality = Formality.Default;
@@ -136,22 +145,55 @@ namespace DeepLClient.Forms
                     domain = selectedDomain.Key;
                 }
 
-                // check the values
-                if (string.IsNullOrEmpty(user))
-                {
-                    MessageBoxAdv.Show(this, "Please enter your name.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    ActiveControl = TbUser;
-                    return;
-                }
+                // use username if nothing set, not important yet
+                if (string.IsNullOrEmpty(user)) user = Environment.UserName;
 
+                // check domain
                 if (string.IsNullOrEmpty(domain))
                 {
-                    MessageBoxAdv.Show(this, "Please select the right domain.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBoxAdv2.Show(this, "Please select the right domain.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
                     ActiveControl = CbDomain;
                     return;
                 }
 
-                // set them
+                // did the domain or api change?
+                var resetDeepL = false;
+                if (_currentDomain != domain || _currentApiKey != api)
+                {
+                    // reset mismatch check
+                    SettingsManager.SetDomainConfirmationShown(false);
+
+                    // prepare to reset deepl
+                    resetDeepL = true;
+                }
+
+                // check for key/domain mismatches (only once per change)
+                if (!SettingsManager.GetDomainConfirmationShown())
+                {
+                    if (domain.Contains("free") && !api.EndsWith(":fx"))
+                    {
+                        SettingsManager.SetDomainConfirmationShown(true);
+
+                        var confirmNotPro = MessageBoxAdv2.Show(this,
+                            "Your api key looks like a pro subscription, but you've selected the 'free' domain.\r\n\r\n" +
+                            "Are you sure you want to keep using the 'free' domain?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmNotPro != DialogResult.Yes) return;
+                    }
+                    else if (!domain.Contains("free") && api.EndsWith(":fx"))
+                    {
+                        SettingsManager.SetDomainConfirmationShown(true);
+
+                        var confirmNotPro = MessageBoxAdv2.Show(this,
+                            "Your api key looks like a free subscription, but you've selected the 'pro' domain.\r\n\r\n" +
+                            "This can sometimes happen when you upgrade your subscription, but just to be sure:\r\n\r\n" +
+                            "Do you want to keep using the 'pro' domain?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                        if (confirmNotPro != DialogResult.Yes) return;
+                    }
+                }
+                
+                // set the new configuration
                 Variables.AppSettings.User = user;
                 Variables.AppSettings.DeepLAPIKey = api;
                 Variables.AppSettings.LaunchHidden = launchHidden;
@@ -162,8 +204,9 @@ namespace DeepLClient.Forms
                 Variables.AppSettings.DeepLDomain = domain;
                 Variables.AppSettings.LaunchOnWindowsLogin = launchWindows;
                 Variables.AppSettings.PricePerCharacter = pricePerChar;
+                Variables.AppSettings.AlwaysOnTop = alwaysOnTop;
 
-                // hotkey config
+                // set hotkey config
                 Variables.AppSettings.GlobalHotkeyEnabled = hotkeyEnabled;
                 if (hotkeyEnabled)
                 {
@@ -182,11 +225,14 @@ namespace DeepLClient.Forms
 
                 // store config
                 var success = SettingsManager.Store();
-                if (!success) MessageBoxAdv.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!success) MessageBoxAdv2.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // process launch-on-login
                 if (launchWindows) LaunchManager.EnableLaunchOnUserLogin();
                 else LaunchManager.DisableLaunchOnUserLogin();
+
+                // optionally reset deepl afterwards
+                ResetDeepL = resetDeepL;
 
                 // done
                 DialogResult = DialogResult.OK;
@@ -194,13 +240,13 @@ namespace DeepLClient.Forms
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[CONFIGURATION] Error saving settings: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void LblFormalityInfo_Click(object sender, EventArgs e)
         {
-            MessageBoxAdv.Show(this, HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv2.Show(this, HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void LblDomainInfo_Click(object sender, EventArgs e)
@@ -211,7 +257,7 @@ namespace DeepLClient.Forms
             info.AppendLine("If you have a free subscription, select the free domain.");
             info.AppendLine("If you have a pro subscription, you guessed it, select the pro domain.");
 
-            MessageBoxAdv.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv2.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void Configuration_FormClosing(object sender, FormClosingEventArgs e)
@@ -240,7 +286,7 @@ namespace DeepLClient.Forms
             info.AppendLine("");
             info.AppendLine("Or press it after selecting an url, and the webpage tab will fetch and translate it for you.");
 
-            MessageBoxAdv.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv2.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnCancel_Click(object sender, EventArgs e) => DialogResult = DialogResult.Cancel;
@@ -249,6 +295,11 @@ namespace DeepLClient.Forms
         {
             if (e.KeyCode != Keys.Escape) return;
             Close();
+        }
+
+        private void LblNameInfo_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -55,6 +55,8 @@
             BtnCleanHotkey = new Syncfusion.WinForms.Controls.SfButton();
             TbCostPerChar = new Syncfusion.Windows.Forms.Tools.CurrencyTextBox();
             label5 = new Label();
+            CbAlwaysOnTop = new CheckBox();
+            LblNameInfo = new Label();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TbCostPerChar).BeginInit();
             SuspendLayout();
@@ -248,7 +250,7 @@
             CbCopyTranslationToClipboard.Checked = true;
             CbCopyTranslationToClipboard.CheckState = CheckState.Checked;
             CbCopyTranslationToClipboard.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbCopyTranslationToClipboard.Location = new Point(115, 397);
+            CbCopyTranslationToClipboard.Location = new Point(530, 200);
             CbCopyTranslationToClipboard.Name = "CbCopyTranslationToClipboard";
             CbCopyTranslationToClipboard.Size = new Size(226, 23);
             CbCopyTranslationToClipboard.TabIndex = 78;
@@ -461,6 +463,35 @@
             label5.TabIndex = 114;
             label5.Text = "cost per character";
             // 
+            // CbAlwaysOnTop
+            // 
+            CbAlwaysOnTop.AccessibleDescription = "";
+            CbAlwaysOnTop.AccessibleName = "";
+            CbAlwaysOnTop.AccessibleRole = AccessibleRole.CheckButton;
+            CbAlwaysOnTop.AutoSize = true;
+            CbAlwaysOnTop.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
+            CbAlwaysOnTop.Location = new Point(115, 399);
+            CbAlwaysOnTop.Name = "CbAlwaysOnTop";
+            CbAlwaysOnTop.Size = new Size(113, 23);
+            CbAlwaysOnTop.TabIndex = 115;
+            CbAlwaysOnTop.Text = "always on top";
+            CbAlwaysOnTop.UseVisualStyleBackColor = true;
+            // 
+            // LblNameInfo
+            // 
+            LblNameInfo.AccessibleDescription = "";
+            LblNameInfo.AccessibleName = "";
+            LblNameInfo.AccessibleRole = AccessibleRole.PushButton;
+            LblNameInfo.AutoSize = true;
+            LblNameInfo.Cursor = Cursors.Hand;
+            LblNameInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            LblNameInfo.Location = new Point(431, 52);
+            LblNameInfo.Name = "LblNameInfo";
+            LblNameInfo.Size = new Size(17, 21);
+            LblNameInfo.TabIndex = 116;
+            LblNameInfo.Text = "?";
+            LblNameInfo.Click += LblNameInfo_Click;
+            // 
             // Configuration
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -470,6 +501,8 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(808, 510);
+            Controls.Add(LblNameInfo);
+            Controls.Add(CbAlwaysOnTop);
             Controls.Add(label5);
             Controls.Add(TbCostPerChar);
             Controls.Add(BtnCleanHotkey);
@@ -541,5 +574,7 @@
         private Syncfusion.WinForms.Controls.SfButton BtnCleanHotkey;
         private Syncfusion.Windows.Forms.Tools.CurrencyTextBox TbCostPerChar;
         private Label label5;
+        internal CheckBox CbAlwaysOnTop;
+        private Label LblNameInfo;
     }
 }

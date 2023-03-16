@@ -4,7 +4,6 @@ using DeepLClient.Enums;
 using Serilog;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.Pdf;
-using Syncfusion.Pdf.Graphics;
 using Syncfusion.Pdf.Parsing;
 using Syncfusion.Presentation;
 

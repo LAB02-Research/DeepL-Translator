@@ -1,4 +1,4 @@
-﻿namespace DeepLClient.Forms
+﻿namespace DeepLClient.Forms.Dialogs
 {
     partial class LimitExceeded
     {

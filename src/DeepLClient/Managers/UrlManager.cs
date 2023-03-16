@@ -1,15 +1,8 @@
 ﻿using SmartReader;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Threading.Tasks;
-using AngleSharp.Dom;
 using Serilog;
 using DeepLClient.Models;
-using Newtonsoft.Json;
 
 namespace DeepLClient.Managers
 {

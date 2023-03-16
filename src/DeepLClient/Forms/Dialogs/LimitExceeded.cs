@@ -1,9 +1,8 @@
 using System.Text;
 using DeepL.Model;
-using DeepLClient.Managers;
 using Syncfusion.Windows.Forms;
 
-namespace DeepLClient.Forms
+namespace DeepLClient.Forms.Dialogs
 {
     public partial class LimitExceeded : MetroForm
     {
@@ -23,6 +22,9 @@ namespace DeepLClient.Forms
 
         private async void LimitExceeded_Load(object sender, EventArgs e)
         {
+            // set topmost
+            TopMost = Variables.AppSettings.AlwaysOnTop;
+
             // catch all key presses
             KeyPreview = true;
 

@@ -1,9 +1,6 @@
 ﻿using System.Diagnostics;
-using System.Net;
 using System.Runtime.InteropServices;
-using System.Security.Principal;
 using System.Text;
-using Serilog;
 using Syncfusion.Windows.Forms;
 using static DeepLClient.Functions.NativeFunctions;
 

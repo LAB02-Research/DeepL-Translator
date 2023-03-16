@@ -1,9 +1,4 @@
-﻿using System.Diagnostics;
-using System.Net;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Text;
-using Serilog;
+﻿using System.Runtime.InteropServices;
 
 namespace DeepLClient.Functions
 {

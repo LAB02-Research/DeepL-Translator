@@ -1,13 +1,11 @@
-﻿using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using DeepL;
 using DeepL.Model;
 using DeepLClient.Enums;
-using DeepLClient.Forms;
+using DeepLClient.Forms.Dialogs;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
-using Syncfusion.Windows.Forms;
 
 namespace DeepLClient.Controls
 {
@@ -139,7 +137,7 @@ namespace DeepLClient.Controls
                 // does it exist?
                 if (!File.Exists(file))
                 {
-                    MessageBoxAdv.Show(this, "The selected document doesn't exist (anymore).\r\n\r\nPlease select a new one.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxAdv2.Show("The selected document doesn't exist (anymore).\r\n\r\nPlease select a new one.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     LblState.Text = string.Empty;
                     return false;
                 }
@@ -148,7 +146,7 @@ namespace DeepLClient.Controls
                 var docType = await Task.Run(() => DocumentManager.GetFileDocumentType(file));
                 if (docType == DocumentType.Unsupported)
                 {
-                    MessageBoxAdv.Show(this, "The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxAdv2.Show("The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     LblState.Text = string.Empty;
                     return false;
                 }
@@ -157,7 +155,7 @@ namespace DeepLClient.Controls
                 var (tooLarge, sizeMB) = await Task.Run(() => DocumentManager.CheckDocumentSize(file));
                 if (tooLarge)
                 {
-                    MessageBoxAdv.Show(this, $"The selected document is too large.\r\n\r\nIt's {sizeMB:N2} MB, while the max is {Variables.AppSettings.DocumentMaxSizeMB} MB.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxAdv2.Show($"The selected document is too large.\r\n\r\nIt's {sizeMB:N2} MB, while the max is {Variables.AppSettings.DocumentMaxSizeMB} MB.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     LblState.Text = string.Empty;
                     return false;
                 }
@@ -196,7 +194,7 @@ namespace DeepLClient.Controls
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[DOCUMENT] Error while checking document '{doc}': {err}", file, ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while checking the document.\r\n\r\nPlease check the logs and try again.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong while checking the document.\r\n\r\nPlease check the logs and try again.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LblState.Text = string.Empty;
                 return false;
             }
@@ -235,7 +233,7 @@ namespace DeepLClient.Controls
 
                 if (!File.Exists(file))
                 {
-                    MessageBoxAdv.Show(this, "The selected document doesn't exist (anymore).\r\n\r\nPlease select a new one.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxAdv2.Show("The selected document doesn't exist (anymore).\r\n\r\nPlease select a new one.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     LblState.Text = string.Empty;
                     return;
                 }
@@ -269,7 +267,7 @@ namespace DeepLClient.Controls
 
                 if (targetLanguage == null)
                 {
-                    MessageBoxAdv.Show(this, "Please select a valid target language.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    MessageBoxAdv2.Show("Please select a valid target language.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     LblState.Text = string.Empty;
                     return;
                 }
@@ -283,7 +281,7 @@ namespace DeepLClient.Controls
                 // check if it's already there
                 if (File.Exists(targetFile))
                 {
-                    var confirm = MessageBoxAdv.Show(this, $"The proposed target file already exists:\r\n\r\n{targetFile}\r\n\r\nDo you want to overwrite it?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    var confirm = MessageBoxAdv2.Show($"The proposed target file already exists:\r\n\r\n{targetFile}\r\n\r\nDo you want to overwrite it?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (confirm != DialogResult.Yes)
                     {
                         LblState.Text = string.Empty;
@@ -516,7 +514,7 @@ namespace DeepLClient.Controls
                 // do we support it?
                 if (!DocumentManager.FileIsSupported(file))
                 {
-                    MessageBoxAdv.Show(this, "The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxAdv2.Show("The selected filetype is unsupported.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
@@ -565,7 +563,7 @@ namespace DeepLClient.Controls
 
         private void LblFormalityInfo_Click(object sender, EventArgs e)
         {
-            MessageBoxAdv.Show(this, HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv2.Show(HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void BtnClean_Click(object sender, EventArgs e)

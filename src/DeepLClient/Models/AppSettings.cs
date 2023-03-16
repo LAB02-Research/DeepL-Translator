@@ -27,5 +27,6 @@ namespace DeepLClient.Models
         public bool LaunchOnWindowsLogin { get; set; } = true;
         public bool GlobalHotkeyEnabled { get; set; } = true;
         public string GlobalHotkey { get; set; } = "Shift, Control + T";
+        public bool AlwaysOnTop { get; set; } = false;
     }
 }

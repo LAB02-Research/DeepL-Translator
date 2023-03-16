@@ -1,12 +1,10 @@
 ﻿using DeepL;
 using DeepL.Model;
-using DeepLClient.Forms;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
-using Syncfusion.Windows.Forms;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using DeepLClient.Forms.Dialogs;
 
 namespace DeepLClient.Controls
 {
@@ -113,7 +111,7 @@ namespace DeepLClient.Controls
 
                 if (targetLanguage == null)
                 {
-                    MessageBoxAdv.Show(this, "Please select a valid target language.", Variables.MessageBoxTitle,
+                    MessageBoxAdv2.Show("Please select a valid target language.", Variables.MessageBoxTitle,
                         MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     return;
                 }
@@ -169,17 +167,17 @@ namespace DeepLClient.Controls
             catch (ConnectionException ex)
             {
                 Log.Fatal(ex, "[TEXT] Connection error while translating the text: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Unable to establish a connection to DeepL's servers.\r\n\r\nPlease try again later.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (DocumentTranslationException ex)
             {
                 Log.Fatal(ex, "[TEXT] Error while translating the text: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong on DeepL's end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong on DeepL's end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[TEXT] Error while attempting to translate the text: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong on our end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong on our end while translating the text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -257,14 +255,14 @@ namespace DeepLClient.Controls
                     // is it supported?
                     if (!DocumentManager.FileIsSupported(file, true))
                     {
-                        MessageBoxAdv.Show(this, "Only .txt documents are supported here.\r\n\r\nFor other formats, use the 'documents' tab.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBoxAdv2.Show("Only .txt documents are supported here.\r\n\r\nFor other formats, use the 'documents' tab.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
 
                     // and does it still exist?
                     if (!File.Exists(file))
                     {
-                        MessageBoxAdv.Show(this, "The selected document doesn't exist (anymore).", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        MessageBoxAdv2.Show("The selected document doesn't exist (anymore).", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
                     }
 
@@ -389,7 +387,7 @@ namespace DeepLClient.Controls
 
         private void LblFormalityInfo_Click(object sender, EventArgs e)
         {
-            MessageBoxAdv.Show(this, HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBoxAdv2.Show(HelperFunctions.GetFormalityExplanation(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void TbSource_KeyDown(object sender, KeyEventArgs e)
@@ -452,7 +450,7 @@ namespace DeepLClient.Controls
 
                 File.WriteAllText(dialog.FileName, TbTranslated.Text);
 
-                var q = MessageBoxAdv.Show(this, "Page succesfully saved as a text file!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                var q = MessageBoxAdv2.Show("Page succesfully saved as a text file!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (q != DialogResult.OK) return;
 
                 HelperFunctions.OpenFileInExplorer(dialog.FileName);
@@ -460,7 +458,7 @@ namespace DeepLClient.Controls
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[URL] Error while saving to pdf: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -486,13 +484,13 @@ namespace DeepLClient.Controls
                 var result = PrintFunctions.PrintText(TbTranslated.Text, printDialog.PrinterSettings);
 
                 // done
-                if (result) MessageBoxAdv.Show(this, "The translated text has been sent to your printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
-                else MessageBoxAdv.Show(this, "Something went wrong when trying to print the translated text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (result) MessageBoxAdv2.Show("The translated text has been sent to your printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else MessageBoxAdv2.Show("Something went wrong when trying to print the translated text.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[URL] Error while trying to print: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while trying to print.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong while trying to print.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

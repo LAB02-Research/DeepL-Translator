@@ -1,5 +1,4 @@
 using DeepLClient.Functions;
-using DeepLClient.Managers;
 using Syncfusion.Windows.Forms;
 
 namespace DeepLClient.Forms
@@ -13,6 +12,9 @@ namespace DeepLClient.Forms
 
         private void About_Load(object sender, EventArgs e)
         {
+            // set topmost
+            TopMost = Variables.AppSettings.AlwaysOnTop;
+
             // catch all key presses
             KeyPreview = true;
 
@@ -55,6 +57,8 @@ namespace DeepLClient.Forms
         private void PbGithubSponsor_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/sponsors/LAB02-Admin");
 
         private void LblDeepLProject_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/LAB02-Research/DeepL-Translator");
+
+        private void PbLogo_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/LAB02-Research/DeepL-Translator");
 
         private void About_KeyUp(object sender, KeyEventArgs e)
         {

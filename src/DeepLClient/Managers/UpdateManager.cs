@@ -1,14 +1,7 @@
 ﻿using DeepLClient.Functions;
 using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 using Serilog;
-using Timer = System.Timers.Timer;
 
 namespace DeepLClient.Managers
 {
@@ -250,7 +243,7 @@ namespace DeepLClient.Managers
                 }
 
                 // hide our tray icon
-                Variables.MainForm?.HideTrayIcon();
+                Variables.MainFormManager?.HideTrayIcon();
 
                 // dispose the translator
                 Variables.Translator?.Dispose();
@@ -295,9 +288,7 @@ namespace DeepLClient.Managers
         {
             try
             {
-                using var regKey = Registry.CurrentUser.OpenSubKey($@"SOFTWARE\LAB02Research\{Variables.ApplicationName}", false);
-                var lastVersion = (string)regKey?.GetValue("LastVersion");
-
+                var lastVersion = (string)Registry.GetValue(Variables.RootRegKey, "LastVersion", string.Empty);
                 if (string.IsNullOrEmpty(lastVersion)) return;
                 if (lastVersion == Variables.Version) return;
 
@@ -320,11 +311,7 @@ namespace DeepLClient.Managers
         {
             try
             {
-                const string appKey = @"SOFTWARE\LAB02Research";
-                using var appRootKey = Registry.CurrentUser.CreateSubKey(appKey);
-                using var configKey = appRootKey?.CreateSubKey(Variables.ApplicationName);
-                configKey?.SetValue("LastVersion", Variables.Version, RegistryValueKind.String);
-                configKey?.Flush();
+                Registry.SetValue(Variables.RootRegKey, "LastVersion", Variables.Version, RegistryValueKind.String);
             }
             catch (Exception ex)
             {

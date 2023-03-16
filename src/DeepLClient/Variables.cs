@@ -2,7 +2,6 @@
 using Serilog.Core;
 using System.Reflection;
 using DeepL;
-using DeepLClient.Forms;
 using System.Globalization;
 using WK.Libraries.HotkeyListenerNS;
 using DeepLClient.Managers;
@@ -24,12 +23,13 @@ namespace DeepLClient
         /// Constants
         /// </summary>
         internal const string SyncfusionLicense = "MTI0OTg2NUAzMjMwMmUzNDJlMzBSblBWOVBUdEZITG5WZVkyZWUvV0xPWjMyTWJ5S0Yvb3JzbUExTVdDWVdVPQ==";
+        internal static string RootRegKey = @$"HKEY_CURRENT_USER\SOFTWARE\LAB02Research\{ApplicationName}";
         internal static string CurrencySymbol { get; } = NumberFormatInfo.CurrentInfo.CurrencySymbol;
 
         /// <summary>
         /// Internal references
         /// </summary>
-        internal static Main MainForm { get; set; }
+        internal static MainFormManager MainFormManager { get; set; }
         internal static HttpClient HttpClient { get; set; } = new();
         internal static Font DefaultFont { get; } = new("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
         internal static CoreWebView2Environment WebViewEnvironment { get; set; } = null;

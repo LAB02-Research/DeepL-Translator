@@ -54,7 +54,10 @@ namespace DeepLClient
                 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
                 // prepare default application
-                Variables.MainForm = new Main();
+                var mainForm = new Main();
+
+                // bind the manager
+                Variables.MainFormManager = new MainFormManager(mainForm);
 
                 // prepare msgbox
                 HelperFunctions.SetMsgBoxStyle(Variables.DefaultFont);
@@ -66,10 +69,13 @@ namespace DeepLClient
                 // store user
                 if (!string.IsNullOrEmpty(Variables.AppSettings.User)) Log.Information("[MAIN] Registered user: {version}", Variables.AppSettings.User);
                 else Log.Information("[MAIN] No registered user.");
+
+                // check if we're showing ourselves because of a missing api key
+                var forceShow = !SettingsManager.GetApiKeyMissingShown() && string.IsNullOrEmpty(Variables.AppSettings.DeepLAPIKey);
                 
                 // run hidden?
-                if (!string.IsNullOrEmpty(Variables.AppSettings.DeepLAPIKey) && Variables.AppSettings.LaunchHidden) Application.Run(new CustomApplicationContext(Variables.MainForm));
-                else Application.Run(Variables.MainForm);
+                if (!forceShow && Variables.AppSettings.LaunchHidden) Application.Run(new CustomApplicationContext(mainForm));
+                else Application.Run(mainForm);
             }
             catch (AccessViolationException ex)
             {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using DeepLClient.Functions;
 using Serilog;
 
@@ -131,8 +126,11 @@ namespace DeepLClient.Managers
                 Log.Information("[SYSTEM] Application shutting down");
 
                 // remove tray icon
-                Variables.MainForm?.HideTrayIcon();
+                Variables.MainFormManager?.HideTrayIcon();
 
+                // hide our ui
+                Variables.MainFormManager?.HideMain();
+                
                 // unbind all hotkeys
                 Variables.HotkeyListener?.RemoveAll();
 
@@ -163,9 +161,13 @@ namespace DeepLClient.Managers
             finally
             {
                 // shutdown
-                Environment.Exit(exitCode);
+                if (Variables.MainFormManager != null) Variables.MainFormManager?.Dispose();
+                else
+                {
+                    // use the axe
+                    Environment.Exit(exitCode);
+                }
             }
-
         }
     }
 }

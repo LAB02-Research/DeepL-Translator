@@ -44,7 +44,7 @@
             toolStripSeparator1 = new ToolStripSeparator();
             TsAbout = new ToolStripMenuItem();
             TsExit = new ToolStripMenuItem();
-            LblLimitInfo = new Label();
+            LblWarning = new Label();
             BtnAbout = new Syncfusion.WinForms.Controls.SfButton();
             PnlTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).BeginInit();
@@ -120,10 +120,10 @@
             TabDocuments.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.Image = Properties.Resources.document_icon_18;
             TabDocuments.ImageSize = new Size(18, 18);
-            TabDocuments.Location = new Point(2, 41);
+            TabDocuments.Location = new Point(2, 1);
             TabDocuments.Name = "TabDocuments";
             TabDocuments.ShowCloseButton = true;
-            TabDocuments.Size = new Size(993, 654);
+            TabDocuments.Size = new Size(993, 694);
             TabDocuments.TabBackColor = Color.FromArgb(45, 45, 48);
             TabDocuments.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -135,10 +135,10 @@
             TabUrl.AutoScroll = true;
             TabUrl.Image = Properties.Resources.globe_icon_24;
             TabUrl.ImageSize = new Size(18, 18);
-            TabUrl.Location = new Point(2, 41);
+            TabUrl.Location = new Point(2, 1);
             TabUrl.Name = "TabUrl";
             TabUrl.ShowCloseButton = true;
-            TabUrl.Size = new Size(993, 654);
+            TabUrl.Size = new Size(993, 694);
             TabUrl.TabBackColor = Color.FromArgb(45, 45, 48);
             TabUrl.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabUrl.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -272,22 +272,22 @@
             TsExit.Text = "Exit";
             TsExit.Click += TsExit_Click;
             // 
-            // LblLimitInfo
+            // LblWarning
             // 
-            LblLimitInfo.AccessibleDescription = "";
-            LblLimitInfo.AccessibleName = "";
-            LblLimitInfo.AccessibleRole = AccessibleRole.StaticText;
-            LblLimitInfo.Cursor = Cursors.Hand;
-            LblLimitInfo.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            LblLimitInfo.ForeColor = Color.FromArgb(255, 128, 128);
-            LblLimitInfo.Location = new Point(323, 710);
-            LblLimitInfo.Name = "LblLimitInfo";
-            LblLimitInfo.Size = new Size(489, 20);
-            LblLimitInfo.TabIndex = 72;
-            LblLimitInfo.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
-            LblLimitInfo.TextAlign = ContentAlignment.TopCenter;
-            LblLimitInfo.Visible = false;
-            LblLimitInfo.Click += LblCharLimitReached_Click;
+            LblWarning.AccessibleDescription = "";
+            LblWarning.AccessibleName = "";
+            LblWarning.AccessibleRole = AccessibleRole.StaticText;
+            LblWarning.Cursor = Cursors.Hand;
+            LblWarning.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LblWarning.ForeColor = Color.FromArgb(255, 128, 128);
+            LblWarning.Location = new Point(323, 710);
+            LblWarning.Name = "LblWarning";
+            LblWarning.Size = new Size(489, 20);
+            LblWarning.TabIndex = 72;
+            LblWarning.Text = "CHARACTER LIMIT REACHED, PLEASE REVIEW YOUR SUBSCRIPTION";
+            LblWarning.TextAlign = ContentAlignment.TopCenter;
+            LblWarning.Visible = false;
+            LblWarning.Click += LblWarning_Click;
             // 
             // BtnAbout
             // 
@@ -324,7 +324,7 @@
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(999, 737);
             Controls.Add(BtnAbout);
-            Controls.Add(LblLimitInfo);
+            Controls.Add(LblWarning);
             Controls.Add(BtnHide);
             Controls.Add(BtnConfig);
             Controls.Add(BtnSubscription);
@@ -351,20 +351,20 @@
 
         #endregion
         private Panel PnlTabs;
-        private Syncfusion.Windows.Forms.Tools.TabControlAdv TranslationTabs;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv TabText;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv TabDocuments;
-        private Syncfusion.WinForms.Controls.SfButton BtnSubscription;
         private Syncfusion.WinForms.Controls.SfButton BtnConfig;
         private Syncfusion.WinForms.Controls.SfButton BtnHide;
-        private NotifyIcon NotifyIcon;
         private Syncfusion.Windows.Forms.Tools.ContextMenuStripEx CmTrayIcon;
         private ToolStripMenuItem TsShow;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripMenuItem TsExit;
-        private Label LblLimitInfo;
-        private Syncfusion.Windows.Forms.Tools.TabPageAdv TabUrl;
         private Syncfusion.WinForms.Controls.SfButton BtnAbout;
         private ToolStripMenuItem TsAbout;
+        internal Syncfusion.WinForms.Controls.SfButton BtnSubscription;
+        internal Syncfusion.Windows.Forms.Tools.TabControlAdv TranslationTabs;
+        internal Syncfusion.Windows.Forms.Tools.TabPageAdv TabText;
+        internal Syncfusion.Windows.Forms.Tools.TabPageAdv TabDocuments;
+        internal Syncfusion.Windows.Forms.Tools.TabPageAdv TabUrl;
+        internal NotifyIcon NotifyIcon;
+        internal Label LblWarning;
     }
 }

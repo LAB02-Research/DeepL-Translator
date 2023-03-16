@@ -2,16 +2,11 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using DeepL;
-using DeepL.Model;
-using DeepLClient.Forms;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Microsoft.Web.WebView2.Core;
-using Microsoft.Web.WebView2.WinForms;
 using Serilog;
-using SmartReader;
-using Syncfusion.Windows.Forms;
-using Windows.Globalization;
+using DeepLClient.Forms.Dialogs;
 using Newtonsoft.Json;
 
 namespace DeepLClient.Controls
@@ -116,7 +111,7 @@ namespace DeepLClient.Controls
 
                 Log.Fatal(ex, "[URL] WebView2 runtime not found, unable to initialize: {err}", ex.Message);
 
-                var q = MessageBoxAdv.Show(this, "Microsoft's WebView2 runtime isn't found on your machine. This is a required component for showing your webpages.\r\n\r\n" +
+                var q = MessageBoxAdv2.Show("Microsoft's WebView2 runtime isn't found on your machine. This is a required component for showing your webpages.\r\n\r\n" +
                                                  "Usually this is handled by the installer, but you can still install it manually.\r\n\r\n" +
                                                  "Do you want to download the runtime installer?", Variables.MessageBoxTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                 if (q != DialogResult.Yes) return false;
@@ -564,7 +559,7 @@ namespace DeepLClient.Controls
             warning.AppendLine("");
             warning.AppendLine("Your website is therefore shown as-is.");
 
-            MessageBoxAdv.Show(this, warning.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBoxAdv2.Show(warning.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         private void TbUrl_KeyUp(object sender, KeyEventArgs e)
@@ -591,11 +586,11 @@ namespace DeepLClient.Controls
                 var printed = await WebView.CoreWebView2.PrintToPdfAsync(dialog.FileName);
                 if (!printed)
                 {
-                    MessageBoxAdv.Show(this, "Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBoxAdv2.Show("Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                var q = MessageBoxAdv.Show(this, "Page succesfully saved to pdf!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                var q = MessageBoxAdv2.Show("Page succesfully saved to pdf!\r\n\nClick 'ok' to open its folder.", Variables.MessageBoxTitle, MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
                 if (q != DialogResult.OK) return;
 
                 var argument = "/select, \"" + dialog.FileName + "\"";
@@ -604,7 +599,7 @@ namespace DeepLClient.Controls
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[URL] Error while saving to pdf: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong while saving the page to pdf.\r\n\r\nTry using the print method with Window's pdf printer.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {
@@ -638,7 +633,7 @@ namespace DeepLClient.Controls
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[URL] Error while opening in browser: {err}", ex.Message);
-                MessageBoxAdv.Show(this, "Something went wrong while opening the page in your browser.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBoxAdv2.Show("Something went wrong while opening the page in your browser.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

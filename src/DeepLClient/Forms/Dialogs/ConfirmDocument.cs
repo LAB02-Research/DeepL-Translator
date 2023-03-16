@@ -1,7 +1,7 @@
 using DeepLClient.Managers;
 using Syncfusion.Windows.Forms;
 
-namespace DeepLClient.Forms
+namespace DeepLClient.Forms.Dialogs
 {
     public partial class ConfirmDocument : MetroForm
     {
@@ -22,6 +22,9 @@ namespace DeepLClient.Forms
 
         private void ConfirmDocument_Load(object sender, EventArgs e)
         {
+            // set topmost
+            TopMost = Variables.AppSettings.AlwaysOnTop;
+
             // catch all key presses
             KeyPreview = true;
 

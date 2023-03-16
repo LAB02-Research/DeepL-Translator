@@ -85,7 +85,7 @@ You can get your free or pro key here: [https://www.deepl.com/pro-api/](https://
 
 Make sure you set the correct domain, corresponding to your subscription:
 
-![image](https://user-images.githubusercontent.com/81011038/225081800-ebb6d3cd-727a-4f34-96c3-6c87791694ff.png)
+![image](https://user-images.githubusercontent.com/81011038/225697022-7adb0b3a-f2be-417f-8a14-f516253eff78.png)
 
 **Note: if you use a pro subscription and a different currency than euros, make sure to set the correct price-per-character value.**
 

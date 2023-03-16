@@ -150,6 +150,8 @@ Hides in your system tray, next to the clock:
 
 Done:
 
+- ~~Limit nagging popups to max once~~
+- ~~Always on top~~
 - ~~Support for other currencies~~
 - ~~Recognize urls when using global hotkey, insert into webpage tab~~
 - ~~Add 'open in browser' button for translated webpage~~

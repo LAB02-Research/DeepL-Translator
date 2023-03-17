@@ -46,6 +46,7 @@
             TsExit = new ToolStripMenuItem();
             LblWarning = new Label();
             BtnAbout = new Syncfusion.WinForms.Controls.SfButton();
+            ToolTip = new ToolTip(components);
             PnlTabs.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)TranslationTabs).BeginInit();
             TranslationTabs.SuspendLayout();
@@ -110,6 +111,7 @@
             TabText.TabForeColor = Color.FromArgb(241, 241, 241);
             TabText.TabIndex = 9;
             TabText.ThemesEnabled = false;
+            ToolTip.SetToolTip(TabText, "Text translations");
             // 
             // TabDocuments
             // 
@@ -120,30 +122,32 @@
             TabDocuments.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.Image = Properties.Resources.document_icon_18;
             TabDocuments.ImageSize = new Size(18, 18);
-            TabDocuments.Location = new Point(2, 1);
+            TabDocuments.Location = new Point(2, 41);
             TabDocuments.Name = "TabDocuments";
             TabDocuments.ShowCloseButton = true;
-            TabDocuments.Size = new Size(993, 694);
+            TabDocuments.Size = new Size(993, 654);
             TabDocuments.TabBackColor = Color.FromArgb(45, 45, 48);
             TabDocuments.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.TabForeColor = Color.FromArgb(241, 241, 241);
             TabDocuments.TabIndex = 10;
             TabDocuments.ThemesEnabled = false;
+            ToolTip.SetToolTip(TabDocuments, "Document translations");
             // 
             // TabUrl
             // 
             TabUrl.AutoScroll = true;
             TabUrl.Image = Properties.Resources.globe_icon_24;
             TabUrl.ImageSize = new Size(18, 18);
-            TabUrl.Location = new Point(2, 1);
+            TabUrl.Location = new Point(2, 41);
             TabUrl.Name = "TabUrl";
             TabUrl.ShowCloseButton = true;
-            TabUrl.Size = new Size(993, 694);
+            TabUrl.Size = new Size(993, 654);
             TabUrl.TabBackColor = Color.FromArgb(45, 45, 48);
             TabUrl.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabUrl.TabForeColor = Color.FromArgb(241, 241, 241);
             TabUrl.TabIndex = 11;
             TabUrl.ThemesEnabled = false;
+            ToolTip.SetToolTip(TabUrl, "Webpage translations");
             // 
             // BtnSubscription
             // 
@@ -167,6 +171,7 @@
             BtnSubscription.Style.Image = Properties.Resources.price_icon_24;
             BtnSubscription.Style.PressedForeColor = Color.Black;
             BtnSubscription.TabIndex = 4;
+            ToolTip.SetToolTip(BtnSubscription, "Subscription information");
             BtnSubscription.UseVisualStyleBackColor = false;
             BtnSubscription.Click += BtnSubscriptionInfo_Click;
             // 
@@ -191,6 +196,7 @@
             BtnConfig.Style.Image = Properties.Resources.config_icon_24;
             BtnConfig.Style.PressedForeColor = Color.Black;
             BtnConfig.TabIndex = 5;
+            ToolTip.SetToolTip(BtnConfig, "Configuration options");
             BtnConfig.UseVisualStyleBackColor = false;
             BtnConfig.Click += BtnConfig_Click;
             // 
@@ -215,6 +221,7 @@
             BtnHide.Style.Image = Properties.Resources.hide_icon_24;
             BtnHide.Style.PressedForeColor = Color.Black;
             BtnHide.TabIndex = 6;
+            ToolTip.SetToolTip(BtnHide, "Hide the application");
             BtnHide.UseVisualStyleBackColor = false;
             BtnHide.Click += BtnHide_Click;
             // 
@@ -311,8 +318,17 @@
             BtnAbout.Style.Image = Properties.Resources.info_icon_24;
             BtnAbout.Style.PressedForeColor = Color.Black;
             BtnAbout.TabIndex = 73;
+            ToolTip.SetToolTip(BtnAbout, "About this application");
             BtnAbout.UseVisualStyleBackColor = false;
             BtnAbout.Click += BtnAbout_Click;
+            // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
             // 
             // Main
             // 
@@ -366,5 +382,6 @@
         internal Syncfusion.Windows.Forms.Tools.TabPageAdv TabUrl;
         internal NotifyIcon NotifyIcon;
         internal Label LblWarning;
+        private ToolTip ToolTip;
     }
 }

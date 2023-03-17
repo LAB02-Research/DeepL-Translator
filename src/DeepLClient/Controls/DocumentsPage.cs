@@ -432,8 +432,8 @@ namespace DeepLClient.Controls
                 {
                     var billedCharacters = Convert.ToDouble(state.BilledCharacters);
                     LblState.Text = SubscriptionManager.UsingFreeSubscription()
-                    ? $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters} characters\r\nyou're on a free subscription, so no costs"
-                    : $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters} characters, costing {SubscriptionManager.CalculateCost(billedCharacters)}.";
+                    ? $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters:N0} characters\r\nyou're on a free subscription, so no costs"
+                    : $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters:N0} characters, costing {SubscriptionManager.CalculateCost(billedCharacters)}.";
                 }
                 else LblState.Text = "translation complete!";
 

@@ -192,7 +192,7 @@ namespace DeepLClient.Forms
                         if (confirmNotPro != DialogResult.Yes) return;
                     }
                 }
-                
+
                 // set the new configuration
                 Variables.AppSettings.User = user;
                 Variables.AppSettings.DeepLAPIKey = api;

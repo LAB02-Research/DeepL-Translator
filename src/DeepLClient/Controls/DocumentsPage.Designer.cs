@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             BtnBrowse = new Syncfusion.WinForms.Controls.SfButton();
             TbSourceDocument = new TextBox();
             LblSourceDocument = new Label();
@@ -44,6 +45,7 @@
             CbSourceLanguage = new ComboBox();
             LblFormalityInfo = new Label();
             BtnClean = new Syncfusion.WinForms.Controls.SfButton();
+            ToolTip = new ToolTip(components);
             SuspendLayout();
             // 
             // BtnBrowse
@@ -68,6 +70,7 @@
             BtnBrowse.Style.PressedForeColor = Color.Black;
             BtnBrowse.TabIndex = 1;
             BtnBrowse.Text = "browse";
+            ToolTip.SetToolTip(BtnBrowse, "Browse your local computer for the document you want to translate");
             BtnBrowse.UseVisualStyleBackColor = false;
             BtnBrowse.Click += BtnBrowse_Click;
             // 
@@ -108,9 +111,9 @@
             BtnTranslate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnTranslate.ForeColor = Color.FromArgb(241, 241, 241);
             BtnTranslate.ImageSize = new Size(48, 48);
-            BtnTranslate.Location = new Point(486, 185);
+            BtnTranslate.Location = new Point(451, 185);
             BtnTranslate.Name = "BtnTranslate";
-            BtnTranslate.Size = new Size(396, 86);
+            BtnTranslate.Size = new Size(431, 86);
             BtnTranslate.Style.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
@@ -121,6 +124,7 @@
             BtnTranslate.Style.Image = Properties.Resources.book_icon_48;
             BtnTranslate.Style.PressedForeColor = Color.Black;
             BtnTranslate.TabIndex = 5;
+            ToolTip.SetToolTip(BtnTranslate, "Translate the document text into the selected language");
             BtnTranslate.UseVisualStyleBackColor = false;
             BtnTranslate.Click += BtnTranslate_Click;
             // 
@@ -159,6 +163,7 @@
             BtnOpenTranslatedFolder.Style.PressedForeColor = Color.Black;
             BtnOpenTranslatedFolder.TabIndex = 6;
             BtnOpenTranslatedFolder.Text = "open folder";
+            ToolTip.SetToolTip(BtnOpenTranslatedFolder, "Open the translated document's folder");
             BtnOpenTranslatedFolder.UseVisualStyleBackColor = false;
             BtnOpenTranslatedFolder.Click += BtnOpenTranslatedFolder_Click;
             // 
@@ -325,8 +330,17 @@
             BtnClean.Style.Image = Properties.Resources.clean_icon_32;
             BtnClean.Style.PressedForeColor = Color.Black;
             BtnClean.TabIndex = 108;
+            ToolTip.SetToolTip(BtnClean, "Clear everything and prepare for a new translation");
             BtnClean.UseVisualStyleBackColor = false;
             BtnClean.Click += BtnClean_Click;
+            // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
             // 
             // DocumentsPage
             // 
@@ -379,5 +393,6 @@
         private ComboBox CbSourceLanguage;
         private Label LblFormalityInfo;
         private Syncfusion.WinForms.Controls.SfButton BtnClean;
+        private ToolTip ToolTip;
     }
 }

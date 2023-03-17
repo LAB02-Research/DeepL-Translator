@@ -5,6 +5,7 @@ using DeepLClient.Managers;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using DeepLClient.Forms.Dialogs;
+using Syncfusion.WinForms.Controls.Styles;
 
 namespace DeepLClient.Controls
 {

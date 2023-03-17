@@ -129,7 +129,11 @@ namespace DeepLClient.Managers
             htmlContent.AppendLine("<head>");
             htmlContent.AppendLine($"<title>{title}</title>");
             htmlContent.AppendLine("<style>");
-            htmlContent.AppendLine("a:link, a:visited, a:hover, a:active { color: #6590fd }");
+            htmlContent.AppendLine("a:active, a:hover, a:link, a:visited { color: #6590fd }");
+            htmlContent.AppendLine("body::-webkit-scrollbar { width: 12px }");
+            htmlContent.AppendLine("body::-webkit-scrollbar-corner { background: #3f3f46 }");
+            htmlContent.AppendLine("body::-webkit-scrollbar-track { background: #3f3f46 }");
+            htmlContent.AppendLine("body::-webkit-scrollbar-thumb { background-color: #3f3f46; border-radius: 2px; border: 1px solid #646464 }");
             htmlContent.AppendLine("</style>");
             htmlContent.AppendLine("</head>");
             htmlContent.AppendLine("<body style=\"background-color: #3f3f46; color: #f1f1f1;\">");

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SubscriptionInfo));
             BtnYes = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
@@ -41,6 +42,7 @@
             LblCost = new Label();
             label4 = new Label();
             LblSubscriptionPage = new Label();
+            ToolTip = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             SuspendLayout();
             // 
@@ -210,6 +212,14 @@
             LblSubscriptionPage.Text = "open subscription webpage";
             LblSubscriptionPage.Click += LblSubscriptionPage_Click;
             // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
+            // 
             // SubscriptionInfo
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -262,5 +272,6 @@
         private Label LblCost;
         private Label label4;
         private Label LblSubscriptionPage;
+        private ToolTip ToolTip;
     }
 }

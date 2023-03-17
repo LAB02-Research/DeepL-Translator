@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TextPage));
             BtnTranslate = new Syncfusion.WinForms.Controls.SfButton();
             CbSourceLanguage = new ComboBox();
@@ -41,7 +42,6 @@
             LblDetected = new Label();
             label1 = new Label();
             TbSource = new TextBox();
-            TbTranslated = new TextBox();
             BtnCopyClipboard = new Syncfusion.WinForms.Controls.SfButton();
             LblClipboardCopied = new Label();
             label2 = new Label();
@@ -50,6 +50,10 @@
             BtnClean = new Syncfusion.WinForms.Controls.SfButton();
             BtnSave = new Syncfusion.WinForms.Controls.SfButton();
             BtnPrint = new Syncfusion.WinForms.Controls.SfButton();
+            TbTranslated = new TextBox();
+            TbSourceScroller = new Syncfusion.WinForms.Controls.SfScrollFrame();
+            TbTranslatedScroller = new Syncfusion.WinForms.Controls.SfScrollFrame();
+            ToolTip = new ToolTip(components);
             SuspendLayout();
             // 
             // BtnTranslate
@@ -74,6 +78,7 @@
             BtnTranslate.Style.Image = Properties.Resources.book_icon_48;
             BtnTranslate.Style.PressedForeColor = Color.Black;
             BtnTranslate.TabIndex = 1;
+            ToolTip.SetToolTip(BtnTranslate, "Translate the source text into the selected language");
             BtnTranslate.UseVisualStyleBackColor = false;
             BtnTranslate.Click += BtnTranslate_Click;
             // 
@@ -235,22 +240,11 @@
             TbSource.Location = new Point(14, 80);
             TbSource.Multiline = true;
             TbSource.Name = "TbSource";
+            TbSource.ScrollBars = ScrollBars.Vertical;
             TbSource.Size = new Size(430, 535);
             TbSource.TabIndex = 0;
             TbSource.TextChanged += TbSource_TextChanged;
             TbSource.KeyDown += TbSource_KeyDown;
-            // 
-            // TbTranslated
-            // 
-            TbTranslated.BackColor = Color.FromArgb(63, 63, 70);
-            TbTranslated.BorderStyle = BorderStyle.FixedSingle;
-            TbTranslated.ForeColor = Color.FromArgb(241, 241, 241);
-            TbTranslated.Location = new Point(549, 80);
-            TbTranslated.Multiline = true;
-            TbTranslated.Name = "TbTranslated";
-            TbTranslated.ReadOnly = true;
-            TbTranslated.Size = new Size(428, 535);
-            TbTranslated.TabIndex = 2;
             // 
             // BtnCopyClipboard
             // 
@@ -356,6 +350,7 @@
             BtnClean.Style.Image = Properties.Resources.clean_icon_32;
             BtnClean.Style.PressedForeColor = Color.Black;
             BtnClean.TabIndex = 107;
+            ToolTip.SetToolTip(BtnClean, "Clear everything and prepare for a new translation");
             BtnClean.UseVisualStyleBackColor = false;
             BtnClean.Click += BtnClean_Click;
             // 
@@ -381,6 +376,7 @@
             BtnSave.Style.Image = Properties.Resources.save_icon_24;
             BtnSave.Style.PressedForeColor = Color.Black;
             BtnSave.TabIndex = 116;
+            ToolTip.SetToolTip(BtnSave, "Save the translated text");
             BtnSave.UseVisualStyleBackColor = false;
             BtnSave.Click += BtnSave_Click;
             // 
@@ -406,8 +402,70 @@
             BtnPrint.Style.Image = (Image)resources.GetObject("resource.Image");
             BtnPrint.Style.PressedForeColor = Color.Black;
             BtnPrint.TabIndex = 115;
+            ToolTip.SetToolTip(BtnPrint, "Print the translated text");
             BtnPrint.UseVisualStyleBackColor = false;
             BtnPrint.Click += BtnPrint_Click;
+            // 
+            // TbTranslated
+            // 
+            TbTranslated.BackColor = Color.FromArgb(63, 63, 70);
+            TbTranslated.BorderStyle = BorderStyle.FixedSingle;
+            TbTranslated.ForeColor = Color.FromArgb(241, 241, 241);
+            TbTranslated.Location = new Point(549, 80);
+            TbTranslated.Multiline = true;
+            TbTranslated.Name = "TbTranslated";
+            TbTranslated.ReadOnly = true;
+            TbTranslated.ScrollBars = ScrollBars.Vertical;
+            TbTranslated.Size = new Size(428, 535);
+            TbTranslated.TabIndex = 117;
+            // 
+            // TbSourceScroller
+            // 
+            TbSourceScroller.Control = TbSource;
+            TbSourceScroller.Style.HorizontalScrollBar.ScrollBarBackColor = Color.FromArgb(45, 45, 48);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonBackColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonBorderColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonForeColor = Color.FromArgb(241, 241, 241);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonHoverBackColor = Color.FromArgb(241, 241, 241);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonHoverForeColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonPressedBackColor = Color.FromArgb(241, 241, 241);
+            TbSourceScroller.Style.VerticalScrollBar.ArrowButtonPressedForeColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ScrollBarBackColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ThumbBorderColor = SystemColors.WindowFrame;
+            TbSourceScroller.Style.VerticalScrollBar.ThumbColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ThumbHoverBorderColor = Color.FromArgb(241, 241, 241);
+            TbSourceScroller.Style.VerticalScrollBar.ThumbHoverColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.Style.VerticalScrollBar.ThumbPressedBorderColor = Color.FromArgb(241, 241, 241);
+            TbSourceScroller.Style.VerticalScrollBar.ThumbPressedColor = Color.FromArgb(63, 63, 70);
+            TbSourceScroller.ThemeName = "";
+            // 
+            // TbTranslatedScroller
+            // 
+            TbTranslatedScroller.Control = TbTranslated;
+            TbTranslatedScroller.Style.HorizontalScrollBar.ScrollBarBackColor = Color.FromArgb(45, 45, 48);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonBackColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonBorderColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonForeColor = Color.FromArgb(241, 241, 241);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonHoverBackColor = Color.FromArgb(241, 241, 241);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonHoverForeColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonPressedBackColor = Color.FromArgb(241, 241, 241);
+            TbTranslatedScroller.Style.VerticalScrollBar.ArrowButtonPressedForeColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ScrollBarBackColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbBorderColor = SystemColors.WindowFrame;
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbHoverBorderColor = Color.FromArgb(241, 241, 241);
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbHoverColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbPressedBorderColor = Color.FromArgb(241, 241, 241);
+            TbTranslatedScroller.Style.VerticalScrollBar.ThumbPressedColor = Color.FromArgb(63, 63, 70);
+            TbTranslatedScroller.ThemeName = "";
+            // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
             // 
             // TextPage
             // 
@@ -415,6 +473,7 @@
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(45, 45, 48);
+            Controls.Add(TbTranslated);
             Controls.Add(BtnSave);
             Controls.Add(BtnPrint);
             Controls.Add(BtnClean);
@@ -423,7 +482,6 @@
             Controls.Add(LblCharacters);
             Controls.Add(LblClipboardCopied);
             Controls.Add(BtnCopyClipboard);
-            Controls.Add(TbTranslated);
             Controls.Add(TbSource);
             Controls.Add(label1);
             Controls.Add(LblDetected);
@@ -458,7 +516,6 @@
         private Label LblDetectedInfo;
         private Label LblDetected;
         private Label label1;
-        private TextBox TbTranslated;
         private Syncfusion.WinForms.Controls.SfButton BtnCopyClipboard;
         private Label LblClipboardCopied;
         private Label label2;
@@ -469,5 +526,9 @@
         internal Syncfusion.WinForms.Controls.SfButton BtnTranslate;
         private Syncfusion.WinForms.Controls.SfButton BtnSave;
         private Syncfusion.WinForms.Controls.SfButton BtnPrint;
+        internal TextBox TbTranslated;
+        private Syncfusion.WinForms.Controls.SfScrollFrame TbSourceScroller;
+        private Syncfusion.WinForms.Controls.SfScrollFrame TbTranslatedScroller;
+        private ToolTip ToolTip;
     }
 }

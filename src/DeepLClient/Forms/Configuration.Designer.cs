@@ -57,6 +57,7 @@
             label5 = new Label();
             CbAlwaysOnTop = new CheckBox();
             LblNameInfo = new Label();
+            ToolTip = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TbCostPerChar).BeginInit();
             SuspendLayout();
@@ -492,6 +493,14 @@
             LblNameInfo.Text = "?";
             LblNameInfo.Click += LblNameInfo_Click;
             // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
+            // 
             // Configuration
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
@@ -576,5 +585,6 @@
         private Label label5;
         internal CheckBox CbAlwaysOnTop;
         private Label LblNameInfo;
+        private ToolTip ToolTip;
     }
 }

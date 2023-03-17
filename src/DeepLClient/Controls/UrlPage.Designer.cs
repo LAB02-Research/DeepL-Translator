@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UrlPage));
             BtnTranslate = new Syncfusion.WinForms.Controls.SfButton();
             CbSourceLanguage = new ComboBox();
@@ -52,6 +53,7 @@
             BtnPrint = new Syncfusion.WinForms.Controls.SfButton();
             BtnSave = new Syncfusion.WinForms.Controls.SfButton();
             BtnOpenInBrowser = new Syncfusion.WinForms.Controls.SfButton();
+            ToolTip = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)WebView).BeginInit();
             PnlWebView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PbWarning).BeginInit();
@@ -79,6 +81,7 @@
             BtnTranslate.Style.Image = Properties.Resources.book_icon_24;
             BtnTranslate.Style.PressedForeColor = Color.Black;
             BtnTranslate.TabIndex = 3;
+            ToolTip.SetToolTip(BtnTranslate, "Translate the webpage text into the selected language");
             BtnTranslate.UseVisualStyleBackColor = false;
             BtnTranslate.Click += BtnTranslate_Click;
             // 
@@ -286,6 +289,7 @@
             BtnClean.Style.Image = Properties.Resources.clean_icon_32;
             BtnClean.Style.PressedForeColor = Color.Black;
             BtnClean.TabIndex = 5;
+            ToolTip.SetToolTip(BtnClean, "Clear everything and prepare for a new translation");
             BtnClean.UseVisualStyleBackColor = false;
             BtnClean.Click += BtnClean_Click;
             // 
@@ -444,6 +448,14 @@
             BtnOpenInBrowser.UseVisualStyleBackColor = false;
             BtnOpenInBrowser.Click += BtnOpenInBrowser_Click;
             // 
+            // ToolTip
+            // 
+            ToolTip.AutoPopDelay = 5000;
+            ToolTip.BackColor = Color.FromArgb(241, 241, 241);
+            ToolTip.ForeColor = Color.FromArgb(45, 45, 48);
+            ToolTip.InitialDelay = 1000;
+            ToolTip.ReshowDelay = 100;
+            // 
             // UrlPage
             // 
             AllowDrop = true;
@@ -509,5 +521,6 @@
         private Syncfusion.WinForms.Controls.SfButton BtnPrint;
         private Syncfusion.WinForms.Controls.SfButton BtnSave;
         private Syncfusion.WinForms.Controls.SfButton BtnOpenInBrowser;
+        private ToolTip ToolTip;
     }
 }

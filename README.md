@@ -107,7 +107,7 @@ Webpage interface:
 
 ![image](https://user-images.githubusercontent.com/81011038/225082337-98a958df-109d-4536-a59c-c82f896cbd41.png)
 
-![image](https://user-images.githubusercontent.com/81011038/225346182-356cf46e-dbbd-4e3e-9299-78c97abfa240.png)
+![image](https://user-images.githubusercontent.com/81011038/225969909-95f3d2e3-235d-44b7-898b-6c4c508d27b4.png)
 
 You'll be notified of the costs before translating a document:
 
@@ -146,10 +146,13 @@ Hides in your system tray, next to the clock:
 - Send weekly usage logs
 - Text translations history
 - Set cost limit for pro
-- Button tooltips
+
 
 Done:
 
+- ~~Add scrollbars to 'text' translation fields~~
+- ~~Apply theme to webpage reading mode scrollbars~~
+- ~~Button tooltips~~
 - ~~Limit nagging popups to max once~~
 - ~~Always on top~~
 - ~~Support for other currencies~~

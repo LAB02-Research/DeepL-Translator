@@ -143,9 +143,11 @@ Hides in your system tray, next to the clock:
 
 ### Todo
 
-- Send weekly usage logs
+- Periodically e-mail usage logs
 - Text translations history
 - Set cost limit for pro
+- Speak translated text using TTS
+- Record speech and convert to text using STT
 
 
 Done:

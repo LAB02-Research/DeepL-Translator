@@ -143,7 +143,7 @@ Hides in your system tray, next to the clock:
 
 ### Implemented
 
-This is a list of features and fixes that have so far been implementend:
+This is a list of features and fixes that have so far been done:
 
 - Add scrollbars to text translation fields
 - Apply theme to webpage reading mode scrollbars

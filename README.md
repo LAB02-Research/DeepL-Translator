@@ -22,7 +22,7 @@ Click [here](https://github.com/LAB02-Research/DeepL-Translator/releases/latest/
  * [Functionality](#functionality)
  * [Usage](#usage)
  * [Screenshots](#screenshots)
- * [Todo](#todo)
+ * [Implemented](#implemented)
  * [Credits and Licensing](#credits-and-licensing)
 
 ----
@@ -141,48 +141,42 @@ Hides in your system tray, next to the clock:
 
 ----
 
-### Todo
+### Implemented
 
-- Periodically e-mail usage logs
-- Text translations history
-- Set cost limit for pro
-- Speak translated text using TTS
-- Record speech and convert to text using STT
+This is a list of features and fixes that have so far been implementend:
 
-
-Done:
-
-- ~~Add scrollbars to 'text' translation fields~~
-- ~~Apply theme to webpage reading mode scrollbars~~
-- ~~Button tooltips~~
-- ~~Limit nagging popups to max once~~
-- ~~Always on top~~
-- ~~Support for other currencies~~
-- ~~Recognize urls when using global hotkey, insert into webpage tab~~
-- ~~Add 'open in browser' button for translated webpage~~
-- ~~Support for pasting URLs~~
-- ~~Add 'save translation' support~~
-- ~~Add 'print translation' support~~
-- ~~Global hotkey~~
-- ~~Fetch selection after using global hotkey~~
-- ~~Set focus to 'translate' button after selecting document~~
-- ~~Set focus to 'copy to clipboard' after translating text~~
-- ~~Scaling~~
-- ~~Ignore 'characters left' for pro~~
-- ~~Emphasize 'limit (will be) reached' message with red~~
-- ~~Revert to 'text' page on hide~~
-- ~~Fix icon on dark backgrounds~~
-- ~~Auto launch on Windows login~~
-- ~~Domain info popup~~
-- ~~UI stays locked after 'translation failed'~~
-- ~~Allow only single instance~~
-- ~~Press 'esc' in main window to hide~~
-- ~~Set money cost to 0,00 on free~~
-- ~~Show warning when limit passed~~
-- ~~Show warning when limit will be passed by translation~~
-- ~~Add 'clear' buttons to both pages~~
-- ~~Add 'open subscription' button to info page~~
-- ~~Improve installer graphics~~
+- Add scrollbars to text translation fields
+- Apply theme to webpage reading mode scrollbars
+- Button tooltips
+- Limit nagging popups to max once
+- Always on top
+- Support for other currencies
+- Recognize urls when using global hotkey, insert into webpage tab
+- Add 'open in browser' button for translated webpage
+- Support for drag 'n dropping URLs
+- Add 'save translation' support
+- Add 'print translation' support
+- Global hotkey
+- Fetch selection after using global hotkey
+- Set focus to 'translate' button after selecting document
+- Set focus to 'copy to clipboard' after translating text
+- Fix scaling on non-default DPI modes
+- Ignore 'characters left' for pro
+- Emphasize 'limit (will be) reached' message with red
+- Revert to 'text' page on hide
+- Fix tray icon on dark backgrounds
+- Auto launch on Windows login
+- Domain info popup
+- UI stays locked after 'translation failed'
+- Allow only single instance
+- Press 'esc' in any window to hide
+- Set money cost to zero on free
+- Show warning when limit passed
+- Show warning when limit will be passed by translation
+- Add 'clear' buttons
+- Add 'open subscription' button to info page
+- Improve installer graphics
+- Bundle .NET 7 and WebView2 with installer
 
 ----
 

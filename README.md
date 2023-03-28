@@ -145,6 +145,8 @@ Hides in your system tray, next to the clock:
 
 This is a list of features and fixes that have so far been done:
 
+- Toggle button to switch source and target language
+- 'Document in use' check
 - Add scrollbars to text translation fields
 - Apply theme to webpage reading mode scrollbars
 - Button tooltips

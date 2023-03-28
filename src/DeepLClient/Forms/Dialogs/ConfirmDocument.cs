@@ -42,7 +42,7 @@ namespace DeepLClient.Forms.Dialogs
             // show relevant variant
             LblCostInfo.Text = SubscriptionManager.UsingFreeSubscription()
                 ? $"{charInfo}\r\n\r\nYou're on a free subscription, so no costs."
-                : $"{charInfo}\r\n\r\nIt will probably cost around {SubscriptionManager.CalculateCost(_charCount)}.";
+                : $"{charInfo}\r\n\r\nIt will probably cost around {SubscriptionManager.CalculateCostString(_charCount)}.";
 
             // optionally tip about small text files
             if (_isTxt && _charCount < Variables.AppSettings.MinimumCharactersPerDocument) LblTxt.Visible = true;

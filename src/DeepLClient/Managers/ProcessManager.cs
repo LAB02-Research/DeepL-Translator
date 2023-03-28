@@ -26,7 +26,7 @@ namespace DeepLClient.Managers
             }
             catch (Exception ex)
             {
-                Log.Fatal("[PROCESS] Error processing mutex: {err}", ex.Message);
+                Log.Fatal(ex, "[PROCESS] Error processing mutex: {err}", ex.Message);
                 return false;
             }
         }
@@ -160,13 +160,11 @@ namespace DeepLClient.Managers
             }
             finally
             {
-                // shutdown
-                if (Variables.MainFormManager != null) Variables.MainFormManager?.Dispose();
-                else
-                {
-                    // use the axe
-                    Environment.Exit(exitCode);
-                }
+                // dispose the main form
+                Variables.MainFormManager?.Dispose();
+
+                // use the axe
+                Environment.Exit(exitCode);
             }
         }
     }

@@ -62,7 +62,7 @@ namespace DeepLClient.Managers
             }
             catch (Exception ex)
             {
-                Log.Fatal("[HOTKEY] Error handling hotkey: {err}", ex.Message);
+                Log.Fatal(ex, "[HOTKEY] Error handling hotkey: {err}", ex.Message);
             }
         }
 

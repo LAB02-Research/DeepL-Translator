@@ -22,8 +22,8 @@ namespace DeepLClient
         /// <summary>
         /// Constants
         /// </summary>
-        internal const string SyncfusionLicense = "MTI0OTg2NUAzMjMwMmUzNDJlMzBSblBWOVBUdEZITG5WZVkyZWUvV0xPWjMyTWJ5S0Yvb3JzbUExTVdDWVdVPQ==";
-        internal static string RootRegKey = @$"HKEY_CURRENT_USER\SOFTWARE\LAB02Research\{ApplicationName}";
+        internal const string SyncfusionLicense = "MTQ2NjIzOEAzMjMxMmUzMTJlMzMzNUhSVERpcW9LQlNVTXJIL1dVRENjTXFRYzlMWUxSRkZxZzhXYXNMUHYxSEU9";
+        internal static string RootRegKey { get; } = @$"HKEY_CURRENT_USER\SOFTWARE\LAB02Research\{ApplicationName}";
         internal static string CurrencySymbol { get; } = NumberFormatInfo.CurrentInfo.CurrencySymbol;
 
         /// <summary>
@@ -65,7 +65,8 @@ namespace DeepLClient
         internal static string LogPath { get; } = Path.Combine(StartupPath, "logs");
         internal static string ConfigPath { get; } = Path.Combine(StartupPath, "config");
         internal static string AppSettingsFile { get; } = Path.Combine(ConfigPath, "appsettings.json");
-        internal static string UsageFile { get; } = Path.Combine(ConfigPath, "usage.json");
+        internal static string EmailSettingsFile { get; } = Path.Combine(ConfigPath, "emailsettings.json");
+        internal static string TranslationEventsLogFile { get; } = Path.Combine(ConfigPath, "translationeventslog.json");
         internal static string CachePath { get; } = Path.Combine(StartupPath, "cache");
         internal static string WebViewCachePath { get; } = Path.Combine(CachePath, "webview");
         internal static string WebPagesCachePath { get; } = Path.Combine(CachePath, "webpages");
@@ -74,7 +75,13 @@ namespace DeepLClient
         /// Config
         /// </summary>
         internal static AppSettings AppSettings { get; set; }
-        
+        internal static EmailSettings EmailSettings { get; set; }
+
+        /// <summary>
+        /// Usage Logging
+        /// </summary>
+        internal static List<TranslationEvent> TranslationEvents { get; set; } = new();
+
         /// <summary>
         /// Updater
         /// </summary>

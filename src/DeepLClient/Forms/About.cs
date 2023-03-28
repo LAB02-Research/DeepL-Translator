@@ -52,13 +52,11 @@ namespace DeepLClient.Forms
 
         private void PbPayPal_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://www.paypal.com/donate/?hosted_button_id=5YL6UP94AQSPC");
 
-        private void PbKoFi_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://ko-fi.com/lab02research");
-
-        private void PbGithubSponsor_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/sponsors/LAB02-Admin");
-
         private void LblDeepLProject_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/LAB02-Research/DeepL-Translator");
 
-        private void PbLogo_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://github.com/LAB02-Research/DeepL-Translator");
+        private void PbLogo_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://www.deepl.com/pro-api");
+
+        private void LblDeepL_Click(object sender, EventArgs e) => HelperFunctions.LaunchUrl("https://www.deepl.com/pro-api");
 
         private void About_KeyUp(object sender, KeyEventArgs e)
         {

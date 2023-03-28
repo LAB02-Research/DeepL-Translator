@@ -74,7 +74,7 @@ namespace DeepLClient.Forms
                     LblCharactersLeft.Text = "∞";
 
                     // not for free though
-                    LblCost.Text = SubscriptionManager.CalculateCost(state.Character.Count, false);
+                    LblCost.Text = SubscriptionManager.CalculateCostString(state.Character.Count, false);
                 }
 
                 // done

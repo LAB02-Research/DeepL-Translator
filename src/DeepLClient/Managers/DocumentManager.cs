@@ -1,11 +1,14 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using ByteSizeLib;
 using DeepLClient.Enums;
+using DeepLClient.Functions;
 using Serilog;
 using Syncfusion.DocIO.DLS;
 using Syncfusion.Pdf;
 using Syncfusion.Pdf.Parsing;
 using Syncfusion.Presentation;
+using FormatType = Syncfusion.DocIO.FormatType;
 
 namespace DeepLClient.Managers
 {
@@ -16,22 +19,35 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static long GetPdfCharacterCount(string file)
+        internal static (long charCount, bool success) GetPdfCharacterCount(string file)
         {
-            using var inputStream = new FileStream(file, FileMode.Open);
-            using var loadedDocument = new PdfLoadedDocument(inputStream);
-
-            var characterCount = 0L;
-            foreach (PdfLoadedPage page in loadedDocument.Pages)
+            try
             {
-                var pageText = page.ExtractText();
-                if (string.IsNullOrEmpty(pageText)) continue;
+                using var inputStream = new FileStream(file, FileMode.Open);
+                using var loadedDocument = new PdfLoadedDocument(inputStream);
 
-                characterCount += pageText.Length;
-            }
+                var characterCount = 0L;
+                foreach (PdfLoadedPage page in loadedDocument.Pages)
+                {
+                    var pageText = page.ExtractText();
+                    if (string.IsNullOrEmpty(pageText)) continue;
+
+                    characterCount += pageText.Length;
+                }
             
-            loadedDocument.Close(true);
-            return characterCount;
+                loadedDocument.Close(true);
+                return (characterCount, true);
+            }
+            catch (IOException ex)
+            {
+                Log.Fatal(ex, "[DM] IO error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DM] Error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
         }
 
         /// <summary>
@@ -39,10 +55,27 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static long GetDocCharacterCount(string file)
+        internal static (long charCount, bool success) GetDocCharacterCount(string file)
         {
-            using var document = new WordDocument(file, Syncfusion.DocIO.FormatType.Automatic);
-            return document.BuiltinDocumentProperties.CharCount;
+            try
+            {
+                using var document = new WordDocument(file, FormatType.Automatic);
+
+                // update wordcount
+                document.UpdateWordCount(false);
+
+                return (document.BuiltinDocumentProperties.CharCount, true);
+            }
+            catch (IOException ex)
+            {
+                Log.Fatal(ex, "[DM] IO error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DM] Error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
         }
 
         /// <summary>
@@ -50,10 +83,23 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static long GetTxtCharacterCount(string file)
+        internal static (long charCount, bool success) GetTxtCharacterCount(string file)
         {
-            var content = File.ReadAllText(file);
-            return content.Length;
+            try
+            {
+                var content = File.ReadAllText(file);
+                return (content.Length, true);
+            }
+            catch (IOException ex)
+            {
+                Log.Fatal(ex, "[DM] IO error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DM] Error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
         }
 
         /// <summary>
@@ -61,10 +107,23 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static long GetHtmlCharacterCount(string file)
+        internal static (long charCount, bool success) GetHtmlCharacterCount(string file)
         {
-            var content = File.ReadAllText(file);
-            return content.Length;
+            try
+            {
+                var content = File.ReadAllText(file);
+                return (content.Length, true);
+            }
+            catch (IOException ex)
+            {
+                Log.Fatal(ex, "[DM] IO error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DM] Error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
         }
 
         /// <summary>
@@ -72,14 +131,29 @@ namespace DeepLClient.Managers
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static long GetPowerPointCharacterCount(string file)
+        internal static (long charCount, bool success) GetPowerPointCharacterCount(string file)
         {
-            using var presentation = Presentation.Open(file);
-            return (from slide in presentation.Slides 
-                from slideItem in slide.Shapes 
-                select (IShape)slideItem
-                into shape 
-                select shape.TextBody.Text.Length).Sum();
+            try
+            {
+                using var presentation = Presentation.Open(file);
+                var count = (from slide in presentation.Slides 
+                    from slideItem in slide.Shapes 
+                    select (IShape)slideItem
+                    into shape 
+                    select shape.TextBody.Text.Length).Sum();
+
+                return (count, true);
+            }
+            catch (IOException ex)
+            {
+                Log.Fatal(ex, "[DM] IO error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[DM] Error getting wordcount for {file}: {err}", file, ex.Message);
+                return (-1, false);
+            }
         }
 
         /// <summary>
@@ -88,7 +162,7 @@ namespace DeepLClient.Managers
         /// <param name="docType"></param>
         /// <param name="file"></param>
         /// <returns></returns>
-        internal static async Task<long> GetDocumentCharacterCountAsync(DocumentType docType, string file)
+        internal static async Task<(long charCount, bool success)> GetDocumentCharacterCountAsync(DocumentType docType, string file)
         {
             try
             {
@@ -106,12 +180,13 @@ namespace DeepLClient.Managers
                         return await Task.Run(() => GetHtmlCharacterCount(file));
                 }
 
-                return 0L;
+                Log.Error("[DM] Error determining character count for {file}: unknown filetype", file);
+                return (0L, false);
             }
             catch (Exception ex)
             {
-                Log.Fatal("[DM] Error determining character count for {file}: {err}", file, ex.Message);
-                return 0L;
+                Log.Fatal(ex, "[DM] Error determining character count for {file}: {err}", file, ex.Message);
+                return (0L, false);
             }
         }
 
@@ -188,7 +263,7 @@ namespace DeepLClient.Managers
             }
             catch (Exception ex)
             {
-                Log.Fatal("[DM] Error checking file size for {file}: {err}", file, ex.Message);
+                Log.Fatal(ex, "[DM] Error checking file size for {file}: {err}", file, ex.Message);
                 return (false, 0d);
             }
         }
@@ -208,7 +283,7 @@ namespace DeepLClient.Managers
             }
             catch (Exception ex)
             {
-                Log.Fatal("[DM] Error getting file size for {file}: {err}", file, ex.Message);
+                Log.Fatal(ex, "[DM] Error getting file size for {file}: {err}", file, ex.Message);
                 return 0d;
             }
         }

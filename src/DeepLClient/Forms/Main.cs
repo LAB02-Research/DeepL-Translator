@@ -1,8 +1,8 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using DeepLClient.Functions;
+﻿using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using Syncfusion.Windows.Forms;
+using System.Diagnostics.CodeAnalysis;
 using WK.Libraries.HotkeyListenerNS;
 
 namespace DeepLClient.Forms
@@ -36,6 +36,9 @@ namespace DeepLClient.Forms
 
                 // monitor subscription limits
                 _ = Task.Run(SubscriptionManager.Initialize);
+
+                // process translation events logging
+                _ = Task.Run(TranslationEventsManager.Initialize);
 
                 // initialize the global hotkey
                 InitializeHotkey();
@@ -99,7 +102,7 @@ namespace DeepLClient.Forms
         {
             // show configuration dialog
             using var config = new Configuration();
-            var result = config.ShowDialog();
+            var result = config.ShowDialog(this);
             if (result != DialogResult.OK) return;
 
             // set topmost
@@ -116,14 +119,14 @@ namespace DeepLClient.Forms
         {
             // show subscription info dialog
             using var subscriptionInfo = new SubscriptionInfo();
-            subscriptionInfo.ShowDialog();
+            subscriptionInfo.ShowDialog(this);
         }
 
         private void LblWarning_Click(object sender, EventArgs e)
         {
             // show subscription info dialog
             using var subscriptionInfo = new SubscriptionInfo();
-            subscriptionInfo.ShowDialog();
+            subscriptionInfo.ShowDialog(this);
         }
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
@@ -203,10 +206,10 @@ namespace DeepLClient.Forms
         /// <summary>
         /// Shows the 'about' form
         /// </summary>
-        private static void ShowAbout()
+        private void ShowAbout()
         {
             using var about = new About();
-            about.ShowDialog();
+            about.ShowDialog(this);
         }
 
         private void BtnAbout_Click(object sender, EventArgs e) => ShowAbout();

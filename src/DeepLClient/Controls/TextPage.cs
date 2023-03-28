@@ -4,6 +4,7 @@ using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
 using System.Diagnostics.CodeAnalysis;
+using DeepLClient.Extensions;
 using DeepLClient.Forms.Dialogs;
 using Syncfusion.WinForms.Controls.Styles;
 
@@ -87,7 +88,7 @@ namespace DeepLClient.Controls
                 if (await SubscriptionManager.CharactersWillExceedLimitAsync(sourceText.Length))
                 {
                     using var limit = new LimitExceeded(sourceText.Length);
-                    var ignoreLimit = limit.ShowDialog();
+                    var ignoreLimit = limit.ShowDialog(this);
                     if (ignoreLimit != DialogResult.OK) return;
                 }
 
@@ -151,6 +152,9 @@ namespace DeepLClient.Controls
                 // set the translated text
                 TbTranslated.Text = translatedText.Text;
 
+                // store the event
+                TranslationEventsManager.StoreTextTranslationEvent(translatedText.Text.Length);
+
                 // store the selected languages
                 SettingsManager.StoreSelectedLanguages(CbSourceLanguage, CbTargetLanguage);
 
@@ -211,7 +215,7 @@ namespace DeepLClient.Controls
         private void TbSource_TextChanged(object sender, EventArgs e)
         {
             LblCharacters.Text = TbSource.Text.Length.ToString();
-            LblCost.Text = SubscriptionManager.CalculateCost(TbSource.Text.Length, false);
+            LblCost.Text = SubscriptionManager.CalculateCostString(TbSource.Text.Length, false);
         }
 
         /// <summary>
@@ -446,7 +450,7 @@ namespace DeepLClient.Controls
                 dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 dialog.Filter = "Plain text (*.txt)|*.txt";
 
-                var result = dialog.ShowDialog();
+                var result = dialog.ShowDialog(this);
                 if (result != DialogResult.OK) return;
 
                 File.WriteAllText(dialog.FileName, TbTranslated.Text);
@@ -478,7 +482,7 @@ namespace DeepLClient.Controls
 
                 // get the printer settings
                 using var printDialog = new PrintDialog();
-                var dialogResult = printDialog.ShowDialog();
+                var dialogResult = printDialog.ShowDialog(this);
                 if (dialogResult != DialogResult.OK) return;
 
                 // print the doc
@@ -497,6 +501,34 @@ namespace DeepLClient.Controls
             {
                 LockInterface(false);
             }
+        }
+
+        private void BtnSwitchLanguage_Click(object sender, EventArgs e)
+        {
+            // get the selected target value
+            string targetLanguage = null;
+            if (CbTargetLanguage.SelectedItem != null)
+            {
+                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
+                targetLanguage = item.Value;
+            }
+
+            // if nothing's selected, use auto detect
+            if (string.IsNullOrEmpty(targetLanguage)) targetLanguage = "AUTO DETECT";
+
+            // get source language
+            string sourceLanguage = null;
+            if (CbSourceLanguage.SelectedItem != null)
+            {
+                var item = (KeyValuePair<string, string>)CbSourceLanguage.SelectedItem;
+                sourceLanguage = item.Value;
+            }
+
+            // set source language
+            CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(targetLanguage);
+
+            // set target language, only if not empty and not auto detect
+            if (!string.IsNullOrEmpty(sourceLanguage) && sourceLanguage != "AUTO DETECT") CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(sourceLanguage);
         }
 
         private void BtnCopyClipboard_Click(object sender, EventArgs e) => CopyToClipboard(true);

@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using DeepL;
+using DeepLClient.Extensions;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Microsoft.Web.WebView2.Core;
@@ -199,7 +200,7 @@ namespace DeepLClient.Controls
                 if (await SubscriptionManager.CharactersWillExceedLimitAsync(webpageResult.Content.Length))
                 {
                     using var limit = new LimitExceeded(webpageResult.Content.Length);
-                    var ignoreLimit = limit.ShowDialog();
+                    var ignoreLimit = limit.ShowDialog(this);
                     if (ignoreLimit != DialogResult.OK)
                     {
                         ClearWebpageInterface();
@@ -252,7 +253,10 @@ namespace DeepLClient.Controls
 
                 // set the cost
                 LblCharacters.Text = translatedText.Text.Length.ToString();
-                LblCost.Text = SubscriptionManager.CalculateCost(translatedText.Text.Length, false);
+                LblCost.Text = SubscriptionManager.CalculateCostString(translatedText.Text.Length, false);
+
+                // store the event
+                TranslationEventsManager.StoreWebpageTranslationEvent(translatedText.Text.Length);
 
                 // wrap it in html for styling
                 var source = UrlManager.WrapContentInHtml(translatedText.Text, webpageResult.Title);
@@ -580,7 +584,7 @@ namespace DeepLClient.Controls
                 dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
                 dialog.Filter = "PDF (*.pdf)|*.pdf";
 
-                var result = dialog.ShowDialog();
+                var result = dialog.ShowDialog(this);
                 if (result != DialogResult.OK) return;
 
                 var printed = await WebView.CoreWebView2.PrintToPdfAsync(dialog.FileName);

@@ -1,6 +1,6 @@
 ﻿namespace DeepLClient.Forms
 {
-    partial class Configuration
+    partial class MailConfiguration
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,37 +29,22 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Configuration));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MailConfiguration));
             BtnStore = new Syncfusion.WinForms.Controls.SfButton();
             PbCost = new PictureBox();
             LblSourceLanguage = new Label();
             TbUser = new TextBox();
-            label1 = new Label();
-            TbAPIKey = new TextBox();
-            label2 = new Label();
             CbLaunchHidden = new CheckBox();
             CbStoreLastUsedSourceLanguage = new CheckBox();
             CbStoreLastUsedTargetLanguage = new CheckBox();
-            label3 = new Label();
-            CbDefaultFormality = new ComboBox();
             CbCopyTranslationToClipboard = new CheckBox();
             BtnCancel = new Syncfusion.WinForms.Controls.SfButton();
-            LblDomainInfo = new Label();
-            LblFormalityInfo = new Label();
-            CbDomain = new ComboBox();
             CbLaunchOnWindows = new CheckBox();
-            CbEnableGlobalHotkey = new CheckBox();
-            TbHotkey = new TextBox();
-            LblHotkeyInfo = new Label();
-            BtnCleanHotkey = new Syncfusion.WinForms.Controls.SfButton();
-            TbCostPerChar = new Syncfusion.Windows.Forms.Tools.CurrencyTextBox();
-            label5 = new Label();
             CbAlwaysOnTop = new CheckBox();
             LblNameInfo = new Label();
             ToolTip = new ToolTip(components);
             BtnConfigureLogging = new Syncfusion.WinForms.Controls.SfButton();
             ((System.ComponentModel.ISupportInitialize)PbCost).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)TbCostPerChar).BeginInit();
             SuspendLayout();
             // 
             // BtnStore
@@ -123,46 +108,6 @@
             TbUser.Size = new Size(310, 25);
             TbUser.TabIndex = 68;
             // 
-            // label1
-            // 
-            label1.AccessibleDescription = "";
-            label1.AccessibleName = "";
-            label1.AccessibleRole = AccessibleRole.StaticText;
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(115, 98);
-            label1.Name = "label1";
-            label1.Size = new Size(98, 19);
-            label1.TabIndex = 69;
-            label1.Text = "DeepL domain";
-            // 
-            // TbAPIKey
-            // 
-            TbAPIKey.AccessibleDescription = "";
-            TbAPIKey.AccessibleName = "";
-            TbAPIKey.AccessibleRole = AccessibleRole.Text;
-            TbAPIKey.BackColor = Color.FromArgb(63, 63, 70);
-            TbAPIKey.BorderStyle = BorderStyle.FixedSingle;
-            TbAPIKey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            TbAPIKey.ForeColor = Color.FromArgb(241, 241, 241);
-            TbAPIKey.Location = new Point(115, 180);
-            TbAPIKey.Name = "TbAPIKey";
-            TbAPIKey.Size = new Size(310, 25);
-            TbAPIKey.TabIndex = 72;
-            // 
-            // label2
-            // 
-            label2.AccessibleDescription = "";
-            label2.AccessibleName = "";
-            label2.AccessibleRole = AccessibleRole.StaticText;
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(115, 158);
-            label2.Name = "label2";
-            label2.Size = new Size(98, 19);
-            label2.TabIndex = 71;
-            label2.Text = "DeepL API key";
-            // 
             // CbLaunchHidden
             // 
             CbLaunchHidden.AccessibleDescription = "";
@@ -211,37 +156,6 @@
             CbStoreLastUsedTargetLanguage.Text = "store last used target language";
             CbStoreLastUsedTargetLanguage.UseVisualStyleBackColor = true;
             // 
-            // label3
-            // 
-            label3.AccessibleDescription = "";
-            label3.AccessibleName = "";
-            label3.AccessibleRole = AccessibleRole.StaticText;
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(530, 28);
-            label3.Name = "label3";
-            label3.Size = new Size(109, 19);
-            label3.TabIndex = 77;
-            label3.Text = "default formality";
-            // 
-            // CbDefaultFormality
-            // 
-            CbDefaultFormality.AccessibleDescription = "";
-            CbDefaultFormality.AccessibleName = "";
-            CbDefaultFormality.AccessibleRole = AccessibleRole.DropList;
-            CbDefaultFormality.BackColor = Color.FromArgb(63, 63, 70);
-            CbDefaultFormality.DrawMode = DrawMode.OwnerDrawFixed;
-            CbDefaultFormality.DropDownHeight = 300;
-            CbDefaultFormality.DropDownStyle = ComboBoxStyle.DropDownList;
-            CbDefaultFormality.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            CbDefaultFormality.ForeColor = Color.FromArgb(241, 241, 241);
-            CbDefaultFormality.FormattingEnabled = true;
-            CbDefaultFormality.IntegralHeight = false;
-            CbDefaultFormality.Location = new Point(530, 50);
-            CbDefaultFormality.Name = "CbDefaultFormality";
-            CbDefaultFormality.Size = new Size(256, 26);
-            CbDefaultFormality.TabIndex = 76;
-            // 
             // CbCopyTranslationToClipboard
             // 
             CbCopyTranslationToClipboard.AccessibleDescription = "";
@@ -282,54 +196,6 @@
             BtnCancel.UseVisualStyleBackColor = false;
             BtnCancel.Click += BtnCancel_Click;
             // 
-            // LblDomainInfo
-            // 
-            LblDomainInfo.AccessibleDescription = "";
-            LblDomainInfo.AccessibleName = "";
-            LblDomainInfo.AccessibleRole = AccessibleRole.PushButton;
-            LblDomainInfo.AutoSize = true;
-            LblDomainInfo.Cursor = Cursors.Hand;
-            LblDomainInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblDomainInfo.Location = new Point(431, 122);
-            LblDomainInfo.Name = "LblDomainInfo";
-            LblDomainInfo.Size = new Size(17, 21);
-            LblDomainInfo.TabIndex = 104;
-            LblDomainInfo.Text = "?";
-            LblDomainInfo.Click += LblDomainInfo_Click;
-            // 
-            // LblFormalityInfo
-            // 
-            LblFormalityInfo.AccessibleDescription = "";
-            LblFormalityInfo.AccessibleName = "";
-            LblFormalityInfo.AccessibleRole = AccessibleRole.PushButton;
-            LblFormalityInfo.AutoSize = true;
-            LblFormalityInfo.Cursor = Cursors.Hand;
-            LblFormalityInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFormalityInfo.Location = new Point(769, 28);
-            LblFormalityInfo.Name = "LblFormalityInfo";
-            LblFormalityInfo.Size = new Size(17, 21);
-            LblFormalityInfo.TabIndex = 105;
-            LblFormalityInfo.Text = "?";
-            LblFormalityInfo.Click += LblFormalityInfo_Click;
-            // 
-            // CbDomain
-            // 
-            CbDomain.AccessibleDescription = "";
-            CbDomain.AccessibleName = "";
-            CbDomain.AccessibleRole = AccessibleRole.DropList;
-            CbDomain.BackColor = Color.FromArgb(63, 63, 70);
-            CbDomain.DrawMode = DrawMode.OwnerDrawFixed;
-            CbDomain.DropDownHeight = 300;
-            CbDomain.DropDownStyle = ComboBoxStyle.DropDownList;
-            CbDomain.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            CbDomain.ForeColor = Color.FromArgb(241, 241, 241);
-            CbDomain.FormattingEnabled = true;
-            CbDomain.IntegralHeight = false;
-            CbDomain.Location = new Point(115, 119);
-            CbDomain.Name = "CbDomain";
-            CbDomain.Size = new Size(310, 26);
-            CbDomain.TabIndex = 106;
-            // 
             // CbLaunchOnWindows
             // 
             CbLaunchOnWindows.AccessibleDescription = "";
@@ -345,111 +211,6 @@
             CbLaunchOnWindows.TabIndex = 107;
             CbLaunchOnWindows.Text = "launch on windows login";
             CbLaunchOnWindows.UseVisualStyleBackColor = true;
-            // 
-            // CbEnableGlobalHotkey
-            // 
-            CbEnableGlobalHotkey.AccessibleDescription = "";
-            CbEnableGlobalHotkey.AccessibleName = "";
-            CbEnableGlobalHotkey.AccessibleRole = AccessibleRole.CheckButton;
-            CbEnableGlobalHotkey.AutoSize = true;
-            CbEnableGlobalHotkey.Checked = true;
-            CbEnableGlobalHotkey.CheckState = CheckState.Checked;
-            CbEnableGlobalHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            CbEnableGlobalHotkey.Location = new Point(530, 277);
-            CbEnableGlobalHotkey.Name = "CbEnableGlobalHotkey";
-            CbEnableGlobalHotkey.Size = new Size(155, 23);
-            CbEnableGlobalHotkey.TabIndex = 108;
-            CbEnableGlobalHotkey.Text = "enable global hotkey";
-            CbEnableGlobalHotkey.UseVisualStyleBackColor = true;
-            // 
-            // TbHotkey
-            // 
-            TbHotkey.AccessibleDescription = "";
-            TbHotkey.AccessibleName = "";
-            TbHotkey.AccessibleRole = AccessibleRole.Text;
-            TbHotkey.BackColor = Color.FromArgb(63, 63, 70);
-            TbHotkey.BorderStyle = BorderStyle.FixedSingle;
-            TbHotkey.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            TbHotkey.ForeColor = Color.FromArgb(241, 241, 241);
-            TbHotkey.Location = new Point(530, 306);
-            TbHotkey.Name = "TbHotkey";
-            TbHotkey.Size = new Size(218, 25);
-            TbHotkey.TabIndex = 109;
-            // 
-            // LblHotkeyInfo
-            // 
-            LblHotkeyInfo.AccessibleDescription = "";
-            LblHotkeyInfo.AccessibleName = "";
-            LblHotkeyInfo.AccessibleRole = AccessibleRole.PushButton;
-            LblHotkeyInfo.AutoSize = true;
-            LblHotkeyInfo.Cursor = Cursors.Hand;
-            LblHotkeyInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblHotkeyInfo.Location = new Point(769, 279);
-            LblHotkeyInfo.Name = "LblHotkeyInfo";
-            LblHotkeyInfo.Size = new Size(17, 21);
-            LblHotkeyInfo.TabIndex = 111;
-            LblHotkeyInfo.Text = "?";
-            LblHotkeyInfo.Click += LblHotkeyInfo_Click;
-            // 
-            // BtnCleanHotkey
-            // 
-            BtnCleanHotkey.AccessibleDescription = "";
-            BtnCleanHotkey.AccessibleName = "";
-            BtnCleanHotkey.AccessibleRole = AccessibleRole.PushButton;
-            BtnCleanHotkey.BackColor = Color.FromArgb(63, 63, 70);
-            BtnCleanHotkey.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
-            BtnCleanHotkey.ForeColor = Color.FromArgb(241, 241, 241);
-            BtnCleanHotkey.ImageSize = new Size(16, 16);
-            BtnCleanHotkey.Location = new Point(754, 306);
-            BtnCleanHotkey.Name = "BtnCleanHotkey";
-            BtnCleanHotkey.Size = new Size(32, 25);
-            BtnCleanHotkey.Style.BackColor = Color.FromArgb(63, 63, 70);
-            BtnCleanHotkey.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
-            BtnCleanHotkey.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
-            BtnCleanHotkey.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
-            BtnCleanHotkey.Style.ForeColor = Color.FromArgb(241, 241, 241);
-            BtnCleanHotkey.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
-            BtnCleanHotkey.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
-            BtnCleanHotkey.Style.Image = Properties.Resources.clean_icon_16;
-            BtnCleanHotkey.Style.PressedForeColor = Color.Black;
-            BtnCleanHotkey.TabIndex = 112;
-            BtnCleanHotkey.UseVisualStyleBackColor = false;
-            BtnCleanHotkey.Click += BtnCleanHotkey_Click;
-            // 
-            // TbCostPerChar
-            // 
-            TbCostPerChar.BackGroundColor = Color.FromArgb(63, 63, 70);
-            TbCostPerChar.BeforeTouchSize = new Size(118, 25);
-            TbCostPerChar.BorderColor = Color.FromArgb(241, 241, 241);
-            TbCostPerChar.BorderStyle = BorderStyle.FixedSingle;
-            TbCostPerChar.CurrencyDecimalDigits = 5;
-            TbCostPerChar.DecimalValue = new decimal(new int[] { 0, 0, 0, 327680 });
-            TbCostPerChar.FocusBorderColor = Color.FromArgb(209, 211, 212);
-            TbCostPerChar.ForeColor = Color.FromArgb(241, 241, 241);
-            TbCostPerChar.Location = new Point(115, 245);
-            TbCostPerChar.MaxValue = new decimal(new int[] { 100000, 0, 0, 0 });
-            TbCostPerChar.Metrocolor = Color.FromArgb(241, 241, 241);
-            TbCostPerChar.MinValue = new decimal(new int[] { 1, 0, 0, 851968 });
-            TbCostPerChar.Name = "TbCostPerChar";
-            TbCostPerChar.PositiveColor = Color.FromArgb(241, 241, 241);
-            TbCostPerChar.Size = new Size(118, 25);
-            TbCostPerChar.TabIndex = 113;
-            TbCostPerChar.Text = "€ 0,00000";
-            TbCostPerChar.ThemeName = "Metro";
-            TbCostPerChar.ZeroColor = Color.FromArgb(241, 241, 241);
-            // 
-            // label5
-            // 
-            label5.AccessibleDescription = "";
-            label5.AccessibleName = "";
-            label5.AccessibleRole = AccessibleRole.StaticText;
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            label5.Location = new Point(115, 223);
-            label5.Name = "label5";
-            label5.Size = new Size(118, 19);
-            label5.TabIndex = 114;
-            label5.Text = "cost per character";
             // 
             // CbAlwaysOnTop
             // 
@@ -478,7 +239,6 @@
             LblNameInfo.Size = new Size(17, 21);
             LblNameInfo.TabIndex = 116;
             LblNameInfo.Text = "?";
-            LblNameInfo.Click += LblNameInfo_Click;
             // 
             // ToolTip
             // 
@@ -510,10 +270,8 @@
             BtnConfigureLogging.TabIndex = 117;
             BtnConfigureLogging.Text = "configure usage logging";
             BtnConfigureLogging.UseVisualStyleBackColor = false;
-            BtnConfigureLogging.Visible = false;
-            BtnConfigureLogging.Click += BtnConfigureLogging_Click;
             // 
-            // Configuration
+            // MailConfiguration
             // 
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
@@ -525,26 +283,12 @@
             Controls.Add(BtnConfigureLogging);
             Controls.Add(LblNameInfo);
             Controls.Add(CbAlwaysOnTop);
-            Controls.Add(label5);
-            Controls.Add(TbCostPerChar);
-            Controls.Add(BtnCleanHotkey);
-            Controls.Add(LblHotkeyInfo);
-            Controls.Add(TbHotkey);
-            Controls.Add(CbEnableGlobalHotkey);
             Controls.Add(CbLaunchOnWindows);
-            Controls.Add(CbDomain);
-            Controls.Add(LblFormalityInfo);
-            Controls.Add(LblDomainInfo);
             Controls.Add(BtnCancel);
             Controls.Add(CbCopyTranslationToClipboard);
-            Controls.Add(label3);
-            Controls.Add(CbDefaultFormality);
             Controls.Add(CbStoreLastUsedTargetLanguage);
             Controls.Add(CbStoreLastUsedSourceLanguage);
             Controls.Add(CbLaunchHidden);
-            Controls.Add(TbAPIKey);
-            Controls.Add(label2);
-            Controls.Add(label1);
             Controls.Add(TbUser);
             Controls.Add(LblSourceLanguage);
             Controls.Add(PbCost);
@@ -555,16 +299,14 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MetroColor = Color.FromArgb(63, 63, 70);
-            Name = "Configuration";
+            Name = "MailConfiguration";
             ShowMaximizeBox = false;
             ShowMinimizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Configuration";
-            FormClosing += Configuration_FormClosing;
-            Load += Configuration_Load;
-            KeyUp += Configuration_KeyUp;
+            Text = "Mail";
+            Load += MailConfiguration_Load;
+            KeyUp += MailConfiguration_KeyUp;
             ((System.ComponentModel.ISupportInitialize)PbCost).EndInit();
-            ((System.ComponentModel.ISupportInitialize)TbCostPerChar).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -574,26 +316,12 @@
         private PictureBox PbCost;
         private Label LblSourceLanguage;
         internal TextBox TbUser;
-        private Label label1;
-        internal TextBox TbAPIKey;
-        private Label label2;
         internal CheckBox CbLaunchHidden;
         internal CheckBox CbStoreLastUsedSourceLanguage;
         internal CheckBox CbStoreLastUsedTargetLanguage;
-        private Label label3;
-        private ComboBox CbDefaultFormality;
         internal CheckBox CbCopyTranslationToClipboard;
         private Syncfusion.WinForms.Controls.SfButton BtnCancel;
-        private Label LblDomainInfo;
-        private Label LblFormalityInfo;
-        private ComboBox CbDomain;
         internal CheckBox CbLaunchOnWindows;
-        internal CheckBox CbEnableGlobalHotkey;
-        internal TextBox TbHotkey;
-        private Label LblHotkeyInfo;
-        private Syncfusion.WinForms.Controls.SfButton BtnCleanHotkey;
-        private Syncfusion.Windows.Forms.Tools.CurrencyTextBox TbCostPerChar;
-        private Label label5;
         internal CheckBox CbAlwaysOnTop;
         private Label LblNameInfo;
         private ToolTip ToolTip;

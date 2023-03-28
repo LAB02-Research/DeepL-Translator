@@ -1,4 +1,5 @@
-﻿using DeepLClient.Models;
+﻿using System.Globalization;
+using DeepLClient.Models;
 using Microsoft.Win32;
 using Newtonsoft.Json;
 using Serilog;
@@ -8,17 +9,17 @@ namespace DeepLClient.Managers
     internal static class SettingsManager
     {
         /// <summary>
-        /// Load the stored config, or save a default one
+        /// Load the stored app settings, or save a default one
         /// </summary>
         /// <returns></returns>
-        internal static bool Load()
+        internal static bool LoadAppSettings()
         {
             try
             {
                 // check if there's config found
                 if (!Directory.Exists(Variables.ConfigPath) || !File.Exists(Variables.AppSettingsFile))
                 {
-                    return StoreDefault();
+                    return StoreDefaultAppSettings();
                 }
 
                 // yep, load it
@@ -27,39 +28,90 @@ namespace DeepLClient.Managers
                 // content?
                 if (string.IsNullOrWhiteSpace(settingsStr))
                 {
-                    Log.Warning("[SETTINGS] Config file empty");
-                    return StoreDefault();
+                    Log.Warning("[SETTINGS] App settings file empty");
+                    return StoreDefaultAppSettings();
                 }
 
                 // try to parse
                 Variables.AppSettings = JsonConvert.DeserializeObject<AppSettings>(settingsStr);
                 if (Variables.AppSettings == null)
                 {
-                    Log.Error("[SETTINGS] Parsing config returned a null object");
+                    Log.Error("[SETTINGS] Parsing app settings returned a null object");
                     return false;
                 }
 
                 // done
-                Log.Information("[SETTINGS] Config loaded");
+                Log.Information("[SETTINGS] App settings loaded");
                 return true;
             }
             catch (JsonException ex)
             {
-                Log.Fatal(ex, "[SETTINGS] Error parsing the config: {err}", ex.Message);
+                Log.Fatal(ex, "[SETTINGS] Error parsing app settings: {err}", ex.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "[SETTINGS] Error loading: {err}", ex.Message);
+                Log.Fatal(ex, "[SETTINGS] Error loading app settings: {err}", ex.Message);
                 return false;
             }
         }
 
         /// <summary>
-        /// Store the current config
+        /// Load the stored e-mail settings, or save a default one
         /// </summary>
         /// <returns></returns>
-        internal static bool Store()
+        internal static bool LoadEmailSettings()
+        {
+            //not implemented yet
+            return true;
+
+            try
+            {
+                // check if there's config found
+                if (!Directory.Exists(Variables.ConfigPath) || !File.Exists(Variables.EmailSettingsFile))
+                {
+                    return StoreDefaultEmailSettings();
+                }
+
+                // yep, load it
+                var settingsStr = File.ReadAllText(Variables.EmailSettingsFile);
+
+                // content?
+                if (string.IsNullOrWhiteSpace(settingsStr))
+                {
+                    Log.Warning("[SETTINGS] E-mail settings file empty");
+                    return StoreDefaultEmailSettings();
+                }
+
+                // try to parse
+                Variables.EmailSettings = JsonConvert.DeserializeObject<EmailSettings>(settingsStr);
+                if (Variables.EmailSettings == null)
+                {
+                    Log.Error("[SETTINGS] Parsing e-mail settings returned a null object");
+                    return false;
+                }
+
+                // done
+                Log.Information("[SETTINGS] E-mail settings loaded");
+                return true;
+            }
+            catch (JsonException ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error parsing e-mail settings: {err}", ex.Message);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error loading e-mail settings: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Store the current app settings
+        /// </summary>
+        /// <returns></returns>
+        internal static bool StoreAppSettings()
         {
             try
             {
@@ -75,12 +127,40 @@ namespace DeepLClient.Managers
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "[SETTINGS] Error storing config: {err}", ex.Message);
+                Log.Fatal(ex, "[SETTINGS] Error storing app settings: {err}", ex.Message);
                 return false;
             }
         }
 
-        private static bool StoreDefault()
+        /// <summary>
+        /// Store the current e-mail settings
+        /// </summary>
+        /// <returns></returns>
+        internal static bool StoreEmailSettings()
+        {
+            //not implemented yet
+            return true;
+
+            try
+            {
+                // check the path
+                if (!Directory.Exists(Variables.ConfigPath)) Directory.CreateDirectory(Variables.ConfigPath);
+
+                // store values
+                var settings = JsonConvert.SerializeObject(Variables.EmailSettings, Formatting.Indented);
+                File.WriteAllText(Variables.EmailSettingsFile, settings);
+
+                // done
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing e-mail settings: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        private static bool StoreDefaultAppSettings()
         {
             try
             {
@@ -95,12 +175,40 @@ namespace DeepLClient.Managers
                 File.WriteAllText(Variables.AppSettingsFile, settings);
 
                 // done
-                Log.Information("[SETTINGS] Default settings stored");
+                Log.Information("[SETTINGS] Default app settings stored");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "[SETTINGS] Error storing default: {err}", ex.Message);
+                Log.Fatal(ex, "[SETTINGS] Error storing default app settings: {err}", ex.Message);
+                return false;
+            }
+        }
+
+        private static bool StoreDefaultEmailSettings()
+        {
+            //not implemented yet
+            return true;
+
+            try
+            {
+                // check the path
+                if (!Directory.Exists(Variables.ConfigPath)) Directory.CreateDirectory(Variables.ConfigPath);
+
+                // set default
+                Variables.EmailSettings = new EmailSettings();
+
+                // store values
+                var settings = JsonConvert.SerializeObject(Variables.EmailSettings, Formatting.Indented);
+                File.WriteAllText(Variables.EmailSettingsFile, settings);
+
+                // done
+                Log.Information("[SETTINGS] Default e-mail settings stored");
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing default e-mail settings: {err}", ex.Message);
                 return false;
             }
         }
@@ -143,7 +251,7 @@ namespace DeepLClient.Managers
                 }
 
                 // store them
-                Store();
+                StoreAppSettings();
 
                 // done
             }
@@ -222,6 +330,47 @@ namespace DeepLClient.Managers
             catch (Exception ex)
             {
                 Log.Fatal(ex, "[SETTINGS] Error storing 'DomainConfirmationShown' setting: {err}", ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Gets the 'TranslationEventsLastMailed' setting from registry
+        /// </summary>
+        /// <returns></returns>
+        internal static DateTime GetTranslationEventsLastMailed()
+        {
+            try
+            {
+                var momentStr = (string)Registry.GetValue(Variables.RootRegKey, "TranslationEventsLastMailed", string.Empty);
+                if (string.IsNullOrEmpty(momentStr)) return DateTime.MinValue;
+
+                // try to parse
+                var parsed = DateTime.TryParseExact(momentStr, "yyyy-MM-dd HH:mm:ss", CultureInfo.CurrentCulture, DateTimeStyles.AssumeLocal, out var moment);
+                if (!parsed) return DateTime.MinValue;
+
+                // looks good
+                return moment;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error retrieving 'TranslationEventsLastMailed' setting: {err}", ex.Message);
+                return DateTime.MinValue;
+            }
+        }
+
+        /// <summary>
+        /// Stores the 'TranslationEventsLastMailed' setting in registry
+        /// </summary>
+        /// <param name="moment"></param>
+        internal static void SetTranslationEventsLastMailed(DateTime moment)
+        {
+            try
+            {
+                Registry.SetValue(Variables.RootRegKey, "TranslationEventsLastMailed", $"{moment:yyyy-MM-dd HH:mm:ss}", RegistryValueKind.String);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "[SETTINGS] Error storing 'TranslationEventsLastMailed' setting: {err}", ex.Message);
             }
         }
     }

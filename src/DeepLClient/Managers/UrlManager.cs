@@ -1,6 +1,7 @@
 ﻿using SmartReader;
 using System.Net.Sockets;
 using System.Text;
+using DeepLClient.Extensions;
 using Serilog;
 using DeepLClient.Models;
 

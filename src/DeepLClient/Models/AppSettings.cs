@@ -28,5 +28,10 @@ namespace DeepLClient.Models
         public bool GlobalHotkeyEnabled { get; set; } = true;
         public string GlobalHotkey { get; set; } = "Shift, Control + T";
         public bool AlwaysOnTop { get; set; } = false;
+        public bool EnableUsageLogging { get; set; } = true;
+        public int RemoveUsageLogEntriesOlderThanDays { get; set; } = 31;
+        public bool EnablePeriodicUsageMail { get; set; } = false;
+        public int SendUsageLogMailEveryDays { get; set; } = 7;
+        public string UsageLogMailReceiverAddress { get; set; } = string.Empty;
     }
 }

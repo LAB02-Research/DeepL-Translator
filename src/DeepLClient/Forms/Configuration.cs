@@ -1,5 +1,6 @@
 using System.Text;
 using DeepL;
+using DeepLClient.Extensions;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
 using Serilog;
@@ -224,7 +225,7 @@ namespace DeepLClient.Forms
                 }
 
                 // store config
-                var success = SettingsManager.Store();
+                var success = SettingsManager.StoreAppSettings();
                 if (!success) MessageBoxAdv2.Show(this, "Something went wrong saving your settings.\r\n\r\nPlease check the logs and retry.", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 // process launch-on-login
@@ -299,7 +300,18 @@ namespace DeepLClient.Forms
 
         private void LblNameInfo_Click(object sender, EventArgs e)
         {
+            var info = new StringBuilder();
+            info.AppendLine("This is the name that will be used in the usage logs, for reference. You can choose any value you like.");
+            info.AppendLine("");
+            info.AppendLine("It's not transmitted to DeepL or anywhere else. ");
 
+            MessageBoxAdv2.Show(this, info.ToString(), Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void BtnConfigureLogging_Click(object sender, EventArgs e)
+        {
+            using var logConfig = new LoggingConfiguration();
+            logConfig.ShowDialog(this);
         }
     }
 }

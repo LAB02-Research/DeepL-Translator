@@ -62,9 +62,12 @@ namespace DeepLClient
                 // prepare msgbox
                 HelperFunctions.SetMsgBoxStyle(Variables.DefaultFont);
 
-                // load settings
-                var settingsLoaded = SettingsManager.Load();
+                // load app settings
+                var settingsLoaded = SettingsManager.LoadAppSettings();
                 if (!settingsLoaded) return;
+
+                // load e-mail settings
+                SettingsManager.LoadEmailSettings();
 
                 // store user
                 if (!string.IsNullOrEmpty(Variables.AppSettings.User)) Log.Information("[MAIN] Registered user: {version}", Variables.AppSettings.User);

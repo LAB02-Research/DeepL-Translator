@@ -54,6 +54,7 @@
             TbSourceScroller = new Syncfusion.WinForms.Controls.SfScrollFrame();
             TbTranslatedScroller = new Syncfusion.WinForms.Controls.SfScrollFrame();
             ToolTip = new ToolTip(components);
+            BtnSwitchLanguage = new Syncfusion.WinForms.Controls.SfButton();
             SuspendLayout();
             // 
             // BtnTranslate
@@ -467,12 +468,39 @@
             ToolTip.InitialDelay = 1000;
             ToolTip.ReshowDelay = 100;
             // 
+            // BtnSwitchLanguage
+            // 
+            BtnSwitchLanguage.AccessibleDescription = "";
+            BtnSwitchLanguage.AccessibleName = "";
+            BtnSwitchLanguage.AccessibleRole = AccessibleRole.PushButton;
+            BtnSwitchLanguage.BackColor = Color.FromArgb(63, 63, 70);
+            BtnSwitchLanguage.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
+            BtnSwitchLanguage.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnSwitchLanguage.ImageSize = new Size(32, 32);
+            BtnSwitchLanguage.Location = new Point(450, 35);
+            BtnSwitchLanguage.Name = "BtnSwitchLanguage";
+            BtnSwitchLanguage.Size = new Size(93, 26);
+            BtnSwitchLanguage.Style.BackColor = Color.FromArgb(63, 63, 70);
+            BtnSwitchLanguage.Style.DisabledBackColor = Color.FromArgb(63, 63, 70);
+            BtnSwitchLanguage.Style.FocusedBackColor = Color.FromArgb(63, 63, 70);
+            BtnSwitchLanguage.Style.FocusedForeColor = Color.FromArgb(241, 241, 241);
+            BtnSwitchLanguage.Style.ForeColor = Color.FromArgb(241, 241, 241);
+            BtnSwitchLanguage.Style.HoverBackColor = Color.FromArgb(63, 63, 70);
+            BtnSwitchLanguage.Style.HoverForeColor = Color.FromArgb(241, 241, 241);
+            BtnSwitchLanguage.Style.Image = Properties.Resources.switch_icon_32;
+            BtnSwitchLanguage.Style.PressedForeColor = Color.Black;
+            BtnSwitchLanguage.TabIndex = 118;
+            ToolTip.SetToolTip(BtnSwitchLanguage, "Switch source and target language.");
+            BtnSwitchLanguage.UseVisualStyleBackColor = false;
+            BtnSwitchLanguage.Click += BtnSwitchLanguage_Click;
+            // 
             // TextPage
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(96F, 96F);
             AutoScaleMode = AutoScaleMode.Dpi;
             BackColor = Color.FromArgb(45, 45, 48);
+            Controls.Add(BtnSwitchLanguage);
             Controls.Add(TbTranslated);
             Controls.Add(BtnSave);
             Controls.Add(BtnPrint);
@@ -530,5 +558,6 @@
         private Syncfusion.WinForms.Controls.SfScrollFrame TbSourceScroller;
         private Syncfusion.WinForms.Controls.SfScrollFrame TbTranslatedScroller;
         private ToolTip ToolTip;
+        private Syncfusion.WinForms.Controls.SfButton BtnSwitchLanguage;
     }
 }

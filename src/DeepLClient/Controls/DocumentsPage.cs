@@ -2,6 +2,7 @@
 using DeepL;
 using DeepL.Model;
 using DeepLClient.Enums;
+using DeepLClient.Extensions;
 using DeepLClient.Forms.Dialogs;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
@@ -99,7 +100,7 @@ namespace DeepLClient.Controls
             dialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             dialog.Filter = DocumentManager.GetFileTypeFilters();
 
-            var result = dialog.ShowDialog();
+            var result = dialog.ShowDialog(this);
             if (result != DialogResult.OK) return;
 
             // process selected file
@@ -161,13 +162,19 @@ namespace DeepLClient.Controls
                 }
 
                 // get the character count
-                var characterCount = await DocumentManager.GetDocumentCharacterCountAsync(docType, file);
+                var (characterCount, success) = await DocumentManager.GetDocumentCharacterCountAsync(docType, file);
+                if (!success)
+                {
+                    MessageBoxAdv2.Show("Something went wrong checking the wordcount for your document.\r\n\r\nMake sure the file isn't open in another application (like Word).", Variables.MessageBoxTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    LblState.Text = string.Empty;
+                    return false;
+                }
 
                 // do we have enough chars left?
                 if (await SubscriptionManager.CharactersWillExceedLimitAsync(characterCount, true))
                 {
                     using var limit = new LimitExceeded(characterCount, true);
-                    var ignoreLimit = limit.ShowDialog();
+                    var ignoreLimit = limit.ShowDialog(this);
                     if (ignoreLimit != DialogResult.OK)
                     {
                         LblState.Text = string.Empty;
@@ -178,7 +185,7 @@ namespace DeepLClient.Controls
                 {
                     // yep, ask the user if they're sure
                     using var confirmDoc = new ConfirmDocument(characterCount, Path.GetFileName(file), docType == DocumentType.Text);
-                    var confirmed = confirmDoc.ShowDialog();
+                    var confirmed = confirmDoc.ShowDialog(this);
                     if (confirmed != DialogResult.OK)
                     {
                         LblState.Text = string.Empty;
@@ -413,6 +420,9 @@ namespace DeepLClient.Controls
                     return;
                 }
 
+                // yep, store the event
+                TranslationEventsManager.StoreDocumentTranslationEvent(state.BilledCharacters ?? 0);
+
                 // wait a bit
                 await Task.Delay(250);
 
@@ -433,7 +443,7 @@ namespace DeepLClient.Controls
                     var billedCharacters = Convert.ToDouble(state.BilledCharacters);
                     LblState.Text = SubscriptionManager.UsingFreeSubscription()
                     ? $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters:N0} characters\r\nyou're on a free subscription, so no costs"
-                    : $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters:N0} characters, costing {SubscriptionManager.CalculateCost(billedCharacters)}.";
+                    : $"translation complete!\r\n\r\nthe document has been billed for {billedCharacters:N0} characters, costing {SubscriptionManager.CalculateCostString(billedCharacters)}.";
                 }
                 else LblState.Text = "translation complete!";
 
@@ -589,6 +599,34 @@ namespace DeepLClient.Controls
             {
                 CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(Variables.AppSettings.LastTargetLanguage);
             }
+        }
+
+        private void BtnSwitchLanguage_Click(object sender, EventArgs e)
+        {
+            // get the selected target value
+            string targetLanguage = null;
+            if (CbTargetLanguage.SelectedItem != null)
+            {
+                var item = (KeyValuePair<string, string>)CbTargetLanguage.SelectedItem;
+                targetLanguage = item.Value;
+            }
+
+            // if nothing's selected, use auto detect
+            if (string.IsNullOrEmpty(targetLanguage)) targetLanguage = "AUTO DETECT";
+
+            // get source language
+            string sourceLanguage = null;
+            if (CbSourceLanguage.SelectedItem != null)
+            {
+                var item = (KeyValuePair<string, string>)CbSourceLanguage.SelectedItem;
+                sourceLanguage = item.Value;
+            }
+
+            // set source language
+            CbSourceLanguage.SelectedItem = Variables.SourceLanguages.GetKeyByEntry(targetLanguage);
+
+            // set target language, only if not empty and not auto detect
+            if (!string.IsNullOrEmpty(sourceLanguage) && sourceLanguage != "AUTO DETECT") CbTargetLanguage.SelectedItem = Variables.TargetLanguages.GetKeyByEntry(sourceLanguage);
         }
 
         private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();

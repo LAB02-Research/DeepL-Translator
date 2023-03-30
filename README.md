@@ -97,11 +97,11 @@ Make sure you set the correct domain, corresponding to your subscription:
 
 Text interface:
 
-![image](https://user-images.githubusercontent.com/81011038/224789955-f0333a2f-4e24-48ac-99fe-e4ecb6c7453b.png)
+![image](https://user-images.githubusercontent.com/81011038/228805991-3078c003-dc00-4eb2-be52-59902b0bc8a0.png)
 
 Document interface:
 
-![image](https://user-images.githubusercontent.com/81011038/224789997-1fb33c79-dbeb-4268-930f-9c6b3d01a9a3.png)
+![image](https://user-images.githubusercontent.com/81011038/228806150-87e997bc-ae37-4cd5-9cd1-08262619151d.png)
 
 Webpage interface:
 

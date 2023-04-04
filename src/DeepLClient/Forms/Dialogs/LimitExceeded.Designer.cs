@@ -143,12 +143,12 @@
             CaptionFont = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             CaptionForeColor = Color.FromArgb(241, 241, 241);
             ClientSize = new Size(626, 266);
+            Controls.Add(LblLoading);
             Controls.Add(LblInfo);
             Controls.Add(LblIntro);
             Controls.Add(PbCost);
             Controls.Add(BtnYes);
             Controls.Add(BtnNo);
-            Controls.Add(LblLoading);
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(241, 241, 241);

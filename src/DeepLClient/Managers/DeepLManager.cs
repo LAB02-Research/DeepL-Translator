@@ -17,9 +17,16 @@ namespace DeepLClient.Managers
             {
                 IsInitialised = false;
                 
-                // load translator
-                if (Variables.Translator != null) Variables.Translator.Dispose();
-                Variables.Translator = new Translator(Variables.AppSettings.DeepLAPIKey);
+                // optionally dispose an old translator
+                Variables.Translator?.Dispose();
+
+                // prepare options
+                var options = new TranslatorOptions {
+                    appInfo =  new AppInfo { AppName = "DeepL Translator by LAB02 Research", AppVersion = Variables.Version }
+                };
+
+                // create translator
+                Variables.Translator = new Translator(Variables.AppSettings.DeepLAPIKey, options);
 
                 // load formalities
                 if (!Variables.Formalities.Any())

@@ -145,6 +145,7 @@ Hides in your system tray, next to the clock:
 
 This is a list of features and fixes that have so far been done:
 
+- Make main window resizable
 - Toggle button to switch source and target language
 - 'Document in use' check
 - Add scrollbars to text translation fields

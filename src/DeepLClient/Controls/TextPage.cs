@@ -1,4 +1,5 @@
-﻿using DeepL;
+﻿using System.Diagnostics;
+using DeepL;
 using DeepL.Model;
 using DeepLClient.Functions;
 using DeepLClient.Managers;
@@ -13,9 +14,16 @@ namespace DeepLClient.Controls
     [SuppressMessage("ReSharper", "EmptyGeneralCatchClause")]
     public partial class TextPage : UserControl
     {
+        private int _initialWidth = 0;
+        private int _widthDifference = 0;
+
         public TextPage()
         {
             InitializeComponent();
+
+            // set initial size
+            _initialWidth = TbSource.Width;
+            _widthDifference = Width - _initialWidth * 2;
 
             // make sure our comboboxes look good
             BindComboBoxTheme();
@@ -536,5 +544,18 @@ namespace DeepLClient.Controls
         private void BtnTranslate_Click(object sender, EventArgs e) => ExecuteTranslation();
 
         private void CbSourceLanguage_SelectedValueChanged(object sender, EventArgs e) => ResetDetectedSourceLanguage();
+
+        private void TextPage_SizeChanged(object sender, EventArgs e)
+        {
+            TbSource.Width = (Width - _widthDifference) / 2;
+            TbTranslated.Width = (Width - _widthDifference) / 2;
+
+            //Debug.WriteLine(TbTranslated.Left);
+
+            var right = BtnSave.Left + BtnSave.Width;
+            TbTranslated.Left = right - TbTranslated.Width;
+
+            //Debug.WriteLine(TbTranslated.Left);
+        }
     }
 }

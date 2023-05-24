@@ -55,9 +55,9 @@
             // 
             // PnlTabs
             // 
+            PnlTabs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PnlTabs.BorderStyle = BorderStyle.FixedSingle;
             PnlTabs.Controls.Add(TranslationTabs);
-            PnlTabs.Dock = DockStyle.Top;
             PnlTabs.Location = new Point(0, 0);
             PnlTabs.Name = "PnlTabs";
             PnlTabs.Size = new Size(999, 699);
@@ -69,13 +69,13 @@
             TranslationTabs.AccessibleName = "Tabs";
             TranslationTabs.AccessibleRole = AccessibleRole.PageTabList;
             TranslationTabs.ActiveTabColor = Color.FromArgb(45, 45, 48);
+            TranslationTabs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             TranslationTabs.BackColor = Color.FromArgb(45, 45, 48);
             TranslationTabs.BeforeTouchSize = new Size(997, 697);
             TranslationTabs.BorderStyle = BorderStyle.None;
             TranslationTabs.Controls.Add(TabText);
             TranslationTabs.Controls.Add(TabDocuments);
             TranslationTabs.Controls.Add(TabUrl);
-            TranslationTabs.Dock = DockStyle.Fill;
             TranslationTabs.FixedSingleBorderColor = Color.FromArgb(241, 241, 241);
             TranslationTabs.FocusOnTabClick = false;
             TranslationTabs.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -122,10 +122,10 @@
             TabDocuments.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.Image = Properties.Resources.document_icon_18;
             TabDocuments.ImageSize = new Size(18, 18);
-            TabDocuments.Location = new Point(2, 41);
+            TabDocuments.Location = new Point(2, 1);
             TabDocuments.Name = "TabDocuments";
             TabDocuments.ShowCloseButton = true;
-            TabDocuments.Size = new Size(993, 654);
+            TabDocuments.Size = new Size(993, 694);
             TabDocuments.TabBackColor = Color.FromArgb(45, 45, 48);
             TabDocuments.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabDocuments.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -138,10 +138,10 @@
             TabUrl.AutoScroll = true;
             TabUrl.Image = Properties.Resources.globe_icon_24;
             TabUrl.ImageSize = new Size(18, 18);
-            TabUrl.Location = new Point(2, 41);
+            TabUrl.Location = new Point(2, 1);
             TabUrl.Name = "TabUrl";
             TabUrl.ShowCloseButton = true;
-            TabUrl.Size = new Size(993, 654);
+            TabUrl.Size = new Size(993, 694);
             TabUrl.TabBackColor = Color.FromArgb(45, 45, 48);
             TabUrl.TabFont = new Font("Consolas", 18F, FontStyle.Regular, GraphicsUnit.Point);
             TabUrl.TabForeColor = Color.FromArgb(241, 241, 241);
@@ -154,6 +154,7 @@
             BtnSubscription.AccessibleDescription = "";
             BtnSubscription.AccessibleName = "";
             BtnSubscription.AccessibleRole = AccessibleRole.PushButton;
+            BtnSubscription.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BtnSubscription.BackColor = Color.FromArgb(63, 63, 70);
             BtnSubscription.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnSubscription.ForeColor = Color.FromArgb(241, 241, 241);
@@ -180,6 +181,7 @@
             BtnConfig.AccessibleDescription = "";
             BtnConfig.AccessibleName = "";
             BtnConfig.AccessibleRole = AccessibleRole.PushButton;
+            BtnConfig.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BtnConfig.BackColor = Color.FromArgb(63, 63, 70);
             BtnConfig.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnConfig.ForeColor = Color.FromArgb(241, 241, 241);
@@ -205,6 +207,7 @@
             BtnHide.AccessibleDescription = "";
             BtnHide.AccessibleName = "";
             BtnHide.AccessibleRole = AccessibleRole.PushButton;
+            BtnHide.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnHide.BackColor = Color.FromArgb(63, 63, 70);
             BtnHide.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnHide.ForeColor = Color.FromArgb(241, 241, 241);
@@ -284,6 +287,7 @@
             LblWarning.AccessibleDescription = "";
             LblWarning.AccessibleName = "";
             LblWarning.AccessibleRole = AccessibleRole.StaticText;
+            LblWarning.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblWarning.Cursor = Cursors.Hand;
             LblWarning.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             LblWarning.ForeColor = Color.FromArgb(255, 128, 128);
@@ -301,6 +305,7 @@
             BtnAbout.AccessibleDescription = "";
             BtnAbout.AccessibleName = "";
             BtnAbout.AccessibleRole = AccessibleRole.PushButton;
+            BtnAbout.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             BtnAbout.BackColor = Color.FromArgb(63, 63, 70);
             BtnAbout.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             BtnAbout.ForeColor = Color.FromArgb(241, 241, 241);
@@ -348,11 +353,10 @@
             DoubleBuffered = true;
             Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             ForeColor = Color.FromArgb(241, 241, 241);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MetroColor = Color.FromArgb(63, 63, 70);
+            MinimumSize = new Size(1011, 600);
             Name = "Main";
-            ShowMaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "DeepL Translator   |   LAB02 Research";
             FormClosing += Main_FormClosing;

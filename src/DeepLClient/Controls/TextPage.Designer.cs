@@ -62,6 +62,7 @@
             BtnTranslate.AccessibleDescription = "";
             BtnTranslate.AccessibleName = "";
             BtnTranslate.AccessibleRole = AccessibleRole.PushButton;
+            BtnTranslate.Anchor = AnchorStyles.Top | AnchorStyles.Bottom;
             BtnTranslate.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnTranslate.ForeColor = Color.FromArgb(241, 241, 241);
@@ -107,6 +108,7 @@
             CbTargetLanguage.AccessibleDescription = "";
             CbTargetLanguage.AccessibleName = "";
             CbTargetLanguage.AccessibleRole = AccessibleRole.DropList;
+            CbTargetLanguage.Anchor = AnchorStyles.Top;
             CbTargetLanguage.BackColor = Color.FromArgb(63, 63, 70);
             CbTargetLanguage.DrawMode = DrawMode.OwnerDrawFixed;
             CbTargetLanguage.DropDownHeight = 300;
@@ -126,6 +128,7 @@
             CbTargetFormality.AccessibleDescription = "";
             CbTargetFormality.AccessibleName = "";
             CbTargetFormality.AccessibleRole = AccessibleRole.DropList;
+            CbTargetFormality.Anchor = AnchorStyles.Top;
             CbTargetFormality.BackColor = Color.FromArgb(63, 63, 70);
             CbTargetFormality.DrawMode = DrawMode.OwnerDrawFixed;
             CbTargetFormality.DropDownHeight = 300;
@@ -134,7 +137,7 @@
             CbTargetFormality.ForeColor = Color.FromArgb(241, 241, 241);
             CbTargetFormality.FormattingEnabled = true;
             CbTargetFormality.IntegralHeight = false;
-            CbTargetFormality.Location = new Point(805, 35);
+            CbTargetFormality.Location = new Point(807, 35);
             CbTargetFormality.Name = "CbTargetFormality";
             CbTargetFormality.Size = new Size(172, 26);
             CbTargetFormality.TabIndex = 5;
@@ -158,9 +161,10 @@
             LblTargetFormality.AccessibleDescription = "";
             LblTargetFormality.AccessibleName = "";
             LblTargetFormality.AccessibleRole = AccessibleRole.StaticText;
+            LblTargetFormality.Anchor = AnchorStyles.Top;
             LblTargetFormality.AutoSize = true;
             LblTargetFormality.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblTargetFormality.Location = new Point(805, 13);
+            LblTargetFormality.Location = new Point(807, 13);
             LblTargetFormality.Name = "LblTargetFormality";
             LblTargetFormality.Size = new Size(104, 19);
             LblTargetFormality.TabIndex = 67;
@@ -172,6 +176,7 @@
             LblTargetLanguage.AccessibleDescription = "";
             LblTargetLanguage.AccessibleName = "";
             LblTargetLanguage.AccessibleRole = AccessibleRole.StaticText;
+            LblTargetLanguage.Anchor = AnchorStyles.Top;
             LblTargetLanguage.AutoSize = true;
             LblTargetLanguage.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblTargetLanguage.Location = new Point(549, 13);
@@ -185,6 +190,7 @@
             LblCost.AccessibleDescription = "";
             LblCost.AccessibleName = "";
             LblCost.AccessibleRole = AccessibleRole.StaticText;
+            LblCost.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblCost.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblCost.Location = new Point(367, 625);
             LblCost.Name = "LblCost";
@@ -225,6 +231,7 @@
             label1.AccessibleDescription = "";
             label1.AccessibleName = "";
             label1.AccessibleRole = AccessibleRole.StaticText;
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(266, 624);
@@ -235,6 +242,7 @@
             // 
             // TbSource
             // 
+            TbSource.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             TbSource.BackColor = Color.FromArgb(63, 63, 70);
             TbSource.BorderStyle = BorderStyle.FixedSingle;
             TbSource.ForeColor = Color.FromArgb(241, 241, 241);
@@ -252,11 +260,12 @@
             BtnCopyClipboard.AccessibleDescription = "";
             BtnCopyClipboard.AccessibleName = "";
             BtnCopyClipboard.AccessibleRole = AccessibleRole.PushButton;
+            BtnCopyClipboard.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnCopyClipboard.BackColor = Color.FromArgb(63, 63, 70);
             BtnCopyClipboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCopyClipboard.ForeColor = Color.FromArgb(241, 241, 241);
             BtnCopyClipboard.ImageSize = new Size(16, 16);
-            BtnCopyClipboard.Location = new Point(725, 621);
+            BtnCopyClipboard.Location = new Point(727, 621);
             BtnCopyClipboard.Name = "BtnCopyClipboard";
             BtnCopyClipboard.Size = new Size(80, 24);
             BtnCopyClipboard.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -277,9 +286,10 @@
             LblClipboardCopied.AccessibleDescription = "";
             LblClipboardCopied.AccessibleName = "";
             LblClipboardCopied.AccessibleRole = AccessibleRole.StaticText;
+            LblClipboardCopied.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LblClipboardCopied.AutoSize = true;
             LblClipboardCopied.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
-            LblClipboardCopied.Location = new Point(589, 624);
+            LblClipboardCopied.Location = new Point(591, 624);
             LblClipboardCopied.Name = "LblClipboardCopied";
             LblClipboardCopied.Size = new Size(130, 19);
             LblClipboardCopied.TabIndex = 76;
@@ -291,6 +301,7 @@
             label2.AccessibleDescription = "";
             label2.AccessibleName = "";
             label2.AccessibleRole = AccessibleRole.StaticText;
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(14, 624);
@@ -304,6 +315,7 @@
             LblCharacters.AccessibleDescription = "";
             LblCharacters.AccessibleName = "";
             LblCharacters.AccessibleRole = AccessibleRole.StaticText;
+            LblCharacters.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblCharacters.AutoSize = true;
             LblCharacters.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblCharacters.Location = new Point(94, 625);
@@ -318,10 +330,11 @@
             LblFormalityInfo.AccessibleDescription = "";
             LblFormalityInfo.AccessibleName = "";
             LblFormalityInfo.AccessibleRole = AccessibleRole.PushButton;
+            LblFormalityInfo.Anchor = AnchorStyles.Top;
             LblFormalityInfo.AutoSize = true;
             LblFormalityInfo.Cursor = Cursors.Hand;
             LblFormalityInfo.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            LblFormalityInfo.Location = new Point(960, 13);
+            LblFormalityInfo.Location = new Point(962, 13);
             LblFormalityInfo.Name = "LblFormalityInfo";
             LblFormalityInfo.Size = new Size(17, 21);
             LblFormalityInfo.TabIndex = 106;
@@ -334,6 +347,7 @@
             BtnClean.AccessibleDescription = "";
             BtnClean.AccessibleName = "";
             BtnClean.AccessibleRole = AccessibleRole.PushButton;
+            BtnClean.Anchor = AnchorStyles.Bottom;
             BtnClean.BackColor = Color.FromArgb(63, 63, 70);
             BtnClean.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnClean.ForeColor = Color.FromArgb(241, 241, 241);
@@ -360,11 +374,12 @@
             BtnSave.AccessibleDescription = "";
             BtnSave.AccessibleName = "";
             BtnSave.AccessibleRole = AccessibleRole.PushButton;
+            BtnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnSave.BackColor = Color.FromArgb(63, 63, 70);
             BtnSave.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnSave.ForeColor = Color.FromArgb(241, 241, 241);
             BtnSave.ImageSize = new Size(16, 16);
-            BtnSave.Location = new Point(897, 621);
+            BtnSave.Location = new Point(899, 621);
             BtnSave.Name = "BtnSave";
             BtnSave.Size = new Size(80, 24);
             BtnSave.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -386,11 +401,12 @@
             BtnPrint.AccessibleDescription = "";
             BtnPrint.AccessibleName = "";
             BtnPrint.AccessibleRole = AccessibleRole.PushButton;
+            BtnPrint.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnPrint.BackColor = Color.FromArgb(63, 63, 70);
             BtnPrint.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnPrint.ForeColor = Color.FromArgb(241, 241, 241);
             BtnPrint.ImageSize = new Size(16, 16);
-            BtnPrint.Location = new Point(811, 621);
+            BtnPrint.Location = new Point(813, 621);
             BtnPrint.Name = "BtnPrint";
             BtnPrint.Size = new Size(80, 24);
             BtnPrint.Style.BackColor = Color.FromArgb(63, 63, 70);
@@ -409,6 +425,7 @@
             // 
             // TbTranslated
             // 
+            TbTranslated.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             TbTranslated.BackColor = Color.FromArgb(63, 63, 70);
             TbTranslated.BorderStyle = BorderStyle.FixedSingle;
             TbTranslated.ForeColor = Color.FromArgb(241, 241, 241);
@@ -417,7 +434,7 @@
             TbTranslated.Name = "TbTranslated";
             TbTranslated.ReadOnly = true;
             TbTranslated.ScrollBars = ScrollBars.Vertical;
-            TbTranslated.Size = new Size(428, 535);
+            TbTranslated.Size = new Size(430, 535);
             TbTranslated.TabIndex = 117;
             // 
             // TbSourceScroller
@@ -473,6 +490,7 @@
             BtnSwitchLanguage.AccessibleDescription = "";
             BtnSwitchLanguage.AccessibleName = "";
             BtnSwitchLanguage.AccessibleRole = AccessibleRole.PushButton;
+            BtnSwitchLanguage.Anchor = AnchorStyles.Top;
             BtnSwitchLanguage.BackColor = Color.FromArgb(63, 63, 70);
             BtnSwitchLanguage.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnSwitchLanguage.ForeColor = Color.FromArgb(241, 241, 241);
@@ -527,6 +545,7 @@
             Name = "TextPage";
             Size = new Size(993, 654);
             Load += TextPage_Load;
+            SizeChanged += TextPage_SizeChanged;
             DragDrop += TextPage_DragDrop;
             DragEnter += TextPage_DragEnter;
             ResumeLayout(false);

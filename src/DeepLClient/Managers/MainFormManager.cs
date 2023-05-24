@@ -169,6 +169,10 @@ namespace DeepLClient.Managers
                 _text = new TextPage();
                 _documents = new DocumentsPage();
                 _url = new UrlPage();
+                
+                _text.Dock = DockStyle.Fill;
+                _documents.Dock = DockStyle.Fill;
+                _url.Dock = DockStyle.Fill;
 
                 // set controls
                 MainForm.TabText.Controls.Add(_text);

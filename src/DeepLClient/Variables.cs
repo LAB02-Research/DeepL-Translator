@@ -22,7 +22,7 @@ namespace DeepLClient
         /// <summary>
         /// Constants
         /// </summary>
-        internal const string SyncfusionLicense = "MTQ2NjIzOEAzMjMxMmUzMTJlMzMzNUhSVERpcW9LQlNVTXJIL1dVRENjTXFRYzlMWUxSRkZxZzhXYXNMUHYxSEU9";
+        internal const string SyncfusionLicense = "MjE3MTUwNkAzMjMxMmUzMjJlMzVjUGlGeU1CWllEcDBkVG55dWtnQnFhU0QrK25lY01QZGFPQU4wR2xyWWw4PQ==";
         internal static string RootRegKey { get; } = @$"HKEY_CURRENT_USER\SOFTWARE\LAB02Research\{ApplicationName}";
         internal static string CurrencySymbol { get; } = NumberFormatInfo.CurrentInfo.CurrencySymbol;
 

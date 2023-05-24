@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using DeepL;
 using DeepL.Model;
 using DeepLClient.Enums;
@@ -638,5 +639,15 @@ namespace DeepLClient.Controls
         private void BtnBrowse_Click(object sender, EventArgs e) => SelectSourceFile();
 
         private void BtnOpenTranslatedFolder_Click(object sender, EventArgs e) => HelperFunctions.OpenFileInExplorer(TbTranslatedDocument.Text);
+
+        private void DocumentsPage_Resize(object sender, EventArgs e)
+        {
+            Debug.WriteLine("RESIZE");
+        }
+
+        private void DocumentsPage_SizeChanged(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SIZE CHANGED");
+        }
     }
 }

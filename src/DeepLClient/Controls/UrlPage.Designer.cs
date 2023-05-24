@@ -64,6 +64,7 @@
             BtnTranslate.AccessibleDescription = "";
             BtnTranslate.AccessibleName = "";
             BtnTranslate.AccessibleRole = AccessibleRole.PushButton;
+            BtnTranslate.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BtnTranslate.BackColor = Color.FromArgb(63, 63, 70);
             BtnTranslate.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnTranslate.ForeColor = Color.FromArgb(241, 241, 241);
@@ -153,6 +154,7 @@
             LblCost.AccessibleDescription = "";
             LblCost.AccessibleName = "";
             LblCost.AccessibleRole = AccessibleRole.StaticText;
+            LblCost.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblCost.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblCost.Location = new Point(302, 624);
             LblCost.Name = "LblCost";
@@ -193,6 +195,7 @@
             label1.AccessibleDescription = "";
             label1.AccessibleName = "";
             label1.AccessibleRole = AccessibleRole.StaticText;
+            label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(204, 624);
@@ -206,6 +209,7 @@
             BtnCopyClipboard.AccessibleDescription = "";
             BtnCopyClipboard.AccessibleName = "";
             BtnCopyClipboard.AccessibleRole = AccessibleRole.PushButton;
+            BtnCopyClipboard.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnCopyClipboard.BackColor = Color.FromArgb(63, 63, 70);
             BtnCopyClipboard.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnCopyClipboard.ForeColor = Color.FromArgb(241, 241, 241);
@@ -231,6 +235,7 @@
             LblClipboardCopied.AccessibleDescription = "";
             LblClipboardCopied.AccessibleName = "";
             LblClipboardCopied.AccessibleRole = AccessibleRole.StaticText;
+            LblClipboardCopied.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             LblClipboardCopied.AutoSize = true;
             LblClipboardCopied.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblClipboardCopied.Location = new Point(503, 624);
@@ -245,6 +250,7 @@
             label2.AccessibleDescription = "";
             label2.AccessibleName = "";
             label2.AccessibleRole = AccessibleRole.StaticText;
+            label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             label2.Location = new Point(14, 624);
@@ -258,6 +264,7 @@
             LblCharacters.AccessibleDescription = "";
             LblCharacters.AccessibleName = "";
             LblCharacters.AccessibleRole = AccessibleRole.StaticText;
+            LblCharacters.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             LblCharacters.AutoSize = true;
             LblCharacters.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
             LblCharacters.Location = new Point(94, 624);
@@ -272,6 +279,7 @@
             BtnClean.AccessibleDescription = "";
             BtnClean.AccessibleName = "";
             BtnClean.AccessibleRole = AccessibleRole.PushButton;
+            BtnClean.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             BtnClean.BackColor = Color.FromArgb(63, 63, 70);
             BtnClean.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnClean.ForeColor = Color.FromArgb(241, 241, 241);
@@ -336,6 +344,7 @@
             // 
             // PnlWebView
             // 
+            PnlWebView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             PnlWebView.BackColor = Color.FromArgb(63, 63, 70);
             PnlWebView.BorderStyle = BorderStyle.FixedSingle;
             PnlWebView.Controls.Add(LblState);
@@ -350,6 +359,7 @@
             LblState.AccessibleDescription = "";
             LblState.AccessibleName = "";
             LblState.AccessibleRole = AccessibleRole.StaticText;
+            LblState.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             LblState.BackColor = Color.FromArgb(63, 63, 70);
             LblState.BorderStyle = BorderStyle.FixedSingle;
             LblState.Font = new Font("Segoe UI", 10F, FontStyle.Regular, GraphicsUnit.Point);
@@ -362,6 +372,7 @@
             // 
             // PbWarning
             // 
+            PbWarning.Anchor = AnchorStyles.Bottom;
             PbWarning.Cursor = Cursors.Hand;
             PbWarning.Image = (Image)resources.GetObject("PbWarning.Image");
             PbWarning.Location = new Point(473, 621);
@@ -378,6 +389,7 @@
             BtnPrint.AccessibleDescription = "";
             BtnPrint.AccessibleName = "";
             BtnPrint.AccessibleRole = AccessibleRole.PushButton;
+            BtnPrint.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnPrint.BackColor = Color.FromArgb(63, 63, 70);
             BtnPrint.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnPrint.ForeColor = Color.FromArgb(241, 241, 241);
@@ -403,6 +415,7 @@
             BtnSave.AccessibleDescription = "";
             BtnSave.AccessibleName = "";
             BtnSave.AccessibleRole = AccessibleRole.PushButton;
+            BtnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnSave.BackColor = Color.FromArgb(63, 63, 70);
             BtnSave.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnSave.ForeColor = Color.FromArgb(241, 241, 241);
@@ -428,6 +441,7 @@
             BtnOpenInBrowser.AccessibleDescription = "";
             BtnOpenInBrowser.AccessibleName = "";
             BtnOpenInBrowser.AccessibleRole = AccessibleRole.PushButton;
+            BtnOpenInBrowser.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             BtnOpenInBrowser.BackColor = Color.FromArgb(63, 63, 70);
             BtnOpenInBrowser.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             BtnOpenInBrowser.ForeColor = Color.FromArgb(241, 241, 241);
